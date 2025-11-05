@@ -1,0 +1,512 @@
+<!DOCTYPE html> <!-- Declaración del tipo de documento HTML5 -->
+<html lang="es"> <!-- Elemento raíz, idioma español -->
+<head>
+    <!-- METADATOS Y CONFIGURACIÓN -->
+    <meta charset="UTF-8" /> <!-- Codificación de caracteres UTF-8 (soporta todos los caracteres) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Configuración responsive para móviles -->
+    
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="styles/style.css" /> <!-- Enlace al archivo CSS principal -->
+    
+    <!-- FUENTES DE GOOGLE FONTS -->
+    <!-- Montserrat: fuente moderna para el cuerpo del texto (peso 400 y 700) -->
+    <!-- Playfair Display: fuente elegante para títulos (peso 700) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <title>Restaurante Hongfa</title> <!-- Título que aparece en la pestaña del navegador -->
+</head>
+<body>
+
+    <!-- ========================================
+         ENCABEZADO - Título y métodos de pago
+         ======================================== -->
+    <header class="header">
+        <div class="header__content">
+            <!-- Título principal del restaurante -->
+            <h1 class="header__title">Restaurante Hongfa</h1>
+            
+            <!-- Sección de métodos de pago aceptados -->
+            <div class="payment-methods">
+                <span class="payment-methods__label">Aceptamos:</span> <!-- Etiqueta "Aceptamos:" -->
+                <div class="payment-methods__icons">
+                    <!-- Logo de Bancolombia (tarjeta de crédito/débito) -->
+                    <span class="payment-icon" title="Tarjeta"><img src="/img/bancolombia.png" alt="Bancolombia"></span>
+                    <!-- Logo de Nequi (billetera digital) -->
+                      <span class="payment-icon" title="Tarjeta"><img src="/img/nequi.png" alt="Nequi"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+   
+    <!-- ========================================
+         SECCIÓN MENÚ - Lista de productos
+         ======================================== -->
+    <section id="menu" class="menu"> <!-- ID para navegación con anclas (#menu) -->
+        <h2 class="menu__title">Menú  Hongfa</h2> <!-- Título de la sección -->
+
+        <!-- Botones de navegación entre secciones -->
+        <div class="menu-tabs">
+            <button class="menu-tab active" data-tab="arroz-chino">Arroz Chino</button>
+            <button class="menu-tab" data-tab="platos-especiales">Platos Especiales</button>
+            <button class="menu-tab" data-tab="porciones-adicionales">Porciones Adicionales</button>
+        </div>
+
+        <!-- Contenedor de Arroz Chino -->
+        <div id="arroz-chino" class="menu-content active">
+            <!-- Grid contenedor de todas las tarjetas de productos -->
+            <div class="menu__grid">
+            
+        <!-- ========================================
+             TARJETA 1: ARROZ CHINO CON TODAS LAS CARNES
+             ======================================== -->
+        <div class="product-card">
+            <!-- Imagen del producto -->
+            <div class="product-card__image">
+                <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=1200&auto=format&fit=crop" alt="Arroz Chino Mixto" />
+            </div>
+            <!-- Información del producto (título, descripción, precio, botones) -->
+            <div class="product-card__meta">
+                <h3 class="product-card__title">Arroz Chino Con Todas Las Carnes</h3>
+                <p class="product-card__desc">Arroz chino con jamón, cerdo, pollo, camarones, cebolla, raíz china.</p>
+                
+                <!-- Selector de tamaño -->
+                <p class="size-title">Tamaño caja:</p>
+                <div class="size-selector">
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-mixto" value="48000" data-size="Caja Entera" checked>
+                        <span class="size-label">Entera</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-mixto" value="38000" data-size="Media Caja">
+                        <span class="size-label">Media</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-mixto" value="28000" data-size="1/4 Caja">
+                        <span class="size-label">1/4</span>
+                    </label>
+                </div>
+                
+                <div class="product-card__bottom">
+                    <span class="price">$48.000</span>
+                    <div class="product-card__actions">
+                        <button class="btn order-btn" data-product="Arroz Chino Con Todas Las Carnes" data-size-group="size-arroz-mixto">Pedir ahora</button>
+                        <button class="btn btn--outline details-btn" 
+                            data-title="Arroz Chino Con Todas Las Carnes"
+                            data-description="Arroz chino salteado con jamón, cerdo, pollo, camarones, cebolla y raíz china. Una combinación completa de proteínas y vegetales."
+                            data-portions="Disponible en diferentes tamaños">Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================
+             TARJETA 2: ARROZ CHINO CON POLLO PICADO
+             ======================================== -->
+        <div class="product-card">
+            <div class="product-card__image">
+                <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=1200&auto=format&fit=crop" alt="Arroz Chino con Pollo" />
+            </div>
+            <div class="product-card__meta">
+                <h3 class="product-card__title">Arroz Chino Con Pollo Picado</h3>
+                <p class="product-card__desc">Arroz chino con pollo picado.</p>
+                
+                <!-- Selector de tamaño -->
+                <p class="size-title">Tamaño caja:</p>
+                <div class="size-selector">
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-pollo" value="48000" data-size="Caja Entera" checked>
+                        <span class="size-label">Entera</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-pollo" value="38000" data-size="Media Caja">
+                        <span class="size-label">Media</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-pollo" value="28000" data-size="1/4 Caja">
+                        <span class="size-label">1/4</span>
+                    </label>
+                </div>
+                
+                <div class="product-card__bottom">
+                    <span class="price">$48.000</span>
+                    <div class="product-card__actions">
+                        <button class="btn order-btn" data-product="Arroz Chino Con Pollo Picado" data-size-group="size-arroz-pollo">Pedir ahora</button>
+                        <button class="btn btn--outline details-btn"
+                            data-title="Arroz Chino Con Pollo Picado"
+                            data-description="Arroz chino salteado con pollo picado, preparado con vegetales frescos y salsa de soya."
+                            data-portions="Disponible en diferentes tamaños">Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================
+             TARJETA 3: ARROZ CHINO CON POLLO Y CAMARÓN
+             ======================================== -->
+        <div class="product-card">
+            <div class="product-card__image">
+                <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?q=80&w=1200&auto=format&fit=crop" alt="Arroz con Pollo y Camarón" />
+            </div>
+            <div class="product-card__meta">
+                <h3 class="product-card__title">Arroz Chino Con Pollo Y Camarón</h3>
+                <p class="product-card__desc">Arroz chino con pollo y camarones.</p>
+                
+                <!-- Selector de tamaño -->
+                <p class="size-title">Tamaño caja:</p>
+                <div class="size-selector">
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-pollo-camaron" value="48000" data-size="Caja Entera" checked>
+                        <span class="size-label">Entera</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-pollo-camaron" value="38000" data-size="Media Caja">
+                        <span class="size-label">Media</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-pollo-camaron" value="28000" data-size="1/4 Caja">
+                        <span class="size-label">1/4</span>
+                    </label>
+                </div>
+                
+                <div class="product-card__bottom">
+                    <span class="price">$48.000</span>
+                    <div class="product-card__actions">
+                        <button class="btn order-btn" data-product="Arroz Chino Con Pollo Y Camarón" data-size-group="size-arroz-pollo-camaron">Pedir ahora</button>
+                        <button class="btn btn--outline details-btn"
+                            data-title="Arroz Chino Con Pollo Y Camarón"
+                            data-description="Arroz chino salteado con pollo y camarones frescos, una combinación perfecta de sabores del mar y la tierra."
+                            data-portions="Disponible en diferentes tamaños">Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================
+             TARJETA 4: ARROZ CHINO CON CERDO Y CAMARONES
+             ======================================== -->
+        <div class="product-card">
+            <div class="product-card__image">
+                <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&w=1200&auto=format&fit=crop" alt="Arroz con Cerdo y Camarón" />
+            </div>
+            <div class="product-card__meta">
+                <h3 class="product-card__title">Arroz Chino Con Cerdo Y Camarones</h3>
+                <p class="product-card__desc">Arroz chino con cerdo y camarones.</p>
+                
+                <!-- Selector de tamaño -->
+                <p class="size-title">Tamaño caja:</p>
+                <div class="size-selector">
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-cerdo-camaron" value="48000" data-size="Caja Entera" checked>
+                        <span class="size-label">Entera</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-cerdo-camaron" value="38000" data-size="Media Caja">
+                        <span class="size-label">Media</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-cerdo-camaron" value="28000" data-size="1/4 Caja">
+                        <span class="size-label">1/4</span>
+                    </label>
+                </div>
+                
+                <div class="product-card__bottom">
+                    <span class="price">$48.000</span>
+                    <div class="product-card__actions">
+                        <button class="btn order-btn" data-product="Arroz Chino Con Cerdo Y Camarones" data-size-group="size-arroz-cerdo-camaron">Pedir ahora</button>
+                        <button class="btn btn--outline details-btn"
+                            data-title="Arroz Chino Con Cerdo Y Camarones"
+                            data-description="Arroz chino salteado con cerdo tierno y camarones frescos, sazonado con especias orientales."
+                            data-portions="Disponible en diferentes tamaños">Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================
+             TARJETA 5: ARROZ CHINO CON SOLO CAMARÓN
+             ======================================== -->
+        <div class="product-card">
+            <div class="product-card__image">
+                <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&w=1200&auto=format&fit=crop" alt="Arroz con Camarón" />
+            </div>
+            <div class="product-card__meta">
+                <h3 class="product-card__title">Arroz Chino Con Solo Camarón</h3>
+                <p class="product-card__desc">Arroz chino con camarones frescos.</p>
+                
+                <!-- Selector de tamaño -->
+                <p class="size-title">Tamaño caja:</p>
+                <div class="size-selector">
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-camaron" value="48000" data-size="Caja Entera" checked>
+                        <span class="size-label">Entera</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-camaron" value="38000" data-size="Media Caja">
+                        <span class="size-label">Media</span>
+                    </label>
+                    <label class="size-option">
+                        <input type="radio" name="size-arroz-camaron" value="28000" data-size="1/4 Caja">
+                        <span class="size-label">1/4</span>
+                    </label>
+                </div>
+                
+                <div class="product-card__bottom">
+                    <span class="price">$48.000</span>
+                    <div class="product-card__actions">
+                        <button class="btn order-btn" data-product="Arroz Chino Con Solo Camarón" data-size-group="size-arroz-camaron">Pedir ahora</button>
+                        <button class="btn btn--outline details-btn"
+                            data-title="Arroz Chino Con Solo Camarón"
+                            data-description="Arroz chino salteado con camarones frescos, ideal para los amantes de los mariscos."
+                            data-portions="Disponible en diferentes tamaños">Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div> <!-- Cierre de menu__grid -->
+        </div> <!-- Cierre de arroz-chino -->
+
+        <!-- Contenedor de Platos Especiales -->
+        <div id="platos-especiales" class="menu-content">
+            <!-- Grid contenedor de platos especiales -->
+            <div class="menu__grid">
+            
+            <!-- ========================================
+                 PLATO ESPECIAL 1: CHOP SUEY
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=1200&auto=format&fit=crop" alt="Chop Suey" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Chop Suey</h3>
+                    <p class="product-card__desc">Chop suey con cerdo, pollo y camarones.</p>
+                    
+                    <!-- Selector de tamaño (solo Medio y Entero) -->
+                    <p class="size-title">Tamaño:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-chopsuey" value="48000" data-size="Entero" checked>
+                            <span class="size-label">Entero</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-chopsuey" value="38000" data-size="Medio">
+                            <span class="size-label">Medio</span>
+                        </label>
+                    </div>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$48.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Chop Suey" data-size-group="size-chopsuey">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Chop Suey"
+                                data-description="Chop suey salteado con cerdo, pollo y camarones frescos, acompañado de vegetales mixtos."
+                                data-portions="Disponible en diferentes tamaños">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 PLATO ESPECIAL 2: TORTILLA
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1200&auto=format&fit=crop" alt="Tortilla" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Tortilla</h3>
+                    <p class="product-card__desc">Papas en cascos + ensalada, tortilla con arroz sencillo con jamón y raíz.</p>
+                    
+                    <!-- Selector de tamaño (solo Medio y Entero) -->
+                    <p class="size-title">Tamaño:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-tortilla" value="48000" data-size="Entero" checked>
+                            <span class="size-label">Entero</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-tortilla" value="38000" data-size="Medio">
+                            <span class="size-label">Medio</span>
+                        </label>
+                    </div>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$48.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Tortilla" data-size-group="size-tortilla">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Tortilla"
+                                data-description="Tortilla con arroz sencillo preparado con jamón y raíz china. Incluye papas en cascos y ensalada fresca."
+                                data-portions="Disponible en diferentes tamaños">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 PLATO ESPECIAL 3: SPAGHETTI
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop" alt="Spaghetti" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Spaghetti</h3>
+                    <p class="product-card__desc">Spaghetti con jamón, cerdo, pollo y camarón.</p>
+                    
+                    <!-- Selector de tamaño (solo Medio y Entero) -->
+                    <p class="size-title">Tamaño:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-spaghetti" value="48000" data-size="Entero" checked>
+                            <span class="size-label">Entero</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-spaghetti" value="38000" data-size="Medio">
+                            <span class="size-label">Medio</span>
+                        </label>
+                    </div>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$48.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Spaghetti" data-size-group="size-spaghetti">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Spaghetti"
+                                data-description="Spaghetti salteado con jamón, cerdo, pollo y camarón fresco, al estilo asiático."
+                                data-portions="Disponible en diferentes tamaños">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- Cierre de menu__grid platos especiales -->
+        </div> <!-- Cierre de platos-especiales -->
+
+        <!-- Contenedor de Porciones Adicionales -->
+        <div id="porciones-adicionales" class="menu-content">
+            <!-- Grid contenedor de porciones adicionales -->
+            <div class="menu__grid">
+            
+            <!-- ========================================
+                 PORCIÓN 1: ENSALADA AGRIDULCE
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1200&auto=format&fit=crop" alt="Ensalada Agridulce" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Porción de Ensalada Agridulce</h3>
+                    <p class="product-card__desc">Ensalada fresca con salsa agridulce.</p>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$10.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Porción de Ensalada Agridulce">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Porción de Ensalada Agridulce"
+                                data-description="Ensalada fresca con nuestra deliciosa salsa agridulce casera."
+                                data-portions="Porción individual">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 PORCIÓN 2: PAPAS EN CASCOS
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=1200&auto=format&fit=crop" alt="Papas en Cascos" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Porción de Papas en Cascos</h3>
+                    <p class="product-card__desc">Papas en cascos doradas y crujientes.</p>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$10.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Porción de Papas en Cascos">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Porción de Papas en Cascos"
+                                data-description="Papas en cascos perfectamente doradas y crujientes por fuera, suaves por dentro."
+                                data-portions="Porción individual">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 PORCIÓN 3: CAMARONES
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=1200&auto=format&fit=crop" alt="Camarones" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Porción de Camarones</h3>
+                    <p class="product-card__desc">Camarones frescos preparados al estilo asiático.</p>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$10.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Porción de Camarones">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Porción de Camarones"
+                                data-description="Camarones frescos preparados con especias asiáticas y salteados al wok."
+                                data-portions="Porción individual">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- Cierre de menu__grid porciones adicionales -->
+        </div> <!-- Cierre de porciones-adicionales -->
+
+    </section> <!-- Cierre de section#menu -->
+
+    <!-- ========================================
+         FOOTER - Pie de página con copyright
+         ======================================== -->
+    <footer class="site-footer">
+        <p>&copy; <span id="year"></span> Restaurante Hongfa</p> <!-- El año se actualiza dinámicamente con JavaScript -->
+    </footer>
+
+    <!-- ========================================
+         MODAL - Ventana emergente para detalles
+         ======================================== -->
+    <div id="productModal" class="modal"> <!-- Inicialmente oculto (display:none en CSS) -->
+        <div class="modal__content"> <!-- Contenedor del contenido del modal -->
+            <!-- Botón X para cerrar (esquina superior derecha) -->
+            <button class="modal__close" aria-label="Cerrar modal">&times;</button>
+            
+            <!-- Contenido dinámico que se llena con JavaScript -->
+            <h3 class="modal__title" id="modalTitle"></h3> <!-- Título del producto -->
+            <p class="modal__description" id="modalDescription"></p> <!-- Descripción detallada -->
+            <p class="modal__portions" id="modalPortions"></p> <!-- Información de porciones -->
+        </div>
+    </div>
+
+    <!-- ========================================
+         BOTÓN FLOTANTE DE WHATSAPP
+         ======================================== -->
+    <!-- Enlace que abre WhatsApp con mensaje predefinido -->
+    <a href="https://wa.me/573115934823?text=Hola%2C%20quiero%20más%20información%20sobre%20la%20carta" 
+       class="whatsapp-float" 
+       target="_blank"  
+       rel="noopener noreferrer" 
+       aria-label="Contactar por WhatsApp"> <!-- Accesibilidad para lectores de pantalla -->
+        <!-- Ícono SVG de WhatsApp -->
+        <svg viewBox="0 0 32 32" class="whatsapp-icon">
+            <path fill="currentColor" d="M16 0c-8.837 0-16 7.163-16 16 0 2.825 0.737 5.607 2.137 8.048l-2.137 7.952 7.933-2.127c2.42 1.37 5.173 2.127 8.067 2.127 8.837 0 16-7.163 16-16s-7.163-16-16-16zM16 29.467c-2.482 0-4.908-0.646-7.07-1.87l-0.507-0.292-4.713 1.262 1.262-4.669-0.292-0.508c-1.207-2.100-1.847-4.507-1.847-6.978 0-7.51 6.11-13.62 13.62-13.62s13.62 6.11 13.62 13.62c0 7.51-6.11 13.62-13.62 13.62zM21.305 19.26c-0.346-0.174-2.049-1.007-2.366-1.123-0.316-0.117-0.547-0.174-0.776 0.174s-0.893 1.123-1.094 1.347c-0.201 0.229-0.403 0.257-0.748 0.083-0.346-0.174-1.461-0.537-2.785-1.713-1.030-0.916-1.725-2.048-1.927-2.394s-0.022-0.534 0.152-0.707c0.156-0.155 0.346-0.403 0.518-0.605 0.174-0.201 0.231-0.346 0.346-0.574 0.117-0.229 0.058-0.431-0.028-0.605s-0.776-1.869-1.063-2.56c-0.28-0.672-0.56-0.58-0.776-0.591-0.2-0.008-0.431-0.010-0.661-0.010s-0.603 0.083-0.92 0.431c-0.316 0.346-1.206 1.179-1.206 2.873s1.235 3.333 1.406 3.561c0.174 0.229 2.425 3.732 5.872 5.234 0.821 0.354 1.462 0.566 1.962 0.724 0.825 0.262 1.577 0.225 2.168 0.137 0.661-0.099 2.049-0.835 2.335-1.642 0.288-0.807 0.288-1.501 0.201-1.642-0.083-0.146-0.316-0.229-0.661-0.403z"/>
+        </svg>
+    </a>
+
+    <!-- ========================================
+         JAVASCRIPT - Funcionalidad interactiva
+         ======================================== -->
+    <script src="js/script.js"></script> <!-- Enlace al archivo JavaScript principal -->
+</body>
+</html>

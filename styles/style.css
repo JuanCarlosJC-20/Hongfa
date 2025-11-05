@@ -1,0 +1,602 @@
+/* ========================================
+   VARIABLES CSS - Colores y recursos globales
+   ======================================== */
+:root{
+	/* Colores principales del tema (rojo y dorado) */
+	--accent:#c71b1b;          /* Rojo principal */
+	--accent-2:#e33;           /* Rojo secundario más claro */
+	--bg:#d32f2f;              /* Color de fondo base */
+	--bg-gradient:linear-gradient(135deg, #c62828 0%, #e53935 50%, #d32f2f 100%); /* Gradiente rojo para el fondo */
+	--text:#fff;               /* Color del texto (blanco) */
+	--title-gold:#ffd700;      /* Dorado para títulos */
+	--hero-bg:url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=17f6b3e2b1a4c9b5d3e6f7a8b9c0d1e2'); /* Imagen de fondo del hero */
+}
+
+/* ========================================
+   RESET Y ESTILOS BASE
+   ======================================== */
+*{box-sizing:border-box} /* Todos los elementos incluyen padding y border en su tamaño total */
+html,body{
+	height:100%; /* Altura completa de la ventana */
+	margin:0; /* Sin márgenes por defecto */
+	font-family:Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; /* Fuente principal */
+	font-size:16px; /* Tamaño base de fuente */
+}
+body{
+	color:var(--text); /* Color de texto blanco */
+	background:var(--bg-gradient); /* Fondo con gradiente rojo */
+	background-attachment:fixed; /* El fondo no se mueve al hacer scroll */
+	-webkit-font-smoothing:antialiased; /* Suavizado de fuentes en navegadores webkit */
+}
+
+/* ========================================
+   HEADER - Encabezado con título y medios de pago
+   ======================================== */
+.header{
+	background:rgba(0,0,0,0.3); /* Fondo oscuro semitransparente */
+	padding:1.5rem 1rem; /* Espaciado interno */
+	border-bottom:2px solid rgba(255,215,0,0.3); /* Borde inferior dorado */
+	position:relative; /* Para que esté por encima del dragón */
+	z-index:10; /* Por encima del dragón */
+}
+.header__content{
+	max-width:1600px; /* Ancho máximo del contenido */
+	margin:0 auto; /* Centrado horizontal */
+	display:flex; /* Layout flexible */
+	justify-content:space-between; /* Espacio entre título y medios de pago */
+	align-items:center; /* Alineación vertical al centro */
+	flex-wrap:wrap; /* Permite salto de línea en pantallas pequeñas */
+	gap:1rem; /* Espacio entre elementos */
+}
+.header__title{
+	font-family:'Playfair Display', serif; /* Fuente elegante para el título */
+	color:var(--title-gold); /* Color dorado */
+	font-size:clamp(1.5rem, 4vw, 2.5rem); /* Tamaño responsivo (mínimo 1.5rem, máximo 2.5rem) */
+	margin:0; /* Sin margen */
+	text-shadow:2px 2px 4px rgba(0,0,0,0.4); /* Sombra para mejor legibilidad */
+}
+
+/* Contenedor de métodos de pago */
+.payment-methods{
+	display:flex; /* Layout flexible */
+	align-items:center; /* Centrado vertical */
+	gap:0.75rem; /* Espacio entre label e íconos */
+	background:rgba(0,0,0,0.2); /* Fondo oscuro semitransparente */
+	padding:0.5rem 1rem; /* Espaciado interno */
+	border-radius:8px; /* Bordes redondeados */
+}
+.payment-methods__label{
+	font-size:13px; /* Tamaño pequeño para el label */
+	font-weight:600; /* Negrita */
+	opacity:0.9; /* Ligeramente transparente */
+}
+.payment-methods__icons{
+	display:flex; /* Layout flexible para los íconos */
+	gap:0.5rem; /* Espacio entre íconos */
+	align-items:center; /* Centrado vertical */
+}
+.payment-icon{
+	display:flex; /* Para centrar la imagen */
+	align-items:center; /* Centrado vertical */
+	transition:transform 0.2s; /* Animación suave al hacer hover */
+	cursor:default; /* Cursor normal (no pointer) */
+}
+.payment-icon:hover{
+	transform:scale(1.1); /* Escala ligeramente al pasar el mouse */
+}
+.payment-icon img{
+	height:70px; /* Altura fija de las imágenes de medios de pago */
+	width:auto; /* Ancho proporcional automático */
+	object-fit:contain; /* Mantiene proporción sin deformar */
+	display:block; /* Elimina espacio inferior de imágenes inline */
+}
+
+/* ========================================
+   HERO - Sección de bienvenida con imagen de fondo
+   ======================================== */
+.hero{
+	background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), var(--hero-bg); /* Gradiente oscuro sobre imagen de fondo */
+	background-size:cover; /* La imagen cubre todo el contenedor */
+	background-position:center; /* Imagen centrada */
+	min-height:60vh; /* Altura mínima del 60% de la ventana */
+	display:flex; /* Layout flexible */
+	align-items:center; /* Contenido centrado verticalmente */
+	justify-content:center; /* Contenido centrado horizontalmente */
+}
+.hero__overlay{
+	width:100%; /* Ancho completo */
+	padding:4rem 1rem; /* Espaciado interno */
+	display:flex; /* Layout flexible */
+	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
+}
+
+.hero__content{
+	max-width:1100px; /* Ancho máximo del contenido */
+	color:#fff; /* Texto blanco */
+	text-align:center; /* Texto centrado */
+}
+.hero__content h1{
+	font-family:'Playfair Display', serif; /* Fuente elegante */
+	font-size:clamp(1.6rem,4vw,3rem); /* Tamaño responsivo */
+	margin:0 0 .5rem; /* Margen inferior */
+}
+.hero__content p{
+	margin:0 0 1.25rem; /* Margen inferior */
+	font-size:1.05rem; /* Tamaño ligeramente mayor */
+	opacity:0.95; /* Ligeramente transparente */
+}
+/* Botones generales */
+.btn{
+	display:inline-block; /* Permite dimensiones personalizadas */
+	background:var(--accent); /* Fondo rojo */
+	color:#fff; /* Texto blanco */
+	padding:.75rem 1rem; /* Espaciado interno */
+	border-radius:10px; /* Bordes redondeados */
+	text-decoration:none; /* Sin subrayado */
+	font-weight:700; /* Negrita */
+	border:0; /* Sin borde */
+	cursor:pointer; /* Cursor de mano al pasar */
+	min-height:44px; /* Altura mínima para accesibilidad táctil */
+	line-height:1; /* Espaciado de línea */
+}
+.btn--outline{
+	background:transparent; /* Fondo transparente */
+	color:#fff; /* Texto blanco */
+	border:2px solid rgba(255,255,255,0.9); /* Borde blanco */
+	padding:.6rem .9rem; /* Espaciado ajustado por el borde */
+}
+
+/* ========================================
+   SECCIÓN MENÚ - Contenedor principal del menú
+   ======================================== */
+.menu{
+	padding:3rem 1rem; /* Espaciado interno */
+	max-width:1600px; /* Ancho máximo */
+	margin:0 auto; /* Centrado horizontal */
+	position:relative; /* Para que esté por encima del dragón */
+	z-index:10; /* Por encima del dragón */
+}
+.menu__title{
+	text-align:center; /* Título centrado */
+	margin:0 0 2.5rem; /* Margen inferior */
+	font-size:clamp(2rem, 5vw, 3.5rem); /* Tamaño responsivo grande */
+	color:var(--title-gold); /* Color dorado */
+	font-family:'Playfair Display', serif; /* Fuente elegante */
+	text-shadow:2px 2px 4px rgba(0,0,0,0.4); /* Sombra para profundidad */
+}
+
+/* ========================================
+   PESTAÑAS DE MENÚ - Botones de navegación
+   ======================================== */
+.menu-tabs{
+	display:flex; /* Layout flexible */
+	gap:10px; /* Espacio entre botones */
+	margin-bottom:1.5rem; /* Margen inferior reducido */
+	overflow-x:auto; /* Scroll horizontal cuando sea necesario */
+	overflow-y:hidden; /* Sin scroll vertical */
+	scroll-behavior:smooth; /* Scroll suave */
+	-webkit-overflow-scrolling:touch; /* Scroll suave en iOS */
+	padding:5px 0; /* Padding vertical para la sombra de los botones */
+	/* Ocultar scrollbar en diferentes navegadores */
+	scrollbar-width:thin; /* Firefox */
+	scrollbar-color:rgba(255,215,0,0.3) transparent; /* Firefox */
+}
+.menu-tabs::-webkit-scrollbar{
+	height:4px; /* Altura del scrollbar */
+}
+.menu-tabs::-webkit-scrollbar-track{
+	background:transparent; /* Fondo transparente */
+}
+.menu-tabs::-webkit-scrollbar-thumb{
+	background:rgba(255,215,0,0.3); /* Color dorado sutil */
+	border-radius:4px; /* Bordes redondeados */
+}
+.menu-tabs::-webkit-scrollbar-thumb:hover{
+	background:rgba(255,215,0,0.5); /* Más visible al hover */
+}
+.menu-tab{
+	background:rgba(0,0,0,0.3); /* Fondo oscuro semitransparente */
+	color:#fff; /* Texto blanco */
+	border:2px solid rgba(255,215,0,0.3); /* Borde dorado sutil */
+	padding:10px 20px; /* Espaciado interno compacto */
+	font-size:14px; /* Tamaño de texto más pequeño */
+	font-weight:600; /* Semi-negrita */
+	border-radius:25px; /* Bordes muy redondeados (píldora) */
+	cursor:pointer; /* Cursor de mano */
+	transition:all 0.3s ease; /* Transición suave */
+	font-family:'Montserrat',sans-serif; /* Fuente consistente */
+	white-space:nowrap; /* Evita saltos de línea dentro del botón */
+	flex-shrink:0; /* Evita que los botones se compriman */
+	min-width:fit-content; /* Ancho mínimo según contenido */
+}
+.menu-tab:hover{
+	background:rgba(255,215,0,0.2); /* Fondo dorado sutil al pasar mouse */
+	border-color:var(--title-gold); /* Borde dorado más visible */
+	transform:translateY(-2px); /* Eleva ligeramente */
+}
+.menu-tab.active{
+	background:var(--title-gold); /* Fondo dorado completo */
+	color:#000; /* Texto negro */
+	border-color:var(--title-gold); /* Borde dorado */
+	box-shadow:0 4px 15px rgba(255,215,0,0.4); /* Sombra dorada */
+}
+
+/* Ajuste para móviles - scroll horizontal visible */
+@media (max-width:480px){
+	.menu-tabs{
+		gap:8px; /* Menor espacio entre botones */
+		margin-bottom:1.2rem; /* Margen inferior aún más reducido */
+		justify-content:flex-start; /* Alineado a la izquierda para scroll */
+		padding:5px 10px; /* Padding lateral para que no estén pegados al borde */
+	}
+	.menu-tab{
+		padding:8px 15px; /* Aún más compacto */
+		font-size:13px; /* Texto más pequeño */
+	}
+}
+
+/* ========================================
+   CONTENEDORES DE MENÚ - Tabs content
+   ======================================== */
+.menu-content{
+	display:none; /* Oculto por defecto */
+}
+.menu-content.active{
+	display:block; /* Visible cuando está activo */
+	animation:fadeIn 0.4s ease-in-out; /* Animación de aparición */
+}
+
+/* ========================================
+   GRID DE PRODUCTOS - Layout de las tarjetas
+   ======================================== */
+.menu__grid{
+	display:grid; /* Sistema de cuadrícula CSS Grid */
+	grid-template-columns:1fr; /* 1 columna por defecto (móvil) */
+	gap:2rem; /* Espacio entre tarjetas */
+}
+
+/* ========================================
+   TARJETAS DE PRODUCTO - Diseño individual
+   ======================================== */
+.product-card{
+	width:100%; /* Ancho completo del grid */
+	background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 60%); /* Gradiente rojo */
+	border-radius:12px; /* Bordes redondeados */
+	box-shadow:0 10px 30px rgba(0,0,0,.35); /* Sombra pronunciada */
+	overflow:hidden; /* Oculta contenido que sobresalga */
+	color:#fff; /* Texto blanco */
+	display:flex; /* Layout flexible */
+	flex-direction:column; /* Organización vertical (imagen arriba, meta abajo) */
+}
+.product-card__image{
+	padding:12px; /* Espaciado interno */
+	background:linear-gradient(90deg,rgba(0,0,0,.12),transparent); /* Gradiente sutil */
+	display:flex; /* Layout flexible */
+	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
+}
+.product-card__image img{
+	width:100%; /* Ancho completo del contenedor */
+	height:200px; /* Altura fija */
+	object-fit:cover; /* Cubre el área sin deformar */
+	border-radius:8px; /* Bordes redondeados */
+	border:4px solid rgba(255,255,255,.06); /* Borde sutil blanco */
+	display:block; /* Elimina espacio inferior */
+}
+.product-card__meta{
+	padding:18px 20px; /* Espaciado interno */
+	background:linear-gradient(180deg,transparent 0%, rgba(0,0,0,.06) 100%); /* Gradiente sutil oscuro */
+	color:#fff; /* Texto blanco */
+	display:flex; /* Layout flexible */
+	flex-direction:column; /* Organización vertical */
+	flex:1; /* Ocupa espacio disponible */
+}
+.product-card__title{
+	font-family:'Playfair Display',serif; /* Fuente elegante */
+	font-size:clamp(18px, 3vw, 24px); /* Tamaño responsivo */
+	margin-bottom:8px; /* Margen inferior */
+	color:var(--title-gold); /* Color dorado */
+	text-shadow:1px 1px 3px rgba(0,0,0,0.3); /* Sombra sutil */
+}
+.product-card__desc{
+	font-size:14px; /* Tamaño de texto pequeño */
+	opacity:.95; /* Ligeramente transparente */
+	margin-bottom:12px; /* Margen inferior */
+	flex:1; /* Ocupa espacio disponible (empuja el precio/botones abajo) */
+}
+.product-card__bottom{
+	display:flex; /* Layout flexible */
+	flex-direction:column; /* Organización vertical */
+	gap:10px; /* Espacio entre precio y botones */
+}
+.product-card__actions{
+	display:flex; /* Layout flexible */
+	gap:6px; /* Espacio entre botones */
+	flex-wrap:wrap; /* Permite salto de línea si no caben */
+}
+.product-card__actions .btn{
+	flex:1; /* Los botones se distribuyen el espacio equitativamente */
+	font-size:13px; /* Tamaño de texto pequeño */
+	padding:.6rem .7rem; /* Espaciado compacto */
+}
+.price{
+	font-weight:800; /* Muy negrita */
+	color:#ffd700; /* Dorado */
+	background:rgba(0,0,0,.25); /* Fondo oscuro semitransparente */
+	padding:8px 12px; /* Espaciado interno */
+	border-radius:8px; /* Bordes redondeados */
+	font-size:16px; /* Tamaño mediano */
+	align-self:flex-start; /* Alineado a la izquierda */
+}
+
+/* ========================================
+   SELECTOR DE TAMAÑOS - Radio buttons estilizados
+   ======================================== */
+.size-title{
+	font-size:13px; /* Tamaño de texto pequeño */
+	font-weight:600; /* Semi-negrita */
+	color:#ffd700; /* Color dorado */
+	margin:10px 0 6px 0; /* Margen arriba y abajo */
+	text-align:center; /* Texto centrado */
+}
+.size-selector{
+	display:flex; /* Layout flexible */
+	flex-direction:row; /* Alineados horizontalmente */
+	gap:6px; /* Espacio entre opciones */
+	margin:0 0 12px 0; /* Solo margen inferior */
+	background:rgba(0,0,0,.15); /* Fondo oscuro sutil */
+	padding:8px; /* Espaciado interno */
+	border-radius:8px; /* Bordes redondeados */
+	flex-wrap:nowrap; /* NO permite salto de línea - siempre en una fila */
+}
+.size-option{
+	display:flex; /* Layout flexible */
+	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
+	cursor:pointer; /* Cursor de mano */
+	padding:6px 4px; /* Espaciado interno compacto */
+	border-radius:6px; /* Bordes redondeados */
+	transition:background .2s ease; /* Transición suave */
+	flex:1; /* Se distribuyen equitativamente el espacio */
+	min-width:0; /* Permite que se compriman si es necesario */
+}
+.size-option:hover{
+	background:rgba(255,255,255,.08); /* Fondo claro al pasar el mouse */
+}
+.size-option input[type="radio"]{
+	margin-right:6px; /* Espacio a la derecha del radio */
+	cursor:pointer; /* Cursor de mano */
+	width:16px; /* Ancho fijo */
+	height:16px; /* Alto fijo */
+	accent-color:#ffd700; /* Color dorado para el radio seleccionado */
+	flex-shrink:0; /* Evita que el radio se comprima */
+}
+.size-label{
+	font-size:12px; /* Tamaño de texto más pequeño para que quepa */
+	color:#fff; /* Texto blanco */
+	font-weight:500; /* Medianamente negrita */
+	white-space:nowrap; /* Evita saltos de línea dentro del label */
+	overflow:hidden; /* Oculta el exceso */
+	text-overflow:ellipsis; /* Muestra ... si el texto es muy largo */
+}
+
+/* ========================================
+   RESPONSIVE - Adaptación a diferentes tamaños de pantalla
+   ======================================== */
+
+/* Teléfonos muy pequeños (máximo 360px de ancho) */
+@media (max-width:360px){
+	.hero__overlay{padding:2rem .75rem} /* Reduce padding en hero */
+	.hero{min-height:45vh} /* Hero más pequeño */
+	.menu{padding:2rem .75rem} /* Reduce padding del menú */
+	.menu__grid{grid-template-columns:1fr;gap:1.5rem} /* 1 columna, menos espacio */
+	.product-card__image img{height:160px} /* Imágenes más pequeñas */
+	.product-card__meta{padding:14px} /* Menos padding en meta */
+	.product-card__title{font-size:18px} /* Título más pequeño */
+	.product-card__desc{font-size:13px} /* Descripción más pequeña */
+	.product-card__actions{flex-direction:column} /* Botones apilados verticalmente */
+	.product-card__actions .btn{width:100%;font-size:14px} /* Botones a ancho completo */
+}
+
+/* Teléfonos típicos (máximo 480px de ancho) */
+@media (max-width:480px){
+	.hero__overlay{padding:2.5rem .9rem} /* Padding moderado */
+	.hero{min-height:50vh} /* Hero tamaño medio */
+	.menu{padding:2.5rem .9rem} /* Padding moderado */
+	.menu__grid{grid-template-columns:1fr;gap:1.5rem} /* 1 columna */
+	.product-card__image img{height:180px} /* Imágenes medianas */
+	.product-card__actions .btn{width:100%} /* Botones a ancho completo */
+}
+
+/* Tablets pequeñas y teléfonos grandes (481px a 880px) */
+@media (min-width:481px) and (max-width:880px){
+	.hero__overlay{padding:3rem 1rem} /* Padding normal */
+	.menu__grid{grid-template-columns:repeat(2, 1fr);gap:1.5rem} /* 2 columnas */
+	.product-card__image img{height:190px} /* Imágenes ajustadas */
+	.product-card__title{font-size:20px} /* Título mediano */
+}
+
+/* Tablets grandes (881px a 1199px) */
+@media (min-width:881px) and (max-width:1199px){
+	.menu__grid{grid-template-columns:repeat(3, 1fr);gap:2rem} /* 3 columnas */
+	.product-card__image img{height:200px} /* Imágenes normales */
+	.product-card__title{font-size:22px} /* Título grande */
+}
+
+/* Escritorios/PC (1200px en adelante) - Máximo 4 columnas */
+@media (min-width:1200px){
+	.menu{padding:3.5rem 2rem} /* Mayor padding */
+	.menu__grid{grid-template-columns:repeat(4, 1fr);gap:2rem} /* 4 columnas (máximo) */
+	.product-card__image img{height:220px} /* Imágenes grandes */
+	.product-card__title{font-size:22px} /* Título grande */
+}
+
+/* Desactiva animaciones para usuarios que prefieren reducir movimiento */
+@media (prefers-reduced-motion: reduce){
+	*{transition:none!important;animation:none!important} /* Sin transiciones ni animaciones */
+}
+
+/* ========================================
+   FOOTER - Pie de página
+   ======================================== */
+.site-footer{
+	text-align:center; /* Texto centrado */
+	padding:1.5rem 1rem; /* Espaciado interno */
+	color:#fff; /* Texto blanco */
+	background:rgba(0,0,0,0.2); /* Fondo oscuro semitransparente */
+	border-top:1px solid rgba(255,255,255,0.1); /* Borde superior sutil */
+}
+
+/* ========================================
+   MODAL - Ventana emergente para detalles del producto
+   ======================================== */
+.modal{
+	display:none; /* Oculto por defecto */
+	position:fixed; /* Posición fija en la pantalla */
+	z-index:1000; /* Por encima de todo el contenido */
+	left:0; /* Desde el borde izquierdo */
+	top:0; /* Desde el borde superior */
+	width:100%; /* Ancho completo */
+	height:100%; /* Alto completo */
+	background:rgba(0,0,0,0.7); /* Fondo oscuro semitransparente */
+	backdrop-filter:blur(4px); /* Efecto de desenfoque del fondo */
+	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
+	animation:fadeIn 0.3s ease; /* Animación de aparición */
+}
+.modal.show{
+	display:flex; /* Se muestra como flex cuando tiene clase "show" */
+}
+
+.modal__content{
+	background:linear-gradient(180deg, #c71b1b 0%, #e33 100%); /* Fondo con gradiente rojo */
+	color:#fff; /* Texto blanco */
+	padding:2rem; /* Espaciado interno generoso */
+	border-radius:12px; /* Bordes redondeados */
+	max-width:500px; /* Ancho máximo */
+	width:90%; /* 90% del ancho de la pantalla */
+	position:relative; /* Para posicionar el botón de cerrar */
+	box-shadow:0 20px 60px rgba(0,0,0,0.5); /* Sombra pronunciada */
+	animation:slideIn 0.3s ease; /* Animación de deslizamiento */
+	border:2px solid rgba(255,215,0,0.3); /* Borde dorado sutil */
+}
+
+.modal__close{
+	position:absolute; /* Posicionado en esquina */
+	top:12px; /* Desde arriba */
+	right:12px; /* Desde la derecha */
+	background:rgba(0,0,0,0.3); /* Fondo oscuro */
+	color:#fff; /* X blanca */
+	border:none; /* Sin borde */
+	font-size:28px; /* Tamaño grande */
+	width:36px; /* Ancho fijo */
+	height:36px; /* Alto fijo (círculo) */
+	border-radius:50%; /* Forma circular */
+	cursor:pointer; /* Cursor de mano */
+	display:flex; /* Para centrar la X */
+	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
+	transition:all 0.2s; /* Animación suave */
+	line-height:1; /* Sin espaciado de línea extra */
+}
+.modal__close:hover{
+	background:rgba(0,0,0,0.6); /* Fondo más oscuro al pasar el mouse */
+	transform:rotate(90deg); /* Rotación de 90 grados */
+}
+
+.modal__title{
+	font-family:'Playfair Display',serif; /* Fuente elegante */
+	font-size:clamp(22px, 4vw, 28px); /* Tamaño responsivo */
+	color:#ffd700; /* Color dorado */
+	margin:0 0 1rem; /* Margen inferior */
+	text-shadow:2px 2px 4px rgba(0,0,0,0.3); /* Sombra para profundidad */
+}
+
+.modal__description{
+	font-size:15px; /* Tamaño mediano */
+	line-height:1.6; /* Espaciado de línea cómodo para lectura */
+	margin-bottom:1rem; /* Margen inferior */
+	opacity:0.95; /* Ligeramente transparente */
+}
+
+.modal__portions{
+	font-weight:700; /* Negrita */
+	font-size:16px; /* Tamaño mediano */
+	color:#ffd700; /* Color dorado */
+	background:rgba(0,0,0,0.2); /* Fondo oscuro */
+	padding:10px 14px; /* Espaciado interno */
+	border-radius:8px; /* Bordes redondeados */
+	display:inline-block; /* Solo ocupa el espacio necesario */
+	margin-top:0.5rem; /* Margen superior */
+}
+
+/* Animaciones del modal */
+@keyframes fadeIn{
+	from{opacity:0} /* Comienza transparente */
+	to{opacity:1} /* Termina opaco */
+}
+@keyframes slideIn{
+	from{transform:translateY(-30px);opacity:0} /* Comienza arriba y transparente */
+	to{transform:translateY(0);opacity:1} /* Termina en posición normal y opaco */
+}
+
+/* Modal responsive */
+@media (max-width:480px){
+	.modal__content{padding:1.5rem;max-width:95%} /* Menos padding y más ancho en móvil */
+	.modal__title{font-size:20px} /* Título más pequeño */
+	.modal__description{font-size:14px} /* Descripción más pequeña */
+}
+
+/* ========================================
+   BOTÓN FLOTANTE DE WHATSAPP
+   ======================================== */
+.whatsapp-float{
+	position:fixed; /* Posición fija (no se mueve con scroll) */
+	bottom:20px; /* 20px desde abajo */
+	left:20px; /* 20px desde la izquierda */
+	width:60px; /* Ancho del botón */
+	height:60px; /* Alto del botón (círculo) */
+	background:#25D366; /* Verde oficial de WhatsApp */
+	color:#fff; /* Ícono blanco */
+	border-radius:50%; /* Forma circular */
+	display:flex; /* Para centrar el ícono */
+	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
+	box-shadow:0 4px 12px rgba(0,0,0,0.3); /* Sombra */
+	z-index:999; /* Por encima del contenido normal */
+	transition:all 0.3s ease; /* Animación suave */
+	text-decoration:none; /* Sin subrayado del enlace */
+	animation:whatsappPulse 2s ease-in-out infinite; /* Animación de pulso continuo */
+}
+.whatsapp-float:hover{
+	transform:scale(1.1); /* Escala ligeramente al pasar el mouse */
+	box-shadow:0 6px 20px rgba(37,211,102,0.5); /* Sombra más pronunciada con color verde */
+	animation:none; /* Detiene la animación de pulso al hacer hover */
+}
+.whatsapp-icon{
+	width:35px; /* Ancho del ícono SVG */
+	height:35px; /* Alto del ícono SVG */
+}
+
+/* Animación de pulso suave (efecto de inflarse) */
+@keyframes whatsappPulse{
+	0%, 100%{
+		transform:scale(1); /* Tamaño normal */
+		box-shadow:0 4px 12px rgba(0,0,0,0.3); /* Sombra normal */
+	}
+	50%{
+		transform:scale(1.08); /* Ligeramente más grande */
+		box-shadow:0 6px 18px rgba(37,211,102,0.4); /* Sombra más grande con tinte verde */
+	}
+}
+
+/* Ajustes responsive para móviles */
+@media (max-width:480px){
+	.whatsapp-float{width:65px;height:65px;bottom:15px;left:15px} /* Botón más grande en móvil */
+	.whatsapp-icon{width:36px;height:36px} /* Ícono proporcionalmente más grande */
+	.header__content{flex-direction:column;text-align:center} /* Header apilado verticalmente */
+	.payment-methods{width:100%;justify-content:center} /* Métodos de pago centrados y a ancho completo */
+	/* Las imágenes de medios de pago mantienen el mismo tamaño que en desktop (70px) */
+}
+
