@@ -57,6 +57,246 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   /* ========================================
+     CARRUSEL DE PROMOCIONES
+     ======================================== */
+  const promoCarousel = document.querySelector('.promo-carousel');
+  if (promoCarousel) {
+    const track = promoCarousel.querySelector('.promo-carousel__track');
+    const prevBtn = promoCarousel.querySelector('[data-carousel="prev"]');
+    const nextBtn = promoCarousel.querySelector('[data-carousel="next"]');
+    const dotsContainer = promoCarousel.querySelector('.promo-carousel__dots');
+    const promotionsCards = document.querySelectorAll('#promociones .product-card');
+    let slides = [];
+    let dots = [];
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let prefersReducedMotion = motionQuery.matches;
+    let currentSlide = 0;
+    let autoTimer = null;
+    const autoDelay = 4000;
+
+    const buildCarouselFromPromos = () => {
+      if (!track) return;
+      track.innerHTML = '';
+      if (dotsContainer) dotsContainer.innerHTML = '';
+
+      const promosData = Array.from(promotionsCards).map(card => {
+        const imageEl = card.querySelector('.product-card__image img');
+        const titleEl = card.querySelector('.product-card__title');
+        const descEl = card.querySelector('.product-card__desc');
+
+        if (!imageEl || !titleEl || !descEl) {
+          return null;
+        }
+
+        return {
+          imgSrc: imageEl.getAttribute('src') || '',
+          imgAlt: imageEl.getAttribute('alt') || titleEl.textContent || 'Promoción Hongfa',
+          title: titleEl.textContent || '',
+          description: descEl.textContent || ''
+        };
+      }).filter(Boolean);
+
+      promosData.forEach((promo, index) => {
+        const slide = document.createElement('article');
+        slide.className = 'promo-carousel__slide';
+        slide.setAttribute('role', 'group');
+        slide.setAttribute('aria-roledescription', 'slide');
+        slide.setAttribute('aria-label', `${index + 1} de ${promosData.length}`);
+        if (index === 0) slide.classList.add('is-active');
+
+        const img = document.createElement('img');
+        img.src = promo.imgSrc;
+        img.alt = promo.imgAlt;
+
+        const caption = document.createElement('div');
+        caption.className = 'promo-carousel__caption';
+
+        const heading = document.createElement('h3');
+        heading.textContent = promo.title;
+
+        const text = document.createElement('p');
+        text.textContent = promo.description;
+
+        caption.appendChild(heading);
+        caption.appendChild(text);
+        slide.appendChild(img);
+        slide.appendChild(caption);
+        track.appendChild(slide);
+
+        if (dotsContainer) {
+          const dot = document.createElement('button');
+          dot.className = 'promo-carousel__dot';
+          dot.type = 'button';
+          dot.setAttribute('aria-label', `Ver promoción ${index + 1}`);
+          dot.setAttribute('aria-pressed', index === 0 ? 'true' : 'false');
+          if (index === 0) dot.classList.add('is-active');
+          dotsContainer.appendChild(dot);
+        }
+      });
+
+      slides = Array.from(track.children);
+      dots = dotsContainer ? Array.from(dotsContainer.children) : [];
+    };
+
+    buildCarouselFromPromos();
+
+    if (!track || !slides.length) {
+      if (prevBtn) prevBtn.setAttribute('hidden', 'true');
+      if (nextBtn) nextBtn.setAttribute('hidden', 'true');
+      if (dotsContainer) dotsContainer.setAttribute('hidden', 'true');
+      return;
+    }
+
+    const hasMultipleSlides = slides.length > 1;
+
+    if (!hasMultipleSlides) {
+      if (prevBtn) prevBtn.setAttribute('hidden', 'true');
+      if (nextBtn) nextBtn.setAttribute('hidden', 'true');
+      if (dotsContainer) dotsContainer.setAttribute('hidden', 'true');
+    } else {
+      if (prevBtn) prevBtn.removeAttribute('hidden');
+      if (nextBtn) nextBtn.removeAttribute('hidden');
+      if (dotsContainer) dotsContainer.removeAttribute('hidden');
+    }
+
+    const updateCarousel = (nextIndex, { animate = true } = {}) => {
+      if (!track || !slides.length) return;
+      currentSlide = (nextIndex + slides.length) % slides.length;
+      const offset = -currentSlide * 100;
+      if (!animate) {
+        track.style.transition = 'none';
+      } else if (track.style.transition === 'none') {
+        track.style.transition = '';
+      }
+      track.style.transform = `translateX(${offset}%)`;
+      slides.forEach((slide, idx) => slide.classList.toggle('is-active', idx === currentSlide));
+      dots.forEach((dot, idx) => {
+        const isActive = idx === currentSlide;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-pressed', String(isActive));
+      });
+    };
+
+    const stopAuto = () => {
+      if (autoTimer) {
+        clearInterval(autoTimer);
+        autoTimer = null;
+      }
+    };
+
+    const startAuto = () => {
+      if (prefersReducedMotion || slides.length < 2) return;
+      stopAuto();
+      autoTimer = setInterval(() => {
+        updateCarousel(currentSlide + 1);
+      }, autoDelay);
+    };
+
+    const handleMotionPreference = (event) => {
+      prefersReducedMotion = event.matches;
+      if (prefersReducedMotion) {
+        stopAuto();
+      } else {
+        startAuto();
+      }
+    };
+
+    if (typeof motionQuery.addEventListener === 'function') {
+      motionQuery.addEventListener('change', handleMotionPreference);
+    } else if (typeof motionQuery.addListener === 'function') {
+      motionQuery.addListener(handleMotionPreference);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        updateCarousel(currentSlide - 1);
+        startAuto();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        updateCarousel(currentSlide + 1);
+        startAuto();
+      });
+    }
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        updateCarousel(idx);
+        startAuto();
+      });
+    });
+
+    let isPointerDown = false;
+    let startX = 0;
+    let deltaX = 0;
+
+    const handlePointerDown = (event) => {
+      if (!track) return;
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      isPointerDown = true;
+      startX = event.clientX;
+      deltaX = 0;
+      track.style.transition = 'none';
+      track.classList.add('is-dragging');
+      stopAuto();
+      if (typeof track.setPointerCapture === 'function') {
+        track.setPointerCapture(event.pointerId);
+      }
+    };
+
+    const handlePointerMove = (event) => {
+      if (!isPointerDown || !track) return;
+      const currentX = event.clientX;
+      deltaX = currentX - startX;
+      const width = promoCarousel.offsetWidth || 1;
+      const offsetPercent = (-currentSlide * 100) + ((deltaX / width) * 100);
+      track.style.transform = `translateX(${offsetPercent}%)`;
+    };
+
+    const handlePointerUp = (event) => {
+      if (!isPointerDown || !track) return;
+      isPointerDown = false;
+      track.classList.remove('is-dragging');
+      if (track.style.transition === 'none') {
+        track.style.transition = '';
+      }
+      const width = promoCarousel.offsetWidth || 1;
+      if (Math.abs(deltaX) > width * 0.2) {
+        const direction = deltaX < 0 ? 1 : -1;
+        updateCarousel(currentSlide + direction);
+      } else {
+        updateCarousel(currentSlide);
+      }
+      deltaX = 0;
+      if (typeof track.releasePointerCapture === 'function' && event.pointerId !== undefined) {
+        track.releasePointerCapture(event.pointerId);
+      }
+      startAuto();
+    };
+
+    if (track) {
+      track.addEventListener('pointerdown', handlePointerDown);
+      track.addEventListener('pointermove', handlePointerMove);
+      track.addEventListener('pointerup', handlePointerUp);
+      track.addEventListener('pointercancel', handlePointerUp);
+    }
+
+    promoCarousel.addEventListener('mouseenter', stopAuto);
+    promoCarousel.addEventListener('mouseleave', startAuto);
+    promoCarousel.addEventListener('focusin', stopAuto);
+    promoCarousel.addEventListener('focusout', (event) => {
+      if (!promoCarousel.contains(event.relatedTarget)) {
+        startAuto();
+      }
+    });
+
+    updateCarousel(0, { animate: false });
+    startAuto();
+  }
+
+  /* ========================================
      MODAL - Ventana emergente de detalles
      ======================================== */
   // Selecciona los elementos del modal
@@ -104,6 +344,19 @@ document.addEventListener('DOMContentLoaded', function () {
           people = 'Para 6 personas';
         } else if (sizeName === 'Medio') {
           people = 'Para 4 personas';
+        } else if (sizeName === '1 L') {
+          people = 'Presentación de 1 litro';
+        } else if (sizeName === '1.5 L') {
+          people = 'Presentación de 1.5 litros';
+        } else if (sizeName === '2.25 L') {
+          people = 'Presentación de 2.25 litros';
+        } else if (sizeName === '500 ml') {
+          people = 'Presentación individual de 500 ml';
+        } else if (sizeName === '600 ml') {
+          people = 'Presentación individual de 600 ml';
+        }
+        if (!people) {
+          people = `Presentación ${sizeName}`;
         }
         portionsText = `${sizeName} - ${people}`;
       }

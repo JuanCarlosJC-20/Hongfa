@@ -23,18 +23,9 @@
     <header class="header">
         <div class="header__content">
             <!-- Título principal del restaurante -->
-            <h1 class="header__title">Restaurante Hongfa</h1>
+            <h2 class="header__title">Restaurante Hongfa</h2>
             
-            <!-- Sección de métodos de pago aceptados -->
-            <div class="payment-methods">
-                <span class="payment-methods__label">Aceptamos:</span> <!-- Etiqueta "Aceptamos:" -->
-                <div class="payment-methods__icons">
-                    <!-- Logo de Bancolombia (tarjeta de crédito/débito) -->
-                    <span class="payment-icon" title="Tarjeta"><img src="/img/bancolombia.png" alt="Bancolombia"></span>
-                    <!-- Logo de Nequi (billetera digital) -->
-                      <span class="payment-icon" title="Tarjeta"><img src="/img/nequi.png" alt="Nequi"></span>
-                </div>
-            </div>
+            
         </div>
     </header>
    
@@ -42,17 +33,30 @@
          SECCIÓN MENÚ - Lista de productos
          ======================================== -->
     <section id="menu" class="menu"> <!-- ID para navegación con anclas (#menu) -->
-        <h2 class="menu__title">Menú  Hongfa</h2> <!-- Título de la sección -->
+        <h1 class="menu__title">Menú  Hongfa</h1> <!-- Título de la sección -->
+
+        <!--
+        <section class="promo-carousel" aria-label="Promociones destacadas">
+            <button class="promo-carousel__control promo-carousel__control--prev" type="button" data-carousel="prev" aria-label="Promoción anterior">&#10094;</button>
+            <div class="promo-carousel__viewport">
+                <div class="promo-carousel__track" aria-live="polite"></div>
+            </div>
+            <button class="promo-carousel__control promo-carousel__control--next" type="button" data-carousel="next" aria-label="Siguiente promoción">&#10095;</button>
+            <div class="promo-carousel__dots" role="tablist" aria-label="Seleccionar promoción"></div>
+        </section>
+        -->
 
         <!-- Botones de navegación entre secciones -->
         <div class="menu-tabs">
-            <button class="menu-tab active" data-tab="arroz-chino">Arroz Chino</button>
+            <button class="menu-tab active" data-tab="promociones">Promociones</button>
+            <button class="menu-tab" data-tab="arroz-chino">Arroz Chino</button>
             <button class="menu-tab" data-tab="platos-especiales">Platos Especiales</button>
+            <button class="menu-tab" data-tab="bebidas">Bebidas</button>
             <button class="menu-tab" data-tab="porciones-adicionales">Porciones Adicionales</button>
         </div>
 
         <!-- Contenedor de Arroz Chino -->
-        <div id="arroz-chino" class="menu-content active">
+    <div id="arroz-chino" class="menu-content">
             <!-- Grid contenedor de todas las tarjetas de productos -->
             <div class="menu__grid">
             
@@ -62,7 +66,7 @@
         <div class="product-card">
             <!-- Imagen del producto -->
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=1200&auto=format&fit=crop" alt="Arroz Chino Mixto" />
+                <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz Chino Mixto" />
             </div>
             <!-- Información del producto (título, descripción, precio, botones) -->
             <div class="product-card__meta">
@@ -104,7 +108,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&w=1200&auto=format&fit=crop" alt="Arroz Chino con Pollo" />
+                <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz Chino con Pollo" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Pollo Picado</h3>
@@ -145,7 +149,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?q=80&w=1200&auto=format&fit=crop" alt="Arroz con Pollo y Camarón" />
+                <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz con Pollo y Camarón" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Pollo Y Camarón</h3>
@@ -186,7 +190,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&w=1200&auto=format&fit=crop" alt="Arroz con Cerdo y Camarón" />
+                <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz con Cerdo y Camarón" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Cerdo Y Camarones</h3>
@@ -227,7 +231,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&w=1200&auto=format&fit=crop" alt="Arroz con Camarón" />
+                <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz con Camarón" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Solo Camarón</h3>
@@ -276,7 +280,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=1200&auto=format&fit=crop" alt="Chop Suey" />
+                    <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Chop Suey" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Chop Suey</h3>
@@ -313,7 +317,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1200&auto=format&fit=crop" alt="Tortilla" />
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Tortilla" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Tortilla</h3>
@@ -350,7 +354,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&w=1200&auto=format&fit=crop" alt="Spaghetti" />
+                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Spaghetti" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Spaghetti</h3>
@@ -385,6 +389,250 @@
         </div> <!-- Cierre de menu__grid platos especiales -->
         </div> <!-- Cierre de platos-especiales -->
 
+        <!-- Contenedor de Promociones -->
+    <div id="promociones" class="menu-content active">
+            <div class="menu__grid">
+
+            <!-- ========================================
+                 PROMOCIÓN 1: COMBO FAMILIAR
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Combo Familiar Hongfa" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Combo Familiar Hongfa</h3>
+                    <p class="product-card__desc">Dos cajas de arroz mixto, Chop Suey grande, cuatro rollos primavera y cuatro bebidas de 600 ml.</p>
+                    <div class="product-card__bottom">
+                        <span class="price">$120.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Combo Familiar Hongfa">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Combo Familiar Hongfa"
+                                data-description="Incluye dos cajas de arroz mixto con todas las carnes, un Chop Suey grande, cuatro rollos primavera y cuatro bebidas de 600 ml para compartir."
+                                data-portions="Ideal para 6 personas">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 PROMOCIÓN 2: PROMO PAREJA
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Promo Pareja Oriental" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Promo Pareja Oriental</h3>
+                    <p class="product-card__desc">Media caja de arroz mixto, dos porciones de camarones apanados, ensalada agridulce y dos bebidas de 500 ml.</p>
+                    <div class="product-card__bottom">
+                        <span class="price">$65.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Promo Pareja Oriental">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Promo Pareja Oriental"
+                                data-description="Combo diseñado para dos personas: media caja de arroz mixto con todas las carnes, dos porciones de camarones apanados, ensalada agridulce y dos bebidas frías."
+                                data-portions="Ideal para 2 personas">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 PROMOCIÓN 3: ALMUERZO EJECUTIVO
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://images.unsplash.com/photo-1543772514-2b33e0efb31f?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Almuerzo Ejecutivo" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Almuerzo Ejecutivo</h3>
+                    <p class="product-card__desc">Arroz especial con pollo y cerdo, rollo primavera, porción de ensalada agridulce y té frío de 500 ml.</p>
+                    <div class="product-card__bottom">
+                        <span class="price">$45.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Almuerzo Ejecutivo">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Almuerzo Ejecutivo"
+                                data-description="Un almuerzo rápido y completo: arroz especial salteado con pollo y cerdo, rollo primavera crujiente, ensalada agridulce y té frío 500 ml."
+                                data-portions="Ideal para 1 persona">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- Cierre de menu__grid promociones -->
+        </div> <!-- Cierre de promociones -->
+
+        <!-- Contenedor de Bebidas -->
+        <div id="bebidas" class="menu-content">
+            <!-- Grid de bebidas -->
+            <div class="menu__grid">
+
+            <!-- ========================================
+                 BEBIDA 1: COCA-COLA FAMILIAR
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://licoresbrisasdejuanchito.com/wp-content/uploads/2021/04/GASEOSA-COCACOLA-3LTS.png" alt="Coca-Cola Familiar" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Coca-Cola Familiar</h3>
+                    <p class="product-card__desc">Refresco clásico disponible en 1 L, 1.5 L y 2.25 L.</p>
+
+                    <p class="size-title">Presentación:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-coca-cola" value="7000" data-size="1 L" checked>
+                            <span class="size-label">1 L</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-coca-cola" value="8500" data-size="1.5 L">
+                            <span class="size-label">1.5 L</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-coca-cola" value="11000" data-size="2.25 L">
+                            <span class="size-label">2.25 L</span>
+                        </label>
+                    </div>
+
+                    <div class="product-card__bottom">
+                        <span class="price">$7.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Coca-Cola Familiar" data-size-group="size-coca-cola">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Coca-Cola Familiar"
+                                data-description="Refresco clásico con gas disponible en botellas de 1 L, 1.5 L y 2.25 L, perfecto para compartir."
+                                data-portions="Presentaciones: 1 L, 1.5 L y 2.25 L">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 BEBIDA 2: SPRITE FAMILIAR
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://storage.googleapis.com/liquidos-public/products/large/1110072.png" alt="Sprite Familiar" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Sprite Familiar</h3>
+                    <p class="product-card__desc">Gaseosa limón-lima en botellas de 1 L, 1.5 L y 2.25 L.</p>
+
+                    <p class="size-title">Presentación:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-sprite" value="7000" data-size="1 L" checked>
+                            <span class="size-label">1 L</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-sprite" value="8500" data-size="1.5 L">
+                            <span class="size-label">1.5 L</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-sprite" value="11000" data-size="2.25 L">
+                            <span class="size-label">2.25 L</span>
+                        </label>
+                    </div>
+
+                    <div class="product-card__bottom">
+                        <span class="price">$7.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Sprite Familiar" data-size-group="size-sprite">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Sprite Familiar"
+                                data-description="Gaseosa sabor limón-lima con opciones de 1 L, 1.5 L y 2.25 L, ideal para acompañar tus comidas."
+                                data-portions="Presentaciones: 1 L, 1.5 L y 2.25 L">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 BEBIDA 3: TÉ FRÍO LIMÓN
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://comercialwolkvox.blob.core.windows.net/imagenes/Abastecidos_1080X1080/15001819-Frontal.png" alt="Té Frío Limón" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Té Frío Limón</h3>
+                    <p class="product-card__desc">Té helado sabor limón en 500 ml, 1 L y 1.5 L.</p>
+
+                    <p class="size-title">Presentación:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-te-limon" value="5000" data-size="500 ml" checked>
+                            <span class="size-label">500 ml</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-te-limon" value="7500" data-size="1 L">
+                            <span class="size-label">1 L</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-te-limon" value="9000" data-size="1.5 L">
+                            <span class="size-label">1.5 L</span>
+                        </label>
+                    </div>
+
+                    <div class="product-card__bottom">
+                        <span class="price">$5.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Té Frío Limón" data-size-group="size-te-limon">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Té Frío Limón"
+                                data-description="Té helado refrescante sabor limón disponible en botellas de 500 ml, 1 L y 1.5 L."
+                                data-portions="Presentaciones: 500 ml, 1 L y 1.5 L">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========================================
+                 BEBIDA 4: AGUA SIN GAS
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://comercialwolkvox.blob.core.windows.net/imagenes/Abastecidos_1080X1080/15001819-Frontal.png" alt="Agua sin gas" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Agua Sin Gas</h3>
+                    <p class="product-card__desc">Agua pura en presentaciones de 600 ml, 1 L y 1.5 L.</p>
+
+                    <p class="size-title">Presentación:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-agua" value="3000" data-size="600 ml" checked>
+                            <span class="size-label">600 ml</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-agua" value="4500" data-size="1 L">
+                            <span class="size-label">1 L</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-agua" value="6000" data-size="1.5 L">
+                            <span class="size-label">1.5 L</span>
+                        </label>
+                    </div>
+
+                    <div class="product-card__bottom">
+                        <span class="price">$3.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Agua Sin Gas" data-size-group="size-agua">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Agua Sin Gas"
+                                data-description="Agua sin gas embotellada disponible en 600 ml, 1 L y 1.5 L para refrescarte."
+                                data-portions="Presentaciones: 600 ml, 1 L y 1.5 L">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- Cierre de menu__grid bebidas -->
+        </div> <!-- Cierre de bebidas -->
+
         <!-- Contenedor de Porciones Adicionales -->
         <div id="porciones-adicionales" class="menu-content">
             <!-- Grid contenedor de porciones adicionales -->
@@ -395,7 +643,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1200&auto=format&fit=crop" alt="Ensalada Agridulce" />
+                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Ensalada Agridulce" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Porción de Ensalada Agridulce</h3>
@@ -419,7 +667,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=1200&auto=format&fit=crop" alt="Papas en Cascos" />
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Papas en Cascos" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Porción de Papas en Cascos</h3>
@@ -443,7 +691,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=1200&auto=format&fit=crop" alt="Camarones" />
+                    <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Camarones" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Porción de Camarones</h3>
@@ -471,6 +719,16 @@
          FOOTER - Pie de página con copyright
          ======================================== -->
     <footer class="site-footer">
+        <!-- Sección de métodos de pago aceptados -->
+            <div class="payment-methods">
+                <span class="payment-methods__label">Aceptamos:</span> <!-- Etiqueta "Aceptamos:" -->
+                <div class="payment-methods__icons">
+                    <!-- Logo de Bancolombia (tarjeta de crédito/débito) -->
+                    <span class="payment-icon" title="Tarjeta"><img src="/img/bancolombia.png" alt="Bancolombia"></span>
+                    <!-- Logo de Nequi (billetera digital) -->
+                      <span class="payment-icon" title="Tarjeta"><img src="/img/nequi.png" alt="Nequi"></span>
+                </div>
+            </div>
         <p>&copy; <span id="year"></span> Restaurante Hongfa</p> <!-- El año se actualiza dinámicamente con JavaScript -->
     </footer>
 
