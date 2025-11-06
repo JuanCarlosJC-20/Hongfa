@@ -753,3 +753,118 @@ body{
 	/* Las imágenes de medios de pago mantienen el mismo tamaño que en desktop (70px) */
 }
 
+/* ========================================
+	 CARRITO DE COMPRAS (Integración no intrusiva)
+	 Clases con prefijo .hf- para evitar conflictos
+	 ======================================== */
+/* Burbuja flotante (móvil) */
+.hf-cart-bubble{
+	position:fixed;
+	right:18px;
+	bottom:18px;
+	width:60px;
+	height:60px;
+	border-radius:50%;
+	background:#111;
+	color:#fff;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	box-shadow:0 8px 22px rgba(0,0,0,.35);
+	z-index:1001;
+	transition:transform .2s ease, box-shadow .2s ease;
+}
+.hf-cart-bubble:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.45)}
+.hf-cart-bubble__icon{width:28px;height:28px;display:block}
+.hf-cart-bubble__count{
+	position:absolute;
+	top:-6px; right:-6px;
+	background:#ffd700;
+	color:#000;
+	font-weight:800;
+	border-radius:20px;
+	min-width:22px; height:22px;
+	display:flex; align-items:center; justify-content:center;
+	font-size:12px;
+	padding:0 6px;
+	border:2px solid #111;
+}
+
+/* Botón de carrito (desktop) */
+.hf-cart-trigger{
+	position:fixed;
+	top:20px; right:20px;
+	width:46px; height:46px;
+	border-radius:12px;
+	background:rgba(0,0,0,.5);
+	color:#fff;
+	display:flex; align-items:center; justify-content:center;
+	border:1px solid rgba(255,215,0,.25);
+	box-shadow:0 6px 18px rgba(0,0,0,.35);
+	z-index:1001;
+	backdrop-filter:blur(6px);
+}
+.hf-cart-trigger:hover{background:rgba(0,0,0,.75)}
+.hf-cart-trigger__icon{width:22px;height:22px}
+.hf-cart-trigger__count{
+	position:absolute; top:-6px; right:-6px;
+	background:#ffd700; color:#000; border-radius:16px; min-width:20px; height:20px; font-size:12px;
+	display:flex; align-items:center; justify-content:center; font-weight:800; border:2px solid rgba(0,0,0,.6);
+}
+
+/* Panel lateral (desktop) */
+.hf-cart-panel{
+	position:fixed; top:0; right:0; bottom:0;
+	width:380px; max-width:90vw;
+	background:linear-gradient(180deg, #c71b1b 0%, #e33 100%);
+	color:#fff;
+	border-left:2px solid rgba(255,215,0,0.3);
+	box-shadow:-20px 0 60px rgba(0,0,0,.45);
+	transform:translateX(100%);
+	transition:transform .28s ease;
+	z-index:1000;
+	display:flex; flex-direction:column;
+}
+.hf-cart-panel.is-open{transform:translateX(0)}
+.hf-cart-panel__header{display:flex; align-items:center; justify-content:space-between; padding:16px 16px; border-bottom:1px solid rgba(255,255,255,.18)}
+.hf-cart-panel__title{font-family:'Playfair Display',serif; color:#ffd700; margin:0; font-size:20px}
+.hf-cart-panel__close{background:rgba(0,0,0,.35); color:#fff; border:0; width:34px; height:34px; border-radius:50%; cursor:pointer}
+.hf-cart-panel__body{padding:12px 16px; overflow:auto; flex:1}
+.hf-cart-panel__footer{padding:12px 16px; border-top:1px solid rgba(255,255,255,.18); display:flex; flex-direction:column; gap:10px}
+.hf-cart-panel__total{font-weight:800; color:#ffd700; display:flex; align-items:center; justify-content:space-between}
+
+/* Modal reutilizable (lista y formulario) */
+.hf-modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.7); z-index:1002; backdrop-filter:blur(4px)}
+.hf-modal.show{display:flex}
+.hf-modal__content{width:min(680px, 92vw); background:linear-gradient(180deg, #c71b1b 0%, #e33 100%); color:#fff; border-radius:12px; border:2px solid rgba(255,215,0,.3); box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.hf-modal__head{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.18)}
+.hf-modal__title{margin:0; font-family:'Playfair Display',serif; color:#ffd700}
+.hf-modal__close{background:rgba(0,0,0,.35); color:#fff; border:0; width:34px; height:34px; border-radius:50%; cursor:pointer}
+.hf-modal__body{padding:14px 16px; max-height:60vh; overflow:auto}
+.hf-modal__footer{padding:14px 16px; border-top:1px solid rgba(255,255,255,.18); display:flex; gap:10px; flex-wrap:wrap}
+
+/* Lista de items del carrito */
+.hf-cart-list{display:flex; flex-direction:column; gap:10px}
+.hf-cart-item{display:grid; grid-template-columns:1fr auto; gap:8px; background:rgba(0,0,0,.18); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12)}
+.hf-cart-item__name{font-weight:700}
+.hf-cart-item__meta{font-size:12px; opacity:.9}
+.hf-cart-item__qty{display:flex; align-items:center; gap:6px}
+.hf-qty-btn{width:28px; height:28px; border-radius:8px; background:rgba(0,0,0,.35); color:#fff; border:1px solid rgba(255,255,255,.18); cursor:pointer}
+.hf-cart-item__subtotal{font-weight:800; color:#ffd700}
+.hf-remove{background:transparent; color:#fff; border:0; text-decoration:underline; cursor:pointer; font-size:12px; opacity:.9}
+
+/* Formulario de pedido */
+.hf-form{display:grid; gap:10px}
+.hf-input{width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.25); background:rgba(0,0,0,.2); color:#fff}
+.hf-input::placeholder{color:rgba(255,255,255,.8)}
+.hf-summary{display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:10px; background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.18); color:#ffd700; font-weight:800}
+
+/* Visibilidad según tamaño */
+@media (min-width:881px){
+	.hf-cart-bubble{display:none}
+}
+@media (max-width:880px){
+	.hf-cart-trigger, .hf-cart-panel{display:none}
+}
+
+
