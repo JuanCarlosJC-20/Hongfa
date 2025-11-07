@@ -74,6 +74,7 @@
       </div>
       <div class="hf-cart-panel__footer">
         <div class="hf-cart-panel__total">
+          <span id="hfItemsCountDesk" class="hf-items-count"></span>
           <span>Total</span>
           <strong id="hfTotalDesk">$0</strong>
         </div>
@@ -100,7 +101,11 @@
           <div class="hf-cart-list" id="hfCartListMob"></div>
         </div>
         <div class="hf-modal__footer">
-          <div class="hf-summary"><span>Total</span><strong id="hfTotalMob">$0</strong></div>
+          <div class="hf-summary">
+            <span id="hfItemsCountMob" class="hf-items-count"></span>
+            <span>Total</span>
+            <strong id="hfTotalMob">$0</strong>
+          </div>
           <button class="btn" id="hfCheckoutMob" type="button">Hacer pedido</button>
         </div>
       </div>`;
@@ -132,6 +137,10 @@
             <div class="hf-field">
               <input class="hf-input" type="text" id="hfAddress" name="address" autocomplete="street-address" placeholder="Dirección de entrega" required minlength="10" maxlength="100">
               <span class="hf-error" id="hfAddressError"></span>
+            </div>
+            <div class="hf-field">
+              <input class="hf-input" type="text" id="hfNeighborhood" name="neighborhood" placeholder="Barrio" required minlength="3" maxlength="50">
+              <span class="hf-error" id="hfNeighborhoodError"></span>
             </div>
           </form>
         </div>
@@ -212,9 +221,11 @@
     const nameInput = document.getElementById('hfName');
     const phoneInput = document.getElementById('hfPhone');
     const addressInput = document.getElementById('hfAddress');
+    const neighborhoodInput = document.getElementById('hfNeighborhood');
     const nameError = document.getElementById('hfNameError');
     const phoneError = document.getElementById('hfPhoneError');
     const addressError = document.getElementById('hfAddressError');
+    const neighborhoodError = document.getElementById('hfNeighborhoodError');
 
     // Validación en tiempo real para nombre (solo letras y espacios)
     nameInput.addEventListener('input', (e)=>{
@@ -234,6 +245,9 @@
 
     // Validación para dirección
     addressInput.addEventListener('input', ()=> validateAddress());
+
+    // Validación para barrio
+    neighborhoodInput.addEventListener('input', ()=> validateNeighborhood());
 
     function validateName(){
       const value = nameInput.value.trim();
@@ -311,6 +325,28 @@
       return true;
     }
 
+    function validateNeighborhood(){
+      const value = neighborhoodInput.value.trim();
+      if(!value){
+        neighborhoodError.textContent = 'El barrio es obligatorio';
+        neighborhoodInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length < 3){
+        neighborhoodError.textContent = 'Mínimo 3 caracteres';
+        neighborhoodInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length > 50){
+        neighborhoodError.textContent = 'Máximo 50 caracteres';
+        neighborhoodInput.classList.add('hf-input--error');
+        return false;
+      }
+      neighborhoodError.textContent = '';
+      neighborhoodInput.classList.remove('hf-input--error');
+      return true;
+    }
+
     orderForm.addEventListener('submit', (e)=>{
       e.preventDefault();
       if(cart.length===0) return;
@@ -319,16 +355,18 @@
       const isNameValid = validateName();
       const isPhoneValid = validatePhone();
       const isAddressValid = validateAddress();
+      const isNeighborhoodValid = validateNeighborhood();
 
-      if(!isNameValid || !isPhoneValid || !isAddressValid){
+      if(!isNameValid || !isPhoneValid || !isAddressValid || !isNeighborhoodValid){
         return; // Detener si hay errores
       }
 
       const name = nameInput.value.trim();
       const phone = phoneInput.value.trim();
       const address = addressInput.value.trim();
+      const neighborhood = neighborhoodInput.value.trim();
       
-      const waUrl = buildWhatsAppUrl(name, phone, address);
+      const waUrl = buildWhatsAppUrl(name, phone, address, neighborhood);
       window.open(waUrl, '_blank');
       
       // Opcional: Limpiar formulario después de enviar
@@ -336,6 +374,7 @@
       nameError.textContent = '';
       phoneError.textContent = '';
       addressError.textContent = '';
+      neighborhoodError.textContent = '';
     });
   }
 
@@ -365,10 +404,18 @@
   function render(){
     // Contadores
     const count = cartCount();
+    const itemsCount = cart.length; // Número de productos diferentes
     const c1 = document.getElementById('hfCartCount');
     const c2 = document.getElementById('hfCartCountDesk');
     if(c1) c1.textContent = count;
     if(c2) c2.textContent = count;
+
+    // Contador de items únicos
+    const ic1 = document.getElementById('hfItemsCountMob');
+    const ic2 = document.getElementById('hfItemsCountDesk');
+    const itemsText = itemsCount > 0 ? `${itemsCount} producto${itemsCount !== 1 ? 's' : ''} • ` : '';
+    if(ic1) ic1.textContent = itemsText;
+    if(ic2) ic2.textContent = itemsText;
 
     // Listas
     const listMob = document.getElementById('hfCartListMob');
@@ -398,10 +445,13 @@
   function itemRowHTML(item){
     const size = item.sizeLabel ? ` <span class="hf-cart-item__meta">• ${item.sizeLabel}</span>` : '';
     const color = item.colorLabel ? ` <span class="hf-cart-item__meta">• ${item.colorLabel}</span>` : '';
+    const unitPrice = fmt(item.unitPrice);
+    const subtotal = fmt(item.unitPrice*item.qty);
     return `
     <div class="hf-cart-item" data-id="${encodeURIComponent(item.id)}">
       <div>
         <div class="hf-cart-item__name">${escapeHtml(item.name)}${size}${color}</div>
+        <div class="hf-cart-item__unit-price">${unitPrice} c/u</div>
         <button class="hf-remove" type="button" data-action="remove">Eliminar</button>
       </div>
       <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px">
@@ -410,7 +460,7 @@
           <span>${item.qty}</span>
           <button class="hf-qty-btn" type="button" data-action="inc">＋</button>
         </div>
-        <div class="hf-cart-item__subtotal">${fmt(item.unitPrice*item.qty)}</div>
+        <div class="hf-cart-item__subtotal">${subtotal}</div>
       </div>
     </div>`;
   }
@@ -419,25 +469,33 @@
   }
 
   // WHATSAPP ----------------------------------
-  function buildWhatsAppUrl(name, phone, address){
+  function buildWhatsAppUrl(name, phone, address, neighborhood){
     const lines = [];
     lines.push('🛒 *PEDIDO HONGFA*');
     lines.push('');
     lines.push('📦 *Productos:*');
     lines.push('━━━━━━━━━━━━━━━');
+    
     cart.forEach(item=>{
-      const unit = fmt(item.unitPrice).replace(/\$/,'$');
-      const sizeInfo = item.sizeLabel ? `\n  Tamaño: ${item.sizeLabel}` : '';
-      const colorInfo = item.colorLabel ? `\n  Color: ${item.colorLabel}` : '';
-      lines.push(`• ${item.name}${sizeInfo}${colorInfo}\n  Cantidad: x${item.qty}\n  Precio: ${unit}`);
+      const unit = fmt(item.unitPrice);
+      const sizeInfo = item.sizeLabel ? `  Tamaño: ${item.sizeLabel}\n` : '';
+      const colorInfo = item.colorLabel ? `  Color: ${item.colorLabel}\n` : '';
+      
+      lines.push(`• ${item.name}`);
+      if(sizeInfo) lines.push(sizeInfo.trim());
+      if(colorInfo) lines.push(colorInfo.trim());
+      lines.push(`  Cantidad: x${item.qty}`);
+      lines.push(`  Precio: ${unit}`);
       lines.push('');
     });
+    
     lines.push(`💰 *Total: ${fmt(totalAmount())}*`);
     lines.push('');
     lines.push('👤 *Datos del cliente:*');
     lines.push(`📝 Nombre: ${name}`);
     lines.push(`📞 Teléfono: ${phone}`);
     lines.push(`📍 Dirección: ${address}`);
+    lines.push(`🏘️ Barrio: ${neighborhood}`);
 
     const message = lines.join('\n');
     const url = `https://wa.me/${BUSINESS_WA_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -497,7 +555,31 @@
     if(existing){ existing.qty += 1; }
     else { cart.push({ ...info, qty:1 }); }
     render();
+    showToast(`✓ ${info.name} agregado al carrito`);
   }
+  
+  // CONFIRMACIÓN VISUAL (TOAST)
+  function showToast(message){
+    // Remover toast anterior si existe
+    const existing = document.querySelector('.hf-toast');
+    if(existing) existing.remove();
+    
+    // Crear nuevo toast
+    const toast = document.createElement('div');
+    toast.className = 'hf-toast';
+    toast.innerHTML = `<span class="hf-toast__icon">✓</span><span class="hf-toast__message">${message}</span>`;
+    document.body.appendChild(toast);
+    
+    // Mostrar con animación
+    setTimeout(()=> toast.classList.add('show'), 10);
+    
+    // Ocultar después de 3 segundos
+    setTimeout(()=>{
+      toast.classList.remove('show');
+      setTimeout(()=> toast.remove(), 300);
+    }, 3000);
+  }
+  
   function updateQty(id, delta){
     const idx = cart.findIndex(it=> it.id===id);
     if(idx===-1) return;
