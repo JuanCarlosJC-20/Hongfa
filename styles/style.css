@@ -61,15 +61,12 @@ body{
 	flex-shrink:0; /* No se comprime */
 }
 .header__logo-img{
-	height:120px; /* Altura del logo aumentada significativamente */
+	height:150px; /* Altura del logo aumentada para PC */
 	width:auto; /* Ancho proporcional */
 	object-fit:contain; /* Mantiene proporción */
-	transition:transform 0.3s ease; /* Animación suave */
-	filter:drop-shadow(0 3px 12px rgba(255, 215, 0, 0.4)); /* Sombra dorada más intensa */
-}
-.header__logo-img:hover{
-	transform:scale(1.08); /* Efecto hover más notable */
-	filter:drop-shadow(0 5px 16px rgba(255, 215, 0, 0.6)); /* Sombra más intensa al hover */
+	filter:
+		drop-shadow(0 0 6px rgba(255, 215, 0, 0.4))    /* Brillo suave interno */
+		drop-shadow(0 0 12px rgba(255, 215, 0, 0.3));  /* Brillo suave externo */
 }
 .header__title{
 	font-family:'Playfair Display', serif; /* Fuente elegante para el título */
@@ -717,7 +714,7 @@ body{
 	}
 	.header__title{font-size:1.8rem;text-align:center;order:1} /* Título primero */
 	.header__logo{justify-content:center;order:2} /* Logo segundo (después del título) */
-	.header__logo-img{height:90px} /* Logo mucho más grande */
+	.header__logo-img{height:120px} /* Logo más grande en móvil pequeño */
 	.payment-methods{justify-self:center;width:100%;justify-content:center;order:3;max-width:100%;padding:0.6rem 1rem} /* Métodos tercero */
 	.payment-icon img{height:45px} /* Imágenes más pequeñas en móvil pequeño */
 	.payment-methods__label{font-size:12px} /* Texto más pequeño */
@@ -740,7 +737,7 @@ body{
 	}
 	.header__title{font-size:2rem;text-align:center;order:1} /* Título primero y centrado */
 	.header__logo{justify-content:center;order:2} /* Logo segundo (después del título) */
-	.header__logo-img{height:100px} /* Logo mucho más grande en móvil */
+	.header__logo-img{height:130px} /* Logo más grande en móvil */
 	.payment-methods{justify-self:center;order:3;width:100%;justify-content:center;max-width:100%} /* Métodos tercero y centrados */
 	.payment-icon img{height:50px} /* Imágenes más pequeñas en móvil */
 	.payment-methods__label{font-size:13px} /* Texto más pequeño en móvil */
@@ -758,7 +755,7 @@ body{
 		grid-template-columns:auto 1fr; /* Logo y título en una fila */
 		gap:1.5rem;
 	}
-	.header__logo-img{height:90px} /* Logo grande */
+	.header__logo-img{height:120px} /* Logo grande en tablets */
 	.header__title{font-size:2.2rem;text-align:left} /* Título a la izquierda */
 	.payment-methods{grid-column:1 / -1;justify-self:center;margin-top:0.5rem} /* Métodos en segunda fila */
 }
@@ -770,7 +767,7 @@ body{
 	#bebidas .product-card__image img{height:220px} /* Bebidas más altas */
 	.product-card__title{font-size:22px} /* Título grande */
 	/* Header en tablets grandes */
-	.header__logo-img{height:110px} /* Logo muy grande */
+	.header__logo-img{height:140px} /* Logo muy grande en tablets grandes */
 }
 
 /* Escritorios/PC (1200px en adelante) - Máximo 4 columnas */
