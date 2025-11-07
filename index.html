@@ -1,9 +1,12 @@
-<!DOCTYPE html> <!-- Declaración del tipo de documento HTML5 -->
-<html lang="es"> <!-- Elemento raíz, idioma español -->
-<head>
-    <!-- METADATOS Y CONFIGURACIÓN -->
+<!DOCTYPE html>
+<html lang="es">
+<head >
+  
     <meta charset="UTF-8" /> <!-- Codificación de caracteres UTF-8 (soporta todos los caracteres) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Configuración responsive para móviles -->
+    
+    <!-- FAVICON - Ícono que aparece en la pestaña del navegador -->
+    <link rel="icon" href="img/hongfa.png" type="image/png">
     
     <!-- ESTILOS -->
     <link rel="stylesheet" href="styles/style.css" /> <!-- Enlace al archivo CSS principal -->
@@ -22,6 +25,10 @@
          ======================================== -->
     <header class="header">
         <div class="header__content">
+            <!-- Logo del restaurante -->
+            <div class="header__logo">
+                <img src="img/hongfa.png" alt="Logo Hongfa" class="header__logo-img">
+            </div>
             <!-- Título principal del restaurante -->
             <h2 class="header__title">Restaurante Hongfa</h2>
             
@@ -48,15 +55,15 @@
 
         <!-- Botones de navegación entre secciones -->
         <div class="menu-tabs">
-            <button class="menu-tab active" data-tab="promociones">Promociones</button>
-            <button class="menu-tab" data-tab="arroz-chino">Arroz Chino</button>
+            <button class="menu-tab" data-tab="promociones">Promociones</button>
+            <button class="menu-tab active" data-tab="arroz-chino">Arroz Chino</button>
             <button class="menu-tab" data-tab="platos-especiales">Platos Especiales</button>
             <button class="menu-tab" data-tab="bebidas">Bebidas</button>
             <button class="menu-tab" data-tab="porciones-adicionales">Porciones Adicionales</button>
         </div>
 
         <!-- Contenedor de Arroz Chino -->
-    <div id="arroz-chino" class="menu-content">
+    <div id="arroz-chino" class="menu-content active">
             <!-- Grid contenedor de todas las tarjetas de productos -->
             <div class="menu__grid">
             
@@ -66,7 +73,7 @@
         <div class="product-card">
             <!-- Imagen del producto -->
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz Chino Mixto" />
+                <img src="https://restauranteheiyubai.com/wp-content/uploads/Arroz-Especial.jpg" alt="Arroz Chino Mixto" />
             </div>
             <!-- Información del producto (título, descripción, precio, botones) -->
             <div class="product-card__meta">
@@ -85,15 +92,30 @@
                         <span class="size-label">Media</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-mixto" value="28000" data-size="1/4 Caja">
+                        <input type="radio" name="size-arroz-mixto" value="30000" data-size="1/4 Caja">
                         <span class="size-label">1/4</span>
+                    </label>
+                </div>
+
+                <!-- Selector de color -->
+                <p class="size-title">Color del arroz:</p>
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-mixto" value="Amarillo" data-color="Amarillo" checked>
+                        <span class="color-dot color-dot--yellow"></span>
+                        <span class="color-label">Amarillo</span>
+                    </label>
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-mixto" value="Café" data-color="Café">
+                        <span class="color-dot color-dot--brown"></span>
+                        <span class="color-label">Café</span>
                     </label>
                 </div>
                 
                 <div class="product-card__bottom">
                     <span class="price">$48.000</span>
                     <div class="product-card__actions">
-                        <button class="btn order-btn" data-product="Arroz Chino Con Todas Las Carnes" data-size-group="size-arroz-mixto">Pedir ahora</button>
+                        <button class="btn order-btn" data-product="Arroz Chino Con Todas Las Carnes" data-size-group="size-arroz-mixto" data-color-group="color-arroz-mixto">Pedir ahora</button>
                         <button class="btn btn--outline details-btn" 
                             data-title="Arroz Chino Con Todas Las Carnes"
                             data-description="Arroz chino salteado con jamón, cerdo, pollo, camarones, cebolla y raíz china. Una combinación completa de proteínas y vegetales."
@@ -108,7 +130,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz Chino con Pollo" />
+                <img src="https://restauranteshanghai.co/wp-content/uploads/Arroz-con-pollopapa-a-la-francesa.jpg" alt="Arroz Chino con Pollo" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Pollo Picado</h3>
@@ -126,15 +148,30 @@
                         <span class="size-label">Media</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-pollo" value="28000" data-size="1/4 Caja">
+                        <input type="radio" name="size-arroz-pollo" value="30000" data-size="1/4 Caja">
                         <span class="size-label">1/4</span>
+                    </label>
+                </div>
+
+                <!-- Selector de color -->
+                <p class="size-title">Color del arroz:</p>
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-pollo" value="Amarillo" data-color="Amarillo" checked>
+                        <span class="color-dot color-dot--yellow"></span>
+                        <span class="color-label">Amarillo</span>
+                    </label>
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-pollo" value="Café" data-color="Café">
+                        <span class="color-dot color-dot--brown"></span>
+                        <span class="color-label">Café</span>
                     </label>
                 </div>
                 
                 <div class="product-card__bottom">
                     <span class="price">$48.000</span>
                     <div class="product-card__actions">
-                        <button class="btn order-btn" data-product="Arroz Chino Con Pollo Picado" data-size-group="size-arroz-pollo">Pedir ahora</button>
+                        <button class="btn order-btn" data-product="Arroz Chino Con Pollo Picado" data-size-group="size-arroz-pollo" data-color-group="color-arroz-pollo">Pedir ahora</button>
                         <button class="btn btn--outline details-btn"
                             data-title="Arroz Chino Con Pollo Picado"
                             data-description="Arroz chino salteado con pollo picado, preparado con vegetales frescos y salsa de soya."
@@ -149,7 +186,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1516684732162-798a0062be99?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz con Pollo y Camarón" />
+                <img src="https://restauranteshanghai.co/wp-content/uploads/Arroz-chino-pollo-y-camaron.jpg" alt="Arroz con Pollo y Camarón" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Pollo Y Camarón</h3>
@@ -159,23 +196,38 @@
                 <p class="size-title">Tamaño caja:</p>
                 <div class="size-selector">
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-pollo-camaron" value="48000" data-size="Caja Entera" checked>
+                        <input type="radio" name="size-arroz-pollo-camaron" value="54000" data-size="Caja Entera" checked>
                         <span class="size-label">Entera</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-pollo-camaron" value="38000" data-size="Media Caja">
+                        <input type="radio" name="size-arroz-pollo-camaron" value="44000" data-size="Media Caja">
                         <span class="size-label">Media</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-pollo-camaron" value="28000" data-size="1/4 Caja">
+                        <input type="radio" name="size-arroz-pollo-camaron" value="34000" data-size="1/4 Caja">
                         <span class="size-label">1/4</span>
+                    </label>
+                </div>
+
+                <!-- Selector de color -->
+                <p class="size-title">Color del arroz:</p>
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-pollo-camaron" value="Amarillo" data-color="Amarillo" checked>
+                        <span class="color-dot color-dot--yellow"></span>
+                        <span class="color-label">Amarillo</span>
+                    </label>
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-pollo-camaron" value="Café" data-color="Café">
+                        <span class="color-dot color-dot--brown"></span>
+                        <span class="color-label">Café</span>
                     </label>
                 </div>
                 
                 <div class="product-card__bottom">
-                    <span class="price">$48.000</span>
+                    <span class="price">$54.000</span>
                     <div class="product-card__actions">
-                        <button class="btn order-btn" data-product="Arroz Chino Con Pollo Y Camarón" data-size-group="size-arroz-pollo-camaron">Pedir ahora</button>
+                        <button class="btn order-btn" data-product="Arroz Chino Con Pollo Y Camarón" data-size-group="size-arroz-pollo-camaron" data-color-group="color-arroz-pollo-camaron">Pedir ahora</button>
                         <button class="btn btn--outline details-btn"
                             data-title="Arroz Chino Con Pollo Y Camarón"
                             data-description="Arroz chino salteado con pollo y camarones frescos, una combinación perfecta de sabores del mar y la tierra."
@@ -190,7 +242,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz con Cerdo y Camarón" />
+                <img src="https://lirp.cdn-website.com/7e673295/dms3rep/multi/opt/_MG_7241-1920w.jpg" alt="Arroz con Cerdo y Camarón" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Cerdo Y Camarones</h3>
@@ -200,23 +252,38 @@
                 <p class="size-title">Tamaño caja:</p>
                 <div class="size-selector">
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-cerdo-camaron" value="48000" data-size="Caja Entera" checked>
+                        <input type="radio" name="size-arroz-cerdo-camaron" value="54000" data-size="Caja Entera" checked>
                         <span class="size-label">Entera</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-cerdo-camaron" value="38000" data-size="Media Caja">
+                        <input type="radio" name="size-arroz-cerdo-camaron" value="44000" data-size="Media Caja">
                         <span class="size-label">Media</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-cerdo-camaron" value="28000" data-size="1/4 Caja">
+                        <input type="radio" name="size-arroz-cerdo-camaron" value="34000" data-size="1/4 Caja">
                         <span class="size-label">1/4</span>
+                    </label>
+                </div>
+
+                <!-- Selector de color -->
+                <p class="size-title">Color del arroz:</p>
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-cerdo-camaron" value="Amarillo" data-color="Amarillo" checked>
+                        <span class="color-dot color-dot--yellow"></span>
+                        <span class="color-label">Amarillo</span>
+                    </label>
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-cerdo-camaron" value="Café" data-color="Café">
+                        <span class="color-dot color-dot--brown"></span>
+                        <span class="color-label">Café</span>
                     </label>
                 </div>
                 
                 <div class="product-card__bottom">
-                    <span class="price">$48.000</span>
+                    <span class="price">$54.000</span>
                     <div class="product-card__actions">
-                        <button class="btn order-btn" data-product="Arroz Chino Con Cerdo Y Camarones" data-size-group="size-arroz-cerdo-camaron">Pedir ahora</button>
+                        <button class="btn order-btn" data-product="Arroz Chino Con Cerdo Y Camarones" data-size-group="size-arroz-cerdo-camaron" data-color-group="color-arroz-cerdo-camaron">Pedir ahora</button>
                         <button class="btn btn--outline details-btn"
                             data-title="Arroz Chino Con Cerdo Y Camarones"
                             data-description="Arroz chino salteado con cerdo tierno y camarones frescos, sazonado con especias orientales."
@@ -231,7 +298,7 @@
              ======================================== -->
         <div class="product-card">
             <div class="product-card__image">
-                <img src="https://images.unsplash.com/photo-1559314809-0d155014e29e?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Arroz con Camarón" />
+                <img src="https://lirp.cdn-website.com/7e673295/dms3rep/multi/opt/_MG_7198-1920w.jpg" alt="Arroz con Camarón" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Solo Camarón</h3>
@@ -241,23 +308,38 @@
                 <p class="size-title">Tamaño caja:</p>
                 <div class="size-selector">
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-camaron" value="48000" data-size="Caja Entera" checked>
+                        <input type="radio" name="size-arroz-camaron" value="56000" data-size="Caja Entera" checked>
                         <span class="size-label">Entera</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-camaron" value="38000" data-size="Media Caja">
+                        <input type="radio" name="size-arroz-camaron" value="46000" data-size="Media Caja">
                         <span class="size-label">Media</span>
                     </label>
                     <label class="size-option">
-                        <input type="radio" name="size-arroz-camaron" value="28000" data-size="1/4 Caja">
+                        <input type="radio" name="size-arroz-camaron" value="36000" data-size="1/4 Caja">
                         <span class="size-label">1/4</span>
+                    </label>
+                </div>
+
+                <!-- Selector de color -->
+                <p class="size-title">Color del arroz:</p>
+                <div class="color-selector">
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-camaron" value="Amarillo" data-color="Amarillo" checked>
+                        <span class="color-dot color-dot--yellow"></span>
+                        <span class="color-label">Amarillo</span>
+                    </label>
+                    <label class="color-option">
+                        <input type="radio" name="color-arroz-camaron" value="Café" data-color="Café">
+                        <span class="color-dot color-dot--brown"></span>
+                        <span class="color-label">Café</span>
                     </label>
                 </div>
                 
                 <div class="product-card__bottom">
-                    <span class="price">$48.000</span>
+                    <span class="price">56.000</span>
                     <div class="product-card__actions">
-                        <button class="btn order-btn" data-product="Arroz Chino Con Solo Camarón" data-size-group="size-arroz-camaron">Pedir ahora</button>
+                        <button class="btn order-btn" data-product="Arroz Chino Con Solo Camarón" data-size-group="size-arroz-camaron" data-color-group="color-arroz-camaron">Pedir ahora</button>
                         <button class="btn btn--outline details-btn"
                             data-title="Arroz Chino Con Solo Camarón"
                             data-description="Arroz chino salteado con camarones frescos, ideal para los amantes de los mariscos."
@@ -280,7 +362,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Chop Suey" />
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Chop-Suey-Especial.jpg" alt="Chop Suey" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Chop Suey</h3>
@@ -290,19 +372,34 @@
                     <p class="size-title">Tamaño:</p>
                     <div class="size-selector">
                         <label class="size-option">
-                            <input type="radio" name="size-chopsuey" value="48000" data-size="Entero" checked>
+                            <input type="radio" name="size-chopsuey" value="60000" data-size="Entero" checked>
                             <span class="size-label">Entero</span>
                         </label>
                         <label class="size-option">
-                            <input type="radio" name="size-chopsuey" value="38000" data-size="Medio">
+                            <input type="radio" name="size-chopsuey" value="50000" data-size="Medio">
                             <span class="size-label">Medio</span>
+                        </label>
+                    </div>
+
+                    <!-- Selector de color -->
+                    <p class="size-title">Color del arroz:</p>
+                    <div class="color-selector">
+                        <label class="color-option">
+                            <input type="radio" name="color-chopsuey" value="Amarillo" data-color="Amarillo" checked>
+                            <span class="color-dot color-dot--yellow"></span>
+                            <span class="color-label">Amarillo</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="color-chopsuey" value="Café" data-color="Café">
+                            <span class="color-dot color-dot--brown"></span>
+                            <span class="color-label">Café</span>
                         </label>
                     </div>
                     
                     <div class="product-card__bottom">
                         <span class="price">$48.000</span>
                         <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Chop Suey" data-size-group="size-chopsuey">Pedir ahora</button>
+                            <button class="btn order-btn" data-product="Chop Suey" data-size-group="size-chopsuey" data-color-group="color-chopsuey">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
                                 data-title="Chop Suey"
                                 data-description="Chop suey salteado con cerdo, pollo y camarones frescos, acompañado de vegetales mixtos."
@@ -317,7 +414,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Tortilla" />
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Tortilla-Especial.jpg" alt="Tortilla" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Tortilla</h3>
@@ -327,19 +424,34 @@
                     <p class="size-title">Tamaño:</p>
                     <div class="size-selector">
                         <label class="size-option">
-                            <input type="radio" name="size-tortilla" value="48000" data-size="Entero" checked>
+                            <input type="radio" name="size-tortilla" value="42000" data-size="Entero" checked>
                             <span class="size-label">Entero</span>
                         </label>
                         <label class="size-option">
-                            <input type="radio" name="size-tortilla" value="38000" data-size="Medio">
+                            <input type="radio" name="size-tortilla" value="60000" data-size="Medio">
                             <span class="size-label">Medio</span>
+                        </label>
+                    </div>
+
+                    <!-- Selector de color -->
+                    <p class="size-title">Color del arroz:</p>
+                    <div class="color-selector">
+                        <label class="color-option">
+                            <input type="radio" name="color-tortilla" value="Amarillo" data-color="Amarillo" checked>
+                            <span class="color-dot color-dot--yellow"></span>
+                            <span class="color-label">Amarillo</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="color-tortilla" value="Café" data-color="Café">
+                            <span class="color-dot color-dot--brown"></span>
+                            <span class="color-label">Café</span>
                         </label>
                     </div>
                     
                     <div class="product-card__bottom">
                         <span class="price">$48.000</span>
                         <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Tortilla" data-size-group="size-tortilla">Pedir ahora</button>
+                            <button class="btn order-btn" data-product="Tortilla" data-size-group="size-tortilla" data-color-group="color-tortilla">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
                                 data-title="Tortilla"
                                 data-description="Tortilla con arroz sencillo preparado con jamón y raíz china. Incluye papas en cascos y ensalada fresca."
@@ -354,7 +466,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Spaghetti" />
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Espaguetis-Especial.jpg" alt="Spaghetti" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Spaghetti</h3>
@@ -364,19 +476,34 @@
                     <p class="size-title">Tamaño:</p>
                     <div class="size-selector">
                         <label class="size-option">
-                            <input type="radio" name="size-spaghetti" value="48000" data-size="Entero" checked>
+                            <input type="radio" name="size-spaghetti" value="60000" data-size="Entero" checked>
                             <span class="size-label">Entero</span>
                         </label>
                         <label class="size-option">
-                            <input type="radio" name="size-spaghetti" value="38000" data-size="Medio">
+                            <input type="radio" name="size-spaghetti" value="50000" data-size="Medio">
                             <span class="size-label">Medio</span>
+                        </label>
+                    </div>
+
+                    <!-- Selector de color -->
+                    <p class="size-title">Color del arroz:</p>
+                    <div class="color-selector">
+                        <label class="color-option">
+                            <input type="radio" name="color-spaghetti" value="Amarillo" data-color="Amarillo" checked>
+                            <span class="color-dot color-dot--yellow"></span>
+                            <span class="color-label">Amarillo</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="color-spaghetti" value="Café" data-color="Café">
+                            <span class="color-dot color-dot--brown"></span>
+                            <span class="color-label">Café</span>
                         </label>
                     </div>
                     
                     <div class="product-card__bottom">
                         <span class="price">$48.000</span>
                         <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Spaghetti" data-size-group="size-spaghetti">Pedir ahora</button>
+                            <button class="btn order-btn" data-product="Spaghetti" data-size-group="size-spaghetti" data-color-group="color-spaghetti">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
                                 data-title="Spaghetti"
                                 data-description="Spaghetti salteado con jamón, cerdo, pollo y camarón fresco, al estilo asiático."
@@ -390,78 +517,66 @@
         </div> <!-- Cierre de platos-especiales -->
 
         <!-- Contenedor de Promociones -->
-    <div id="promociones" class="menu-content active">
+    <div id="promociones" class="menu-content">
             <div class="menu__grid">
 
             <!-- ========================================
-                 PROMOCIÓN 1: COMBO FAMILIAR
+                 PROMOCIÓN 1: COMBO pollo dorado
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Combo Familiar Hongfa" />
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Pollo-Caja-de-Arroz-Frito-Papa-y-Ensalada.jpg" alt="Combo Familiar Hongfa" />
                 </div>
                 <div class="product-card__meta">
-                    <h3 class="product-card__title">Combo Familiar Hongfa</h3>
-                    <p class="product-card__desc">Dos cajas de arroz mixto, Chop Suey grande, cuatro rollos primavera y cuatro bebidas de 600 ml.</p>
+                    <h3 class="product-card__title">MEGA PROMOCIÓN HONGFA</h3>
+                    <p class="product-card__desc" data-desc-base="Un {SIZE} pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.">Pollo entero dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.</p>
+                    
+                    <!-- Selector de tamaño -->
+                    <p class="size-title">Tamaño caja:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-promo-hongfa" value="48000" data-size="Entero" data-size-text="entero" checked>
+                            <span class="size-label">Entero</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-promo-hongfa" value="38000" data-size="Medio" data-size-text="medio">
+                            <span class="size-label">Medio</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-promo-hongfa" value="30000" data-size="1/4" data-size-text="1/4">
+                            <span class="size-label">1/4</span>
+                        </label>
+                    </div>
+
+                    <!-- Selector de color -->
+                    <p class="size-title">Color del arroz:</p>
+                    <div class="color-selector">
+                        <label class="color-option">
+                            <input type="radio" name="color-promo-hongfa" value="Amarillo" data-color="Amarillo" checked>
+                            <span class="color-dot color-dot--yellow"></span>
+                            <span class="color-label">Amarillo</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="color-promo-hongfa" value="Café" data-color="Café">
+                            <span class="color-dot color-dot--brown"></span>
+                            <span class="color-label">Café</span>
+                        </label>
+                    </div>
+                    
                     <div class="product-card__bottom">
-                        <span class="price">$120.000</span>
+                        <span class="price">$48.000</span>
                         <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Combo Familiar Hongfa">Pedir ahora</button>
+                            <button class="btn order-btn" data-product="MEGA PROMOCIÓN HONGFA" data-size-group="size-promo-hongfa" data-color-group="color-promo-hongfa">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
-                                data-title="Combo Familiar Hongfa"
-                                data-description="Incluye dos cajas de arroz mixto con todas las carnes, un Chop Suey grande, cuatro rollos primavera y cuatro bebidas de 600 ml para compartir."
-                                data-portions="Ideal para 6 personas">Detalles</button>
+                                data-title="MEGA PROMOCIÓN HONGFA"
+                                data-description="Pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos. Tamaño según selección."
+                                data-portions="Disponible en diferentes tamaños">Detalles</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ========================================
-                 PROMOCIÓN 2: PROMO PAREJA
-                 ======================================== -->
-            <div class="product-card">
-                <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Promo Pareja Oriental" />
-                </div>
-                <div class="product-card__meta">
-                    <h3 class="product-card__title">Promo Pareja Oriental</h3>
-                    <p class="product-card__desc">Media caja de arroz mixto, dos porciones de camarones apanados, ensalada agridulce y dos bebidas de 500 ml.</p>
-                    <div class="product-card__bottom">
-                        <span class="price">$65.000</span>
-                        <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Promo Pareja Oriental">Pedir ahora</button>
-                            <button class="btn btn--outline details-btn"
-                                data-title="Promo Pareja Oriental"
-                                data-description="Combo diseñado para dos personas: media caja de arroz mixto con todas las carnes, dos porciones de camarones apanados, ensalada agridulce y dos bebidas frías."
-                                data-portions="Ideal para 2 personas">Detalles</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ========================================
-                 PROMOCIÓN 3: ALMUERZO EJECUTIVO
-                 ======================================== -->
-            <div class="product-card">
-                <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1543772514-2b33e0efb31f?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Almuerzo Ejecutivo" />
-                </div>
-                <div class="product-card__meta">
-                    <h3 class="product-card__title">Almuerzo Ejecutivo</h3>
-                    <p class="product-card__desc">Arroz especial con pollo y cerdo, rollo primavera, porción de ensalada agridulce y té frío de 500 ml.</p>
-                    <div class="product-card__bottom">
-                        <span class="price">$45.000</span>
-                        <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Almuerzo Ejecutivo">Pedir ahora</button>
-                            <button class="btn btn--outline details-btn"
-                                data-title="Almuerzo Ejecutivo"
-                                data-description="Un almuerzo rápido y completo: arroz especial salteado con pollo y cerdo, rollo primavera crujiente, ensalada agridulce y té frío 500 ml."
-                                data-portions="Ideal para 1 persona">Detalles</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+           
         </div> <!-- Cierre de menu__grid promociones -->
         </div> <!-- Cierre de promociones -->
 
@@ -515,11 +630,11 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://storage.googleapis.com/liquidos-public/products/large/1110072.png" alt="Sprite Familiar" />
+                    <img src="https://kapikua.com.co/wp-content/uploads/2024/08/Gaseosa-Quatro.png" alt="Sprite Familiar" />
                 </div>
                 <div class="product-card__meta">
-                    <h3 class="product-card__title">Sprite Familiar</h3>
-                    <p class="product-card__desc">Gaseosa limón-lima en botellas de 1 L, 1.5 L y 2.25 L.</p>
+                    <h3 class="product-card__title">Gaseosa Quatro</h3>
+                    <p class="product-card__desc">Gaseosa Quatro en botellas de 1 L, 1.5 L y 2.25 L.</p>
 
                     <p class="size-title">Presentación:</p>
                     <div class="size-selector">
@@ -551,15 +666,15 @@
             </div>
 
             <!-- ========================================
-                 BEBIDA 3: TÉ FRÍO LIMÓN
+                 BEBIDA 3: AGUA HONGFA
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://comercialwolkvox.blob.core.windows.net/imagenes/Abastecidos_1080X1080/15001819-Frontal.png" alt="Té Frío Limón" />
+                    <img src="https://www.aguazalva.co/sites/g/files/seuoyk661/files/2022-10/botella.png.webp" alt="Agua Hongfa" />
                 </div>
                 <div class="product-card__meta">
-                    <h3 class="product-card__title">Té Frío Limón</h3>
-                    <p class="product-card__desc">Té helado sabor limón en 500 ml, 1 L y 1.5 L.</p>
+                    <h3 class="product-card__title">Agua Hongfa</h3>
+                    <p class="product-card__desc">Agua mineral en botellas de 500 ml, 1 L y 1.5 L.</p>
 
                     <p class="size-title">Presentación:</p>
                     <div class="size-selector">
@@ -590,45 +705,7 @@
                 </div>
             </div>
 
-            <!-- ========================================
-                 BEBIDA 4: AGUA SIN GAS
-                 ======================================== -->
-            <div class="product-card">
-                <div class="product-card__image">
-                    <img src="https://comercialwolkvox.blob.core.windows.net/imagenes/Abastecidos_1080X1080/15001819-Frontal.png" alt="Agua sin gas" />
-                </div>
-                <div class="product-card__meta">
-                    <h3 class="product-card__title">Agua Sin Gas</h3>
-                    <p class="product-card__desc">Agua pura en presentaciones de 600 ml, 1 L y 1.5 L.</p>
-
-                    <p class="size-title">Presentación:</p>
-                    <div class="size-selector">
-                        <label class="size-option">
-                            <input type="radio" name="size-agua" value="3000" data-size="600 ml" checked>
-                            <span class="size-label">600 ml</span>
-                        </label>
-                        <label class="size-option">
-                            <input type="radio" name="size-agua" value="4500" data-size="1 L">
-                            <span class="size-label">1 L</span>
-                        </label>
-                        <label class="size-option">
-                            <input type="radio" name="size-agua" value="6000" data-size="1.5 L">
-                            <span class="size-label">1.5 L</span>
-                        </label>
-                    </div>
-
-                    <div class="product-card__bottom">
-                        <span class="price">$3.000</span>
-                        <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Agua Sin Gas" data-size-group="size-agua">Pedir ahora</button>
-                            <button class="btn btn--outline details-btn"
-                                data-title="Agua Sin Gas"
-                                data-description="Agua sin gas embotellada disponible en 600 ml, 1 L y 1.5 L para refrescarte."
-                                data-portions="Presentaciones: 600 ml, 1 L y 1.5 L">Detalles</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          
 
         </div> <!-- Cierre de menu__grid bebidas -->
         </div> <!-- Cierre de bebidas -->
@@ -643,14 +720,14 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Ensalada Agridulce" />
+                    <img src="https://static.bainet.es/clip/b7368320-fb9b-43c9-b23f-3b2332e4902f_source-aspect-ratio_1600w_0.jpg" alt="Ensalada Agridulce" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Porción de Ensalada Agridulce</h3>
                     <p class="product-card__desc">Ensalada fresca con salsa agridulce.</p>
                     
                     <div class="product-card__bottom">
-                        <span class="price">$10.000</span>
+                        <span class="price">$5.000</span>
                         <div class="product-card__actions">
                             <button class="btn order-btn" data-product="Porción de Ensalada Agridulce">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
@@ -667,7 +744,7 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Papas en Cascos" />
+                    <img src="https://balancefood.com.co/wp-content/uploads/2021/07/cascos-papa-balance-food.png" alt="Papas en Cascos" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Porción de Papas en Cascos</h3>
@@ -691,14 +768,14 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Camarones" />
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRopx0AtFssDKlNNuX6EtannaL79Aw9C24EkA&s" alt="Camarones" />
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Porción de Camarones</h3>
                     <p class="product-card__desc">Camarones frescos preparados al estilo asiático.</p>
                     
                     <div class="product-card__bottom">
-                        <span class="price">$10.000</span>
+                        <span class="price">$22.000</span>
                         <div class="product-card__actions">
                             <button class="btn order-btn" data-product="Porción de Camarones">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"

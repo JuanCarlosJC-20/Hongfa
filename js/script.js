@@ -466,6 +466,16 @@ document.addEventListener('DOMContentLoaded', function () {
       
       // Actualiza el texto del precio
       priceElement.textContent = `$${formattedPrice}`;
+      
+      // Cambio dinámico de descripción (para promociones con data-desc-base)
+      const descElement = card.querySelector('.product-card__desc');
+      if (descElement && descElement.hasAttribute('data-desc-base')) {
+        const descTemplate = descElement.getAttribute('data-desc-base');
+        const sizeText = this.getAttribute('data-size-text') || this.getAttribute('data-size') || '';
+        // Reemplaza {SIZE} en la plantilla con el texto del tamaño
+        const newDesc = descTemplate.replace('{SIZE}', sizeText);
+        descElement.textContent = newDesc;
+      }
     });
   });
 

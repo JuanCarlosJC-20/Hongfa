@@ -2,13 +2,19 @@
    VARIABLES CSS - Colores y recursos globales
    ======================================== */
 :root{
-	/* Colores principales del tema (rojo y dorado) */
-	--accent:#c71b1b;          /* Rojo principal */
-	--accent-2:#e33;           /* Rojo secundario más claro */
-	--bg:#d32f2f;              /* Color de fondo base */
-	--bg-gradient:linear-gradient(135deg, #c62828 0%, #e53935 50%, #d32f2f 100%); /* Gradiente rojo para el fondo */
-	--text:#fff;               /* Color del texto (blanco) */
-	--title-gold:#ffd700;      /* Dorado para títulos */
+	/* Paleta elegante: Negro, Dorado, Rojo y Blanco */
+	--accent:#c41e3a;          /* Rojo vibrante para acentos estratégicos */
+	--accent-hover:#e02447;    /* Rojo más claro para hover */
+	--bg:#0f0f0f;              /* Negro profundo de fondo */
+	--bg-gradient:linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 50%, #000000 100%); /* Gradiente negro elegante */
+	--card-bg:linear-gradient(145deg, #1a1a1a 0%, #262626 100%); /* Fondo de tarjetas gris oscuro */
+	--card-accent:linear-gradient(145deg, #2a2a2a 0%, #1f1f1f 100%); /* Variante con más contraste */
+	--text:#ffffff;            /* Blanco puro para texto principal */
+	--text-secondary:#e0e0e0;  /* Blanco suave para texto secundario */
+	--title-gold:#FFD700;      /* Dorado brillante para títulos */
+	--gold-accent:#FFC107;     /* Dorado cálido para detalles */
+	--border-gold:rgba(255, 215, 0, 0.25); /* Dorado semitransparente para bordes */
+	--border-light:rgba(255, 255, 255, 0.1); /* Blanco muy tenue para separadores */
 	--hero-bg:url('https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=17f6b3e2b1a4c9b5d3e6f7a8b9c0d1e2'); /* Imagen de fondo del hero */
 }
 
@@ -33,46 +39,73 @@ body{
    HEADER - Encabezado con título y medios de pago
    ======================================== */
 .header{
-	background:rgba(0,0,0,0.3); /* Fondo oscuro semitransparente */
-	padding:1.5rem 1rem; /* Espaciado interno */
-	border-bottom:2px solid rgba(255,215,0,0.3); /* Borde inferior dorado */
+	background:linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.85) 100%); /* Fondo negro casi opaco con gradiente */
+	padding:1.5rem 1.5rem; /* Espaciado interno aumentado */
+	border-bottom:2px solid var(--border-gold); /* Borde inferior dorado */
 	position:relative; /* Para que esté por encima del dragón */
 	z-index:10; /* Por encima del dragón */
+	backdrop-filter:blur(10px); /* Efecto de desenfoque del fondo */
 }
 .header__content{
 	max-width:1600px; /* Ancho máximo del contenido */
 	margin:0 auto; /* Centrado horizontal */
-	display:flex; /* Layout flexible */
-	justify-content:space-between; /* Espacio entre título y medios de pago */
+	display:grid; /* Cambio a grid para mejor control */
+	grid-template-columns:auto 1fr auto; /* Logo | Título | Métodos de pago */
 	align-items:center; /* Alineación vertical al centro */
-	flex-wrap:wrap; /* Permite salto de línea en pantallas pequeñas */
-	gap:1rem; /* Espacio entre elementos */
+	gap:2rem; /* Espacio entre elementos aumentado */
+}
+/* Logo del restaurante */
+.header__logo{
+	display:flex; /* Layout flexible */
+	align-items:center; /* Centrado vertical */
+	flex-shrink:0; /* No se comprime */
+}
+.header__logo-img{
+	height:120px; /* Altura del logo aumentada significativamente */
+	width:auto; /* Ancho proporcional */
+	object-fit:contain; /* Mantiene proporción */
+	transition:transform 0.3s ease; /* Animación suave */
+	filter:drop-shadow(0 3px 12px rgba(255, 215, 0, 0.4)); /* Sombra dorada más intensa */
+}
+.header__logo-img:hover{
+	transform:scale(1.08); /* Efecto hover más notable */
+	filter:drop-shadow(0 5px 16px rgba(255, 215, 0, 0.6)); /* Sombra más intensa al hover */
 }
 .header__title{
 	font-family:'Playfair Display', serif; /* Fuente elegante para el título */
 	color:var(--title-gold); /* Color dorado */
-	font-size:clamp(2.8rem, 5vw, 3.5rem); /* Título destacado: más grande que el menú */
+	font-size:clamp(2rem, 4vw, 3rem); /* Título ajustado */
 	margin:0; /* Sin margen */
 	text-shadow:2px 2px 4px rgba(0,0,0,0.4); /* Sombra para mejor legibilidad */
+	text-align:center; /* Centrado */
+	white-space:nowrap; /* Evita salto de línea */
 }
 
 /* Contenedor de métodos de pago */
 .payment-methods{
 	display:flex; /* Layout flexible */
 	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
 	gap:0.75rem; /* Espacio entre label e íconos */
-	background:rgba(0,0,0,0.2); /* Fondo oscuro semitransparente */
-	padding:0.5rem 1rem; /* Espaciado interno */
-	border-radius:8px; /* Bordes redondeados */
+	background:rgba(255, 255, 255, 0.95); /* Fondo blanco casi opaco para contrastar */
+	padding:0.8rem 2rem; /* Espaciado interno aumentado */
+	border-radius:10px; /* Bordes redondeados */
+	border:2px solid var(--border-gold); /* Borde dorado más grueso */
+	grid-column:1 / -1; /* Ocupa todo el ancho del grid */
+	justify-self:center; /* Centrado en el grid */
+	box-shadow:0 2px 10px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+	max-width:500px; /* Ancho máximo para no estirarse demasiado */
+	width:100%; /* Ocupa el ancho disponible */
 }
 .payment-methods__label{
-	font-size:13px; /* Tamaño pequeño para el label */
+	font-size:15px; /* Tamaño aumentado para mejor visibilidad */
 	font-weight:600; /* Negrita */
-	opacity:0.9; /* Ligeramente transparente */
+	color:#333; /* Color oscuro para contraste con fondo blanco */
+	opacity:1; /* Totalmente visible */
 }
 .payment-methods__icons{
 	display:flex; /* Layout flexible para los íconos */
-	gap:0.5rem; /* Espacio entre íconos */
+	gap:0.75rem; /* Espacio entre íconos aumentado */
 	align-items:center; /* Centrado vertical */
 }
 .payment-icon{
@@ -85,7 +118,7 @@ body{
 	transform:scale(1.1); /* Escala ligeramente al pasar el mouse */
 }
 .payment-icon img{
-	height:70px; /* Altura fija de las imágenes de medios de pago */
+	height:60px; /* Altura visible en PC */
 	width:auto; /* Ancho proporcional automático */
 	object-fit:contain; /* Mantiene proporción sin deformar */
 	display:block; /* Elimina espacio inferior de imágenes inline */
@@ -129,7 +162,7 @@ body{
 /* Botones generales */
 .btn{
 	display:inline-block; /* Permite dimensiones personalizadas */
-	background:var(--accent); /* Fondo rojo */
+	background:linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%); /* Gradiente rojo elegante */
 	color:#fff; /* Texto blanco */
 	padding:.75rem 1rem; /* Espaciado interno */
 	border-radius:10px; /* Bordes redondeados */
@@ -139,12 +172,24 @@ body{
 	cursor:pointer; /* Cursor de mano al pasar */
 	min-height:44px; /* Altura mínima para accesibilidad táctil */
 	line-height:1; /* Espaciado de línea */
+	transition:all 0.3s ease; /* Transición suave */
+	box-shadow:0 4px 12px rgba(196, 30, 58, 0.3); /* Sombra roja sutil */
+}
+.btn:hover{
+	transform:translateY(-2px); /* Eleva ligeramente */
+	box-shadow:0 6px 20px rgba(196, 30, 58, 0.5); /* Sombra más pronunciada */
 }
 .btn--outline{
 	background:transparent; /* Fondo transparente */
 	color:#fff; /* Texto blanco */
-	border:2px solid rgba(255,255,255,0.9); /* Borde blanco */
+	border:2px solid var(--border-gold); /* Borde dorado */
 	padding:.6rem .9rem; /* Espaciado ajustado por el borde */
+	box-shadow:none; /* Sin sombra */
+}
+.btn--outline:hover{
+	background:rgba(255, 215, 0, 0.1); /* Fondo dorado muy sutil al hover */
+	border-color:var(--title-gold); /* Borde dorado más brillante */
+	transform:translateY(-2px); /* Eleva ligeramente */
 }
 
 /* ========================================
@@ -349,9 +394,9 @@ body{
 	background:rgba(255,215,0,0.5); /* Más visible al hover */
 }
 .menu-tab{
-	background:rgba(0,0,0,0.3); /* Fondo oscuro semitransparente */
-	color:#fff; /* Texto blanco */
-	border:2px solid rgba(255,215,0,0.3); /* Borde dorado sutil */
+	background:rgba(26, 26, 26, 0.8); /* Fondo gris oscuro semitransparente */
+	color:var(--text-secondary); /* Texto blanco suave */
+	border:2px solid var(--border-gold); /* Borde dorado sutil */
 	padding:10px 20px; /* Espaciado interno compacto */
 	font-size:14px; /* Tamaño de texto más pequeño */
 	font-weight:600; /* Semi-negrita */
@@ -364,15 +409,17 @@ body{
 	min-width:fit-content; /* Ancho mínimo según contenido */
 }
 .menu-tab:hover{
-	background:rgba(255,215,0,0.2); /* Fondo dorado sutil al pasar mouse */
+	background:rgba(255,215,0,0.15); /* Fondo dorado sutil al pasar mouse */
 	border-color:var(--title-gold); /* Borde dorado más visible */
 	transform:translateY(-2px); /* Eleva ligeramente */
+	color:#fff; /* Texto blanco brillante */
 }
 .menu-tab.active{
-	background:var(--title-gold); /* Fondo dorado completo */
+	background:linear-gradient(135deg, var(--title-gold) 0%, var(--gold-accent) 100%); /* Gradiente dorado */
 	color:#000; /* Texto negro */
 	border-color:var(--title-gold); /* Borde dorado */
-	box-shadow:0 4px 15px rgba(255,215,0,0.4); /* Sombra dorada */
+	box-shadow:0 4px 15px rgba(255,215,0,0.5); /* Sombra dorada más pronunciada */
+	font-weight:700; /* Más negrita cuando está activo */
 }
 
 /* Ajuste para móviles - scroll horizontal visible */
@@ -414,17 +461,30 @@ body{
    ======================================== */
 .product-card{
 	width:100%; /* Ancho completo del grid */
-	background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 60%); /* Gradiente rojo */
-	border-radius:12px; /* Bordes redondeados */
-	box-shadow:0 10px 30px rgba(0,0,0,.35); /* Sombra pronunciada */
+	background:var(--card-bg); /* Gradiente negro a gris oscuro elegante */
+	border-radius:14px; /* Bordes más redondeados */
+	box-shadow:0 8px 24px rgba(0,0,0,.6), 0 0 0 1px var(--border-gold); /* Sombra profunda + borde dorado fino */
 	overflow:hidden; /* Oculta contenido que sobresalga */
-	color:#fff; /* Texto blanco */
+	color:var(--text); /* Texto blanco */
 	display:flex; /* Layout flexible */
 	flex-direction:column; /* Organización vertical (imagen arriba, meta abajo) */
+	transition:all 0.3s ease; /* Transición suave */
+	position:relative; /* Para el acento dorado */
+}
+.product-card::before{
+	content:''; /* Pseudo-elemento para acento superior */
+	position:absolute; top:0; left:0; right:0;
+	height:3px; /* Línea delgada */
+	background:linear-gradient(90deg, var(--title-gold) 0%, var(--gold-accent) 100%); /* Gradiente dorado */
+	opacity:0.7; /* Semitransparente */
+}
+.product-card:hover{
+	transform:translateY(-4px); /* Eleva la tarjeta */
+	box-shadow:0 12px 32px rgba(0,0,0,.7), 0 0 0 2px var(--title-gold); /* Sombra más pronunciada + borde dorado más visible */
 }
 .product-card__image{
-	padding:12px; /* Espaciado interno */
-	background:linear-gradient(90deg,rgba(0,0,0,.12),transparent); /* Gradiente sutil */
+	padding:14px; /* Espaciado interno */
+	background:linear-gradient(135deg,rgba(0,0,0,.3),rgba(26,26,26,.1)); /* Gradiente negro sutil */
 	display:flex; /* Layout flexible */
 	align-items:center; /* Centrado vertical */
 	justify-content:center; /* Centrado horizontal */
@@ -433,14 +493,24 @@ body{
 	width:100%; /* Ancho completo del contenedor */
 	height:200px; /* Altura fija */
 	object-fit:cover; /* Cubre el área sin deformar */
-	border-radius:8px; /* Bordes redondeados */
-	border:4px solid rgba(255,255,255,.06); /* Borde sutil blanco */
+	border-radius:10px; /* Bordes redondeados */
+	border:2px solid var(--border-light); /* Borde sutil */
 	display:block; /* Elimina espacio inferior */
+	transition:transform 0.3s ease; /* Transición suave */
+}
+/* Imágenes de bebidas (botellas verticales con fondo transparente) */
+#bebidas .product-card__image img{
+	object-fit:contain; /* Mantiene toda la imagen visible sin recortar */
+	height:220px; /* Más altura para botellas verticales */
+	background:linear-gradient(135deg, rgba(0,0,0,.2) 0%, rgba(26,26,26,.1) 100%); /* Fondo sutil */
+}
+.product-card:hover .product-card__image img{
+	transform:scale(1.03); /* Zoom sutil al hover */
 }
 .product-card__meta{
 	padding:18px 20px; /* Espaciado interno */
-	background:linear-gradient(180deg,transparent 0%, rgba(0,0,0,.06) 100%); /* Gradiente sutil oscuro */
-	color:#fff; /* Texto blanco */
+	background:linear-gradient(180deg,transparent 0%, rgba(0,0,0,.15) 100%); /* Gradiente sutil oscuro */
+	color:var(--text); /* Texto blanco */
 	display:flex; /* Layout flexible */
 	flex-direction:column; /* Organización vertical */
 	flex:1; /* Ocupa espacio disponible */
@@ -449,14 +519,15 @@ body{
 	font-family:'Playfair Display',serif; /* Fuente elegante */
 	font-size:clamp(18px, 3vw, 24px); /* Tamaño responsivo */
 	margin-bottom:8px; /* Margen inferior */
-	color:var(--title-gold); /* Color dorado */
-	text-shadow:1px 1px 3px rgba(0,0,0,0.3); /* Sombra sutil */
+	color:var(--title-gold); /* Color dorado brillante */
+	text-shadow:0 2px 8px rgba(255, 215, 0, 0.3); /* Sombra dorada sutil */
 }
 .product-card__desc{
 	font-size:14px; /* Tamaño de texto pequeño */
-	opacity:.95; /* Ligeramente transparente */
+	color:var(--text-secondary); /* Blanco suave */
 	margin-bottom:12px; /* Margen inferior */
 	flex:1; /* Ocupa espacio disponible (empuja el precio/botones abajo) */
+	line-height:1.5; /* Mejor legibilidad */
 }
 .product-card__bottom{
 	display:flex; /* Layout flexible */
@@ -475,12 +546,14 @@ body{
 }
 .price{
 	font-weight:800; /* Muy negrita */
-	color:#ffd700; /* Dorado */
-	background:rgba(0,0,0,.25); /* Fondo oscuro semitransparente */
-	padding:8px 12px; /* Espaciado interno */
-	border-radius:8px; /* Bordes redondeados */
-	font-size:16px; /* Tamaño mediano */
+	color:var(--title-gold); /* Dorado brillante */
+	background:linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 193, 7, 0.1) 100%); /* Fondo dorado sutil */
+	padding:10px 14px; /* Espaciado interno */
+	border-radius:10px; /* Bordes redondeados */
+	font-size:18px; /* Tamaño destacado */
 	align-self:flex-start; /* Alineado a la izquierda */
+	border:1px solid var(--border-gold); /* Borde dorado */
+	text-shadow:0 2px 6px rgba(255, 215, 0, 0.4); /* Sombra dorada */
 }
 
 /* ========================================
@@ -489,7 +562,7 @@ body{
 .size-title{
 	font-size:13px; /* Tamaño de texto pequeño */
 	font-weight:600; /* Semi-negrita */
-	color:#ffd700; /* Color dorado */
+	color:var(--gold-accent); /* Color dorado cálido */
 	margin:10px 0 6px 0; /* Margen arriba y abajo */
 	text-align:center; /* Texto centrado */
 }
@@ -498,9 +571,10 @@ body{
 	flex-direction:row; /* Alineados horizontalmente */
 	gap:6px; /* Espacio entre opciones */
 	margin:0 0 12px 0; /* Solo margen inferior */
-	background:rgba(0,0,0,.15); /* Fondo oscuro sutil */
+	background:rgba(255, 215, 0, 0.05); /* Fondo dorado muy sutil */
 	padding:8px; /* Espaciado interno */
-	border-radius:8px; /* Bordes redondeados */
+	border-radius:10px; /* Bordes redondeados */
+	border:1px solid var(--border-gold); /* Borde dorado sutil */
 	flex-wrap:nowrap; /* NO permite salto de línea - siempre en una fila */
 }
 .size-option{
@@ -508,21 +582,29 @@ body{
 	align-items:center; /* Centrado vertical */
 	justify-content:center; /* Centrado horizontal */
 	cursor:pointer; /* Cursor de mano */
-	padding:6px 4px; /* Espaciado interno compacto */
-	border-radius:6px; /* Bordes redondeados */
-	transition:background .2s ease; /* Transición suave */
+	padding:8px 6px; /* Espaciado interno */
+	border-radius:8px; /* Bordes redondeados */
+	transition:all .25s ease; /* Transición suave */
 	flex:1; /* Se distribuyen equitativamente el espacio */
 	min-width:0; /* Permite que se compriman si es necesario */
+	background:transparent; /* Fondo transparente por defecto */
 }
 .size-option:hover{
-	background:rgba(255,255,255,.08); /* Fondo claro al pasar el mouse */
+	background:rgba(255, 215, 0, 0.12); /* Fondo dorado sutil al pasar el mouse */
+}
+.size-option input[type="radio"]:checked + .size-label{
+	color:var(--title-gold); /* Texto dorado cuando está seleccionado */
+	font-weight:700; /* Más negrita cuando está seleccionado */
+}
+.size-option input[type="radio"]:checked{
+	accent-color:var(--title-gold); /* Color dorado para el radio seleccionado */
 }
 .size-option input[type="radio"]{
 	margin-right:6px; /* Espacio a la derecha del radio */
 	cursor:pointer; /* Cursor de mano */
 	width:16px; /* Ancho fijo */
 	height:16px; /* Alto fijo */
-	accent-color:#ffd700; /* Color dorado para el radio seleccionado */
+	accent-color:var(--gold-accent); /* Color dorado cálido */
 	flex-shrink:0; /* Evita que el radio se comprima */
 }
 .size-label{
@@ -532,6 +614,81 @@ body{
 	white-space:nowrap; /* Evita saltos de línea dentro del label */
 	overflow:hidden; /* Oculta el exceso */
 	text-overflow:ellipsis; /* Muestra ... si el texto es muy largo */
+}
+
+/* ========================================
+   SELECTOR DE COLORES - Radio buttons con círculos de color
+   ======================================== */
+.color-selector{
+	display:flex; /* Layout flexible */
+	flex-direction:row; /* Alineados horizontalmente */
+	gap:6px; /* Espacio entre opciones reducido */
+	margin:0 0 12px 0; /* Solo margen inferior */
+	background:rgba(255, 215, 0, 0.05); /* Fondo dorado muy sutil */
+	padding:6px; /* Espaciado interno reducido */
+	border-radius:8px; /* Bordes redondeados */
+	border:1px solid var(--border-gold); /* Borde dorado sutil */
+	justify-content:center; /* Centrado horizontal */
+}
+.color-option{
+	display:flex; /* Layout flexible */
+	align-items:center; /* Centrado vertical */
+	cursor:pointer; /* Cursor de mano */
+	padding:5px 8px; /* Espaciado interno reducido */
+	border-radius:6px; /* Bordes redondeados */
+	transition:all .25s ease; /* Transición suave */
+	background:transparent; /* Fondo transparente por defecto */
+	gap:5px; /* Espacio entre elementos internos reducido */
+}
+.color-option:hover{
+	background:rgba(255, 215, 0, 0.12); /* Fondo dorado sutil al pasar el mouse */
+	transform:scale(1.03); /* Ligero aumento de tamaño reducido */
+}
+.color-option input[type="radio"]{
+	display:none; /* Ocultamos el radio button nativo */
+}
+.color-dot{
+	width:16px; /* Ancho del círculo reducido */
+	height:16px; /* Alto del círculo reducido */
+	border-radius:50%; /* Forma circular */
+	border:2px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+	transition:all .25s ease; /* Transición suave */
+	box-shadow:0 1px 4px rgba(0, 0, 0, 0.3); /* Sombra reducida */
+	position:relative; /* Para el checkmark */
+	flex-shrink:0; /* No se comprime */
+}
+.color-dot--yellow{
+	background:#FFD700; /* Color amarillo dorado */
+}
+.color-dot--brown{
+	background:#8B4513; /* Color café/marrón */
+}
+/* Checkmark cuando está seleccionado */
+.color-option input[type="radio"]:checked + .color-dot{
+	border:2px solid var(--title-gold); /* Borde dorado */
+	box-shadow:0 0 8px rgba(255, 215, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.4); /* Sombra dorada reducida */
+	transform:scale(1.1); /* Aumenta el tamaño reducido */
+}
+.color-option input[type="radio"]:checked + .color-dot::after{
+	content:'✓'; /* Marca de check */
+	position:absolute; /* Posicionamiento absoluto */
+	top:50%; /* Centrado vertical */
+	left:50%; /* Centrado horizontal */
+	transform:translate(-50%, -50%); /* Centrado exacto */
+	color:#fff; /* Color blanco */
+	font-size:10px; /* Tamaño del check reducido */
+	font-weight:bold; /* Negrita */
+	text-shadow:0 1px 2px rgba(0, 0, 0, 0.5); /* Sombra para mejor visibilidad */
+}
+.color-label{
+	font-size:11px; /* Tamaño de texto reducido */
+	color:#fff; /* Texto blanco */
+	font-weight:600; /* Semi-negrita */
+	transition:color .25s ease; /* Transición suave */
+}
+.color-option input[type="radio"]:checked ~ .color-label{
+	color:var(--title-gold); /* Texto dorado cuando está seleccionado */
+	font-weight:700; /* Más negrita cuando está seleccionado */
 }
 
 /* ========================================
@@ -545,11 +702,25 @@ body{
 	.menu{padding:2rem .75rem} /* Reduce padding del menú */
 	.menu__grid{grid-template-columns:1fr;gap:1.5rem} /* 1 columna, menos espacio */
 	.product-card__image img{height:160px} /* Imágenes más pequeñas */
+	#bebidas .product-card__image img{height:180px} /* Bebidas un poco más altas en móvil pequeño */
 	.product-card__meta{padding:14px} /* Menos padding en meta */
 	.product-card__title{font-size:18px} /* Título más pequeño */
 	.product-card__desc{font-size:13px} /* Descripción más pequeña */
 	.product-card__actions{flex-direction:column} /* Botones apilados verticalmente */
 	.product-card__actions .btn{width:100%;font-size:14px} /* Botones a ancho completo */
+	/* Header en móviles muy pequeños */
+	.header{padding:1.2rem 1rem} /* Padding aumentado */
+	.header__content{
+		grid-template-columns:1fr; /* Una sola columna */
+		gap:1.5rem; /* Gap aumentado */
+		text-align:center; /* Todo centrado */
+	}
+	.header__title{font-size:1.8rem;text-align:center;order:1} /* Título primero */
+	.header__logo{justify-content:center;order:2} /* Logo segundo (después del título) */
+	.header__logo-img{height:90px} /* Logo mucho más grande */
+	.payment-methods{justify-self:center;width:100%;justify-content:center;order:3;max-width:100%;padding:0.6rem 1rem} /* Métodos tercero */
+	.payment-icon img{height:45px} /* Imágenes más pequeñas en móvil pequeño */
+	.payment-methods__label{font-size:12px} /* Texto más pequeño */
 }
 
 /* Teléfonos típicos (máximo 480px de ancho) */
@@ -559,7 +730,20 @@ body{
 	.menu{padding:2.5rem .9rem} /* Padding moderado */
 	.menu__grid{grid-template-columns:1fr;gap:1.5rem} /* 1 columna */
 	.product-card__image img{height:180px} /* Imágenes medianas */
+	#bebidas .product-card__image img{height:200px} /* Bebidas más altas en móvil */
 	.product-card__actions .btn{width:100%} /* Botones a ancho completo */
+	/* Header en móviles */
+	.header{padding:1.5rem 1rem} /* Padding aumentado */
+	.header__content{
+		grid-template-columns:1fr; /* Una sola columna */
+		gap:1.5rem; /* Gap aumentado */
+	}
+	.header__title{font-size:2rem;text-align:center;order:1} /* Título primero y centrado */
+	.header__logo{justify-content:center;order:2} /* Logo segundo (después del título) */
+	.header__logo-img{height:100px} /* Logo mucho más grande en móvil */
+	.payment-methods{justify-self:center;order:3;width:100%;justify-content:center;max-width:100%} /* Métodos tercero y centrados */
+	.payment-icon img{height:50px} /* Imágenes más pequeñas en móvil */
+	.payment-methods__label{font-size:13px} /* Texto más pequeño en móvil */
 }
 
 /* Tablets pequeñas y teléfonos grandes (481px a 880px) */
@@ -567,14 +751,26 @@ body{
 	.hero__overlay{padding:3rem 1rem} /* Padding normal */
 	.menu__grid{grid-template-columns:repeat(2, 1fr);gap:1.5rem} /* 2 columnas */
 	.product-card__image img{height:190px} /* Imágenes ajustadas */
+	#bebidas .product-card__image img{height:210px} /* Bebidas más altas en tablet */
 	.product-card__title{font-size:20px} /* Título mediano */
+	/* Header en tablets pequeñas */
+	.header__content{
+		grid-template-columns:auto 1fr; /* Logo y título en una fila */
+		gap:1.5rem;
+	}
+	.header__logo-img{height:90px} /* Logo grande */
+	.header__title{font-size:2.2rem;text-align:left} /* Título a la izquierda */
+	.payment-methods{grid-column:1 / -1;justify-self:center;margin-top:0.5rem} /* Métodos en segunda fila */
 }
 
 /* Tablets grandes (881px a 1199px) */
 @media (min-width:881px) and (max-width:1199px){
 	.menu__grid{grid-template-columns:repeat(3, 1fr);gap:2rem} /* 3 columnas */
 	.product-card__image img{height:200px} /* Imágenes normales */
+	#bebidas .product-card__image img{height:220px} /* Bebidas más altas */
 	.product-card__title{font-size:22px} /* Título grande */
+	/* Header en tablets grandes */
+	.header__logo-img{height:110px} /* Logo muy grande */
 }
 
 /* Escritorios/PC (1200px en adelante) - Máximo 4 columnas */
@@ -582,6 +778,7 @@ body{
 	.menu{padding:3.5rem 2rem} /* Mayor padding */
 	.menu__grid{grid-template-columns:repeat(4, 1fr);gap:2rem} /* 4 columnas (máximo) */
 	.product-card__image img{height:220px} /* Imágenes grandes */
+	#bebidas .product-card__image img{height:240px} /* Bebidas más altas en desktop */
 	.product-card__title{font-size:22px} /* Título grande */
 }
 
@@ -623,16 +820,15 @@ body{
 }
 
 .modal__content{
-	background:linear-gradient(180deg, #c71b1b 0%, #e33 100%); /* Fondo con gradiente rojo */
-	color:#fff; /* Texto blanco */
+	background:var(--card-accent); /* Fondo gris oscuro elegante */
+	color:var(--text); /* Texto blanco */
 	padding:2rem; /* Espaciado interno generoso */
-	border-radius:12px; /* Bordes redondeados */
+	border-radius:14px; /* Bordes redondeados */
 	max-width:500px; /* Ancho máximo */
 	width:90%; /* 90% del ancho de la pantalla */
 	position:relative; /* Para posicionar el botón de cerrar */
-	box-shadow:0 20px 60px rgba(0,0,0,0.5); /* Sombra pronunciada */
+	box-shadow:0 20px 60px rgba(0,0,0,0.8), 0 0 0 2px var(--border-gold); /* Sombra pronunciada + borde dorado */
 	animation:slideIn 0.3s ease; /* Animación de deslizamiento */
-	border:2px solid rgba(255,215,0,0.3); /* Borde dorado sutil */
 }
 
 .modal__close{
@@ -661,25 +857,26 @@ body{
 .modal__title{
 	font-family:'Playfair Display',serif; /* Fuente elegante */
 	font-size:clamp(22px, 4vw, 28px); /* Tamaño responsivo */
-	color:#ffd700; /* Color dorado */
+	color:var(--title-gold); /* Color dorado brillante */
 	margin:0 0 1rem; /* Margen inferior */
-	text-shadow:2px 2px 4px rgba(0,0,0,0.3); /* Sombra para profundidad */
+	text-shadow:0 2px 8px rgba(255, 215, 0, 0.4); /* Sombra dorada */
 }
 
 .modal__description{
 	font-size:15px; /* Tamaño mediano */
 	line-height:1.6; /* Espaciado de línea cómodo para lectura */
 	margin-bottom:1rem; /* Margen inferior */
-	opacity:0.95; /* Ligeramente transparente */
+	color:var(--text-secondary); /* Blanco suave */
 }
 
 .modal__portions{
 	font-weight:700; /* Negrita */
 	font-size:16px; /* Tamaño mediano */
-	color:#ffd700; /* Color dorado */
-	background:rgba(0,0,0,0.2); /* Fondo oscuro */
+	color:var(--title-gold); /* Color dorado */
+	background:rgba(255, 215, 0, 0.1); /* Fondo dorado sutil */
 	padding:10px 14px; /* Espaciado interno */
-	border-radius:8px; /* Bordes redondeados */
+	border-radius:10px; /* Bordes redondeados */
+	border:1px solid var(--border-gold); /* Borde dorado */
 	display:inline-block; /* Solo ocupa el espacio necesario */
 	margin-top:0.5rem; /* Margen superior */
 }
@@ -765,21 +962,21 @@ body{
 	width:60px;
 	height:60px;
 	border-radius:50%;
-	background:#111;
+	background:linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
 	color:#fff;
 	display:flex;
 	align-items:center;
 	justify-content:center;
-	box-shadow:0 8px 22px rgba(0,0,0,.35);
+	box-shadow:0 8px 22px rgba(0,0,0,.6), 0 0 0 2px var(--border-gold);
 	z-index:1001;
 	transition:transform .2s ease, box-shadow .2s ease;
 }
-.hf-cart-bubble:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.45)}
+.hf-cart-bubble:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.75), 0 0 0 2px var(--title-gold)}
 .hf-cart-bubble__icon{width:28px;height:28px;display:block}
 .hf-cart-bubble__count{
 	position:absolute;
 	top:-6px; right:-6px;
-	background:#ffd700;
+	background:var(--title-gold);
 	color:#000;
 	font-weight:800;
 	border-radius:20px;
@@ -787,77 +984,87 @@ body{
 	display:flex; align-items:center; justify-content:center;
 	font-size:12px;
 	padding:0 6px;
-	border:2px solid #111;
+	border:2px solid #0f0f0f;
 }
 
 /* Botón de carrito (desktop) */
 .hf-cart-trigger{
 	position:fixed;
-	top:20px; right:20px;
+	top:15px; right:60px;
 	width:46px; height:46px;
 	border-radius:12px;
-	background:rgba(0,0,0,.5);
+	background:rgba(26,26,26,.9);
 	color:#fff;
 	display:flex; align-items:center; justify-content:center;
-	border:1px solid rgba(255,215,0,.25);
-	box-shadow:0 6px 18px rgba(0,0,0,.35);
+	border:1px solid var(--border-gold);
+	box-shadow:0 6px 18px rgba(0,0,0,.5);
 	z-index:1001;
-	backdrop-filter:blur(6px);
+	backdrop-filter:blur(10px);
+	transition:all .2s ease;
 }
-.hf-cart-trigger:hover{background:rgba(0,0,0,.75)}
+.hf-cart-trigger:hover{background:rgba(26,26,26,1); border-color:var(--title-gold)}
 .hf-cart-trigger__icon{width:22px;height:22px}
 .hf-cart-trigger__count{
 	position:absolute; top:-6px; right:-6px;
-	background:#ffd700; color:#000; border-radius:16px; min-width:20px; height:20px; font-size:12px;
-	display:flex; align-items:center; justify-content:center; font-weight:800; border:2px solid rgba(0,0,0,.6);
+	background:var(--title-gold); color:#000; border-radius:16px; min-width:20px; height:20px; font-size:12px;
+	display:flex; align-items:center; justify-content:center; font-weight:800; border:2px solid #0f0f0f;
 }
 
 /* Panel lateral (desktop) */
 .hf-cart-panel{
 	position:fixed; top:0; right:0; bottom:0;
 	width:380px; max-width:90vw;
-	background:linear-gradient(180deg, #c71b1b 0%, #e33 100%);
-	color:#fff;
-	border-left:2px solid rgba(255,215,0,0.3);
-	box-shadow:-20px 0 60px rgba(0,0,0,.45);
+	background:var(--card-accent);
+	color:var(--text);
+	border-left:2px solid var(--border-gold);
+	box-shadow:-20px 0 60px rgba(0,0,0,.7);
 	transform:translateX(100%);
 	transition:transform .28s ease;
 	z-index:1000;
 	display:flex; flex-direction:column;
 }
 .hf-cart-panel.is-open{transform:translateX(0)}
-.hf-cart-panel__header{display:flex; align-items:center; justify-content:space-between; padding:16px 16px; border-bottom:1px solid rgba(255,255,255,.18)}
-.hf-cart-panel__title{font-family:'Playfair Display',serif; color:#ffd700; margin:0; font-size:20px}
-.hf-cart-panel__close{background:rgba(0,0,0,.35); color:#fff; border:0; width:34px; height:34px; border-radius:50%; cursor:pointer}
+.hf-cart-panel__header{display:flex; align-items:center; justify-content:space-between; padding:16px 16px; border-bottom:1px solid var(--border-light)}
+.hf-cart-panel__title{font-family:'Playfair Display',serif; color:var(--title-gold); margin:0; font-size:20px; display:flex; align-items:center; gap:8px}
+.hf-cart-panel__close{background:rgba(0,0,0,.5); color:#fff; border:0; width:34px; height:34px; border-radius:50%; cursor:pointer; transition:all .2s ease}
+.hf-cart-panel__close:hover{background:rgba(0,0,0,.75); transform:rotate(90deg)}
 .hf-cart-panel__body{padding:12px 16px; overflow:auto; flex:1}
-.hf-cart-panel__footer{padding:12px 16px; border-top:1px solid rgba(255,255,255,.18); display:flex; flex-direction:column; gap:10px}
-.hf-cart-panel__total{font-weight:800; color:#ffd700; display:flex; align-items:center; justify-content:space-between}
+.hf-cart-panel__footer{padding:12px 16px; border-top:1px solid var(--border-light); display:flex; flex-direction:column; gap:10px}
+.hf-cart-panel__total{font-weight:800; color:var(--title-gold); display:flex; align-items:center; justify-content:space-between}
 
 /* Modal reutilizable (lista y formulario) */
-.hf-modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.7); z-index:1002; backdrop-filter:blur(4px)}
+.hf-modal{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.8); z-index:1002; backdrop-filter:blur(6px)}
 .hf-modal.show{display:flex}
-.hf-modal__content{width:min(680px, 92vw); background:linear-gradient(180deg, #c71b1b 0%, #e33 100%); color:#fff; border-radius:12px; border:2px solid rgba(255,215,0,.3); box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.hf-modal__head{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,.18)}
-.hf-modal__title{margin:0; font-family:'Playfair Display',serif; color:#ffd700}
-.hf-modal__close{background:rgba(0,0,0,.35); color:#fff; border:0; width:34px; height:34px; border-radius:50%; cursor:pointer}
+.hf-modal__content{width:min(680px, 92vw); background:var(--card-accent); color:var(--text); border-radius:14px; border:2px solid var(--border-gold); box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.hf-modal__head{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--border-light)}
+.hf-modal__title{margin:0; font-family:'Playfair Display',serif; color:var(--title-gold); display:flex; align-items:center; gap:8px}
+.hf-modal__close{background:rgba(0,0,0,.5); color:#fff; border:0; width:34px; height:34px; border-radius:50%; cursor:pointer; transition:all .2s ease}
+.hf-modal__close:hover{background:rgba(0,0,0,.75); transform:rotate(90deg)}
 .hf-modal__body{padding:14px 16px; max-height:60vh; overflow:auto}
-.hf-modal__footer{padding:14px 16px; border-top:1px solid rgba(255,255,255,.18); display:flex; gap:10px; flex-wrap:wrap}
+.hf-modal__footer{padding:14px 16px; border-top:1px solid var(--border-light); display:flex; gap:10px; flex-wrap:wrap}
 
 /* Lista de items del carrito */
 .hf-cart-list{display:flex; flex-direction:column; gap:10px}
-.hf-cart-item{display:grid; grid-template-columns:1fr auto; gap:8px; background:rgba(0,0,0,.18); padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,.12)}
-.hf-cart-item__name{font-weight:700}
-.hf-cart-item__meta{font-size:12px; opacity:.9}
+.hf-cart-item{display:grid; grid-template-columns:1fr auto; gap:8px; background:rgba(0,0,0,.25); padding:10px; border-radius:10px; border:1px solid var(--border-light)}
+.hf-cart-item__name{font-weight:700; color:var(--text)}
+.hf-cart-item__meta{font-size:12px; color:var(--text-secondary)}
 .hf-cart-item__qty{display:flex; align-items:center; gap:6px}
-.hf-qty-btn{width:28px; height:28px; border-radius:8px; background:rgba(0,0,0,.35); color:#fff; border:1px solid rgba(255,255,255,.18); cursor:pointer}
-.hf-cart-item__subtotal{font-weight:800; color:#ffd700}
-.hf-remove{background:transparent; color:#fff; border:0; text-decoration:underline; cursor:pointer; font-size:12px; opacity:.9}
+.hf-qty-btn{width:28px; height:28px; border-radius:8px; background:rgba(0,0,0,.4); color:#fff; border:1px solid var(--border-light); cursor:pointer; transition:all .2s ease}
+.hf-qty-btn:hover{background:rgba(255,215,0,.15); border-color:var(--border-gold)}
+.hf-cart-item__subtotal{font-weight:800; color:var(--title-gold)}
+.hf-remove{background:transparent; color:var(--text-secondary); border:0; text-decoration:underline; cursor:pointer; font-size:12px; transition:color .2s ease}
+.hf-remove:hover{color:var(--accent)}
 
 /* Formulario de pedido */
 .hf-form{display:grid; gap:10px}
-.hf-input{width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.25); background:rgba(0,0,0,.2); color:#fff}
-.hf-input::placeholder{color:rgba(255,255,255,.8)}
-.hf-summary{display:flex; align-items:center; justify-content:space-between; padding:8px 12px; border-radius:10px; background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.18); color:#ffd700; font-weight:800}
+.hf-field{display:flex; flex-direction:column; gap:4px}
+.hf-input{width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border-light); background:rgba(0,0,0,.3); color:var(--text); transition:all .2s ease}
+.hf-input:focus{outline:none; border-color:var(--border-gold); background:rgba(0,0,0,.4)}
+.hf-input::placeholder{color:var(--text-secondary)}
+.hf-input--error{border-color:var(--accent); background:rgba(196, 30, 58, 0.1)}
+.hf-input--error:focus{border-color:var(--accent)}
+.hf-error{font-size:12px; color:var(--accent); min-height:16px; padding-left:4px; display:block}
+.hf-summary{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:10px; background:rgba(255,215,0,.1); border:1px solid var(--border-gold); color:var(--title-gold); font-weight:800}
 
 /* Visibilidad según tamaño */
 @media (min-width:881px){
@@ -865,6 +1072,65 @@ body{
 }
 @media (max-width:880px){
 	.hf-cart-trigger, .hf-cart-panel{display:none}
+}
+
+/* Ícono de ayuda */
+.hf-help-icon{
+	background:rgba(255, 215, 0, 0.15);
+	color:var(--title-gold);
+	border:1px solid var(--border-gold);
+	width:22px;
+	height:22px;
+	border-radius:50%;
+	font-size:13px;
+	font-weight:700;
+	cursor:pointer;
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	transition:all .2s ease;
+	padding:0;
+	line-height:1;
+}
+.hf-help-icon:hover{
+	background:var(--title-gold);
+	color:#000;
+	transform:scale(1.1);
+	box-shadow:0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+/* Modal de ayuda */
+.hf-help-modal .hf-modal__content{
+	max-width:560px;
+}
+.hf-help-content .hf-modal__title{
+	font-size:20px;
+}
+.hf-help-text{
+	color:var(--text-secondary);
+	line-height:1.6;
+}
+.hf-help-text p{
+	margin:0 0 12px 0;
+}
+.hf-help-text strong{
+	color:var(--text);
+	display:block;
+	margin-bottom:6px;
+	font-size:15px;
+}
+.hf-help-text ol{
+	margin:8px 0 16px 0;
+	padding-left:20px;
+	color:var(--text-secondary);
+}
+.hf-help-text ol li{
+	margin-bottom:6px;
+	padding-left:4px;
+}
+.hf-help-text ol li::marker{
+	color:var(--title-gold);
+	font-weight:700;
 }
 
 

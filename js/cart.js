@@ -63,7 +63,10 @@
     panel.setAttribute('aria-hidden','true');
     panel.innerHTML = `
       <div class="hf-cart-panel__header">
-        <h3 class="hf-cart-panel__title">Tu carrito</h3>
+        <h3 class="hf-cart-panel__title">
+          Tu carrito
+          <button class="hf-help-icon" type="button" title="Ayuda" aria-label="Información del carrito">?</button>
+        </h3>
         <button class="hf-cart-panel__close" type="button" aria-label="Cerrar">✕</button>
       </div>
       <div class="hf-cart-panel__body">
@@ -87,7 +90,10 @@
     listModal.innerHTML = `
       <div class="hf-modal__content">
         <div class="hf-modal__head">
-          <h3 class="hf-modal__title">Tu carrito</h3>
+          <h3 class="hf-modal__title">
+            Tu carrito
+            <button class="hf-help-icon" type="button" title="Ayuda" aria-label="Información del carrito">?</button>
+          </h3>
           <button class="hf-modal__close" type="button" data-close>✕</button>
         </div>
         <div class="hf-modal__body">
@@ -114,10 +120,19 @@
         </div>
         <div class="hf-modal__body">
           <div class="hf-summary"><span>Total a pagar</span><strong id="hfOrderTotal">$0</strong></div>
-          <form id="hfOrderForm" class="hf-form">
-            <input class="hf-input" type="text" id="hfName" name="name" autocomplete="name" placeholder="Nombre completo" required>
-            <input class="hf-input" type="tel" id="hfPhone" name="phone" autocomplete="tel" placeholder="Teléfono" required>
-            <input class="hf-input" type="text" id="hfAddress" name="address" autocomplete="street-address" placeholder="Dirección de entrega" required>
+          <form id="hfOrderForm" class="hf-form" novalidate>
+            <div class="hf-field">
+              <input class="hf-input" type="text" id="hfName" name="name" autocomplete="name" placeholder="Nombre completo" required minlength="3" maxlength="50" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+">
+              <span class="hf-error" id="hfNameError"></span>
+            </div>
+            <div class="hf-field">
+              <input class="hf-input" type="tel" id="hfPhone" name="phone" autocomplete="tel" placeholder="Teléfono (10 dígitos)" required minlength="10" maxlength="10" pattern="[0-9]{10}">
+              <span class="hf-error" id="hfPhoneError"></span>
+            </div>
+            <div class="hf-field">
+              <input class="hf-input" type="text" id="hfAddress" name="address" autocomplete="street-address" placeholder="Dirección de entrega" required minlength="10" maxlength="100">
+              <span class="hf-error" id="hfAddressError"></span>
+            </div>
           </form>
         </div>
         <div class="hf-modal__footer">
@@ -127,12 +142,64 @@
       </div>`;
     document.body.appendChild(formModal);
 
+    // Modal de ayuda
+    const helpModal = document.createElement('div');
+    helpModal.className = 'hf-modal hf-help-modal';
+    helpModal.id = 'hfHelpModal';
+    helpModal.setAttribute('role','dialog');
+    helpModal.setAttribute('aria-modal','true');
+    helpModal.innerHTML = `
+      <div class="hf-modal__content hf-help-content">
+        <div class="hf-modal__head">
+          <h3 class="hf-modal__title">¿Cómo funciona el carrito?</h3>
+          <button class="hf-modal__close" type="button" data-close-help>✕</button>
+        </div>
+        <div class="hf-modal__body">
+          <div class="hf-help-text">
+            <p><strong>Estás haciendo un pedido</strong></p>
+            <p>Este carrito te permite seleccionar productos y enviar tu pedido directamente por WhatsApp al restaurante.</p>
+            
+            <p><strong>No estás pagando aquí</strong></p>
+            <p>El pago se realiza al momento de la entrega o cuando recojas tu pedido. Puedes pagar en efectivo o con los métodos aceptados por el restaurante.</p>
+            
+            <p><strong>Pasos a seguir:</strong></p>
+            <ol>
+              <li>Agrega productos al carrito</li>
+              <li>Revisa tu pedido y el total</li>
+              <li>Haz clic en "Hacer pedido"</li>
+              <li>Completa tus datos de contacto</li>
+              <li>Confirma y envía por WhatsApp</li>
+              <li>Espera la confirmación del restaurante</li>
+            </ol>
+            
+            <p><strong>Confirmación por WhatsApp</strong></p>
+            <p>Al enviar el pedido, se abrirá WhatsApp con un mensaje prellenado. El restaurante te confirmará la disponibilidad, tiempo de entrega y detalles del pago.</p>
+          </div>
+        </div>
+        <div class="hf-modal__footer">
+          <button class="btn" type="button" data-close-help>Entendido</button>
+        </div>
+      </div>`;
+    document.body.appendChild(helpModal);
+
     // Eventos visuales básicos
     bubble.addEventListener('click', ()=> openCartModal());
     trigger.addEventListener('click', ()=> togglePanel(true));
     panel.querySelector('.hf-cart-panel__close').addEventListener('click', ()=> togglePanel(false));
     listModal.addEventListener('click', (e)=>{ if(e.target===listModal || e.target.hasAttribute('data-close')) closeModal(listModal); });
     formModal.addEventListener('click', (e)=>{ if(e.target===formModal || e.target.hasAttribute('data-close')) closeModal(formModal); });
+    helpModal.addEventListener('click', (e)=>{ if(e.target===helpModal || e.target.hasAttribute('data-close-help')) closeModal(helpModal); });
+    
+    // Botones de ayuda
+    const helpButtons = document.querySelectorAll('.hf-help-icon');
+    helpButtons.forEach(btn => {
+      btn.addEventListener('click', (e)=> {
+        e.stopPropagation();
+        helpModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    
     const backBtn = formModal.querySelector('[data-back]');
     if(backBtn) backBtn.addEventListener('click', ()=>{ closeModal(formModal); openCartModal(); });
     const checkoutMob = document.getElementById('hfCheckoutMob');
@@ -140,17 +207,135 @@
     if(checkoutMob) checkoutMob.addEventListener('click', ()=> openOrderModal());
     if(checkoutDesk) checkoutDesk.addEventListener('click', ()=> openOrderModal());
 
-    // Submit del formulario
+    // Submit del formulario con validación
     const orderForm = document.getElementById('hfOrderForm');
+    const nameInput = document.getElementById('hfName');
+    const phoneInput = document.getElementById('hfPhone');
+    const addressInput = document.getElementById('hfAddress');
+    const nameError = document.getElementById('hfNameError');
+    const phoneError = document.getElementById('hfPhoneError');
+    const addressError = document.getElementById('hfAddressError');
+
+    // Validación en tiempo real para nombre (solo letras y espacios)
+    nameInput.addEventListener('input', (e)=>{
+      const value = e.target.value;
+      // Elimina cualquier caracter que no sea letra o espacio
+      e.target.value = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+      validateName();
+    });
+
+    // Validación en tiempo real para teléfono (solo números)
+    phoneInput.addEventListener('input', (e)=>{
+      const value = e.target.value;
+      // Elimina cualquier caracter que no sea número
+      e.target.value = value.replace(/[^0-9]/g, '');
+      validatePhone();
+    });
+
+    // Validación para dirección
+    addressInput.addEventListener('input', ()=> validateAddress());
+
+    function validateName(){
+      const value = nameInput.value.trim();
+      if(!value){
+        nameError.textContent = 'El nombre es obligatorio';
+        nameInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length < 3){
+        nameError.textContent = 'Mínimo 3 caracteres';
+        nameInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length > 50){
+        nameError.textContent = 'Máximo 50 caracteres';
+        nameInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(value)){
+        nameError.textContent = 'Solo se permiten letras y espacios';
+        nameInput.classList.add('hf-input--error');
+        return false;
+      }
+      nameError.textContent = '';
+      nameInput.classList.remove('hf-input--error');
+      return true;
+    }
+
+    function validatePhone(){
+      const value = phoneInput.value.trim();
+      if(!value){
+        phoneError.textContent = 'El teléfono es obligatorio';
+        phoneInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(!/^[0-9]+$/.test(value)){
+        phoneError.textContent = 'Solo se permiten números';
+        phoneInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length < 10){
+        phoneError.textContent = 'Debe tener 10 dígitos';
+        phoneInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length > 10){
+        phoneError.textContent = 'Máximo 10 dígitos';
+        phoneInput.classList.add('hf-input--error');
+        return false;
+      }
+      phoneError.textContent = '';
+      phoneInput.classList.remove('hf-input--error');
+      return true;
+    }
+
+    function validateAddress(){
+      const value = addressInput.value.trim();
+      if(!value){
+        addressError.textContent = 'La dirección es obligatoria';
+        addressInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length < 10){
+        addressError.textContent = 'Mínimo 10 caracteres';
+        addressInput.classList.add('hf-input--error');
+        return false;
+      }
+      if(value.length > 100){
+        addressError.textContent = 'Máximo 100 caracteres';
+        addressInput.classList.add('hf-input--error');
+        return false;
+      }
+      addressError.textContent = '';
+      addressInput.classList.remove('hf-input--error');
+      return true;
+    }
+
     orderForm.addEventListener('submit', (e)=>{
       e.preventDefault();
       if(cart.length===0) return;
-      const name = (document.getElementById('hfName').value||'').trim();
-      const phone = (document.getElementById('hfPhone').value||'').trim();
-      const address = (document.getElementById('hfAddress').value||'').trim();
-      if(!name || !phone || !address) return;
+      
+      // Validar todos los campos
+      const isNameValid = validateName();
+      const isPhoneValid = validatePhone();
+      const isAddressValid = validateAddress();
+
+      if(!isNameValid || !isPhoneValid || !isAddressValid){
+        return; // Detener si hay errores
+      }
+
+      const name = nameInput.value.trim();
+      const phone = phoneInput.value.trim();
+      const address = addressInput.value.trim();
+      
       const waUrl = buildWhatsAppUrl(name, phone, address);
       window.open(waUrl, '_blank');
+      
+      // Opcional: Limpiar formulario después de enviar
+      orderForm.reset();
+      nameError.textContent = '';
+      phoneError.textContent = '';
+      addressError.textContent = '';
     });
   }
 
@@ -212,10 +397,11 @@
   }
   function itemRowHTML(item){
     const size = item.sizeLabel ? ` <span class="hf-cart-item__meta">• ${item.sizeLabel}</span>` : '';
+    const color = item.colorLabel ? ` <span class="hf-cart-item__meta">• ${item.colorLabel}</span>` : '';
     return `
     <div class="hf-cart-item" data-id="${encodeURIComponent(item.id)}">
       <div>
-        <div class="hf-cart-item__name">${escapeHtml(item.name)}${size}</div>
+        <div class="hf-cart-item__name">${escapeHtml(item.name)}${size}${color}</div>
         <button class="hf-remove" type="button" data-action="remove">Eliminar</button>
       </div>
       <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px">
@@ -235,19 +421,23 @@
   // WHATSAPP ----------------------------------
   function buildWhatsAppUrl(name, phone, address){
     const lines = [];
-    lines.push('Nuevo pedido:');
-    lines.push('- Productos:');
+    lines.push('🛒 *PEDIDO HONGFA*');
+    lines.push('');
+    lines.push('📦 *Productos:*');
+    lines.push('━━━━━━━━━━━━━━━');
     cart.forEach(item=>{
       const unit = fmt(item.unitPrice).replace(/\$/,'$');
-      const label = item.sizeLabel ? ` ${item.sizeLabel}` : '';
-      lines.push(`  • ${item.name}${label} x${item.qty} - ${unit}`);
+      const sizeInfo = item.sizeLabel ? `\n  Tamaño: ${item.sizeLabel}` : '';
+      const colorInfo = item.colorLabel ? `\n  Color: ${item.colorLabel}` : '';
+      lines.push(`• ${item.name}${sizeInfo}${colorInfo}\n  Cantidad: x${item.qty}\n  Precio: ${unit}`);
+      lines.push('');
     });
-    lines.push(`Total: ${fmt(totalAmount())}`);
+    lines.push(`💰 *Total: ${fmt(totalAmount())}*`);
     lines.push('');
-    lines.push('Datos del cliente:');
-    lines.push(`Nombre: ${name}`);
-    lines.push(`Teléfono: ${phone}`);
-    lines.push(`Dirección: ${address}`);
+    lines.push('👤 *Datos del cliente:*');
+    lines.push(`📝 Nombre: ${name}`);
+    lines.push(`📞 Teléfono: ${phone}`);
+    lines.push(`📍 Dirección: ${address}`);
 
     const message = lines.join('\n');
     const url = `https://wa.me/${BUSINESS_WA_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -284,9 +474,19 @@
       }
     }
 
-    // ID único por nombre+tamaño
-    const id = `${name}|${sizeLabel||''}`;
-    return { id, name, unitPrice, sizeLabel };
+    // Color (si existe selector de color)
+    let colorLabel = '';
+    const colorGroup = orderBtn ? orderBtn.getAttribute('data-color-group') : null;
+    if(colorGroup){
+      const colorSel = card.querySelector(`input[name="${CSS.escape(colorGroup)}"]:checked`);
+      if(colorSel){
+        colorLabel = colorSel.getAttribute('data-color') || '';
+      }
+    }
+
+    // ID único por nombre+tamaño+color
+    const id = `${name}|${sizeLabel||''}|${colorLabel||''}`;
+    return { id, name, unitPrice, sizeLabel, colorLabel };
   }
 
   // ACCIONES DE CARRITO ------------------------
