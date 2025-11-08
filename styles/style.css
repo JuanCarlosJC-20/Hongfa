@@ -1056,12 +1056,24 @@ body{
 /* Formulario de pedido */
 .hf-form{display:grid; gap:10px}
 .hf-field{display:flex; flex-direction:column; gap:4px}
+.hf-label{font-size:14px; font-weight:600; color:var(--text); margin-bottom:4px}
 .hf-input{width:100%; padding:10px 12px; border-radius:10px; border:1px solid var(--border-light); background:rgba(0,0,0,.3); color:var(--text); transition:all .2s ease}
 .hf-input:focus{outline:none; border-color:var(--border-gold); background:rgba(0,0,0,.4)}
 .hf-input::placeholder{color:var(--text-secondary)}
 .hf-input--error{border-color:var(--accent); background:rgba(196, 30, 58, 0.1)}
 .hf-input--error:focus{border-color:var(--accent)}
 .hf-error{font-size:12px; color:var(--accent); min-height:16px; padding-left:4px; display:block}
+
+/* Opciones de tipo de entrega */
+.hf-delivery-options{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:4px}
+.hf-delivery-option{position:relative; cursor:pointer}
+.hf-delivery-option input[type="radio"]{position:absolute; opacity:0; width:0; height:0}
+.hf-delivery-label{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:12px 8px; border-radius:10px; border:2px solid var(--border-light); background:rgba(0,0,0,.3); transition:all .2s ease; min-height:80px}
+.hf-delivery-option input[type="radio"]:checked + .hf-delivery-label{border-color:var(--border-gold); background:rgba(255,215,0,.1); transform:scale(1.02)}
+.hf-delivery-icon{font-size:28px; line-height:1}
+.hf-delivery-label span:last-child{font-size:13px; font-weight:600; color:var(--text); text-align:center}
+.hf-delivery-option input[type="radio"]:checked + .hf-delivery-label span:last-child{color:var(--title-gold)}
+
 .hf-summary{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:10px; background:rgba(255,215,0,.1); border:1px solid var(--border-gold); color:var(--title-gold); font-weight:800; flex-wrap:wrap; gap:8px}
 .hf-items-count{font-size:13px; font-weight:600; color:var(--text-secondary); width:100%; text-align:left}
 .hf-cart-panel__total .hf-items-count{width:100%; text-align:left; font-size:12px; margin-bottom:4px}

@@ -413,35 +413,18 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ========================================
-     PEDIR POR WHATSAPP
+     PEDIR POR WHATSAPP - Abre modal de datos
      ======================================== */
   // Itera sobre cada botón "Pedir ahora" y le asigna un evento click
   orderButtons.forEach(btn => {
     btn.addEventListener('click', function (){
-      // Obtiene el nombre del producto del atributo data-product
-      const productName = this.getAttribute('data-product');
+      // Encuentra la tarjeta del producto
+      const card = this.closest('.product-card');
       
-      // Verifica si el producto tiene selector de tamaño
-      const sizeGroup = this.getAttribute('data-size-group');
-      let sizeInfo = '';
-      
-      if (sizeGroup) {
-        // Busca el radio button seleccionado de ese grupo
-        const selectedSize = document.querySelector(`input[name="${sizeGroup}"]:checked`);
-        if (selectedSize) {
-          const sizeName = selectedSize.getAttribute('data-size');
-          const sizePrice = selectedSize.value;
-          // Formatea el precio con puntos de miles
-          const formattedPrice = new Intl.NumberFormat('es-CO').format(sizePrice);
-          sizeInfo = ` - ${sizeName} ($${formattedPrice})`;
-        }
+      // Llama a la función del carrito para hacer pedido directo
+      if(window.HongfaCart && window.HongfaCart.orderSingleProduct){
+        window.HongfaCart.orderSingleProduct(card);
       }
-      
-      // Construye la URL de WhatsApp con el número y el mensaje predefinido
-      // encodeURIComponent codifica el texto para que funcione en URLs
-      const wa = 'https://wa.me/573115934823?text=' + encodeURIComponent(`Hola, quiero ordenar: ${productName}${sizeInfo}`);
-      // Abre WhatsApp en una nueva pestaña/ventana
-      window.open(wa, '_blank');
     });
   });
 

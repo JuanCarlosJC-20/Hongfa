@@ -126,6 +126,27 @@
         <div class="hf-modal__body">
           <div class="hf-summary"><span>Total a pagar</span><strong id="hfOrderTotal">$0</strong></div>
           <form id="hfOrderForm" class="hf-form" novalidate>
+            <!-- Tipo de entrega -->
+            <div class="hf-field">
+              <label class="hf-label">Tipo de pedido:</label>
+              <div class="hf-delivery-options">
+                <label class="hf-delivery-option">
+                  <input type="radio" name="deliveryType" value="domicilio" checked id="hfDeliveryHome">
+                  <span class="hf-delivery-label">
+                    <span class="hf-delivery-icon">🛵</span>
+                    <span>Domicilio</span>
+                  </span>
+                </label>
+                <label class="hf-delivery-option">
+                  <input type="radio" name="deliveryType" value="recoger" id="hfDeliveryPickup">
+                  <span class="hf-delivery-label">
+                    <span class="hf-delivery-icon">🚶‍➡️</span>
+                    <span>Recoger en tienda</span>
+                  </span>
+                </label>
+              </div>
+            </div>
+
             <div class="hf-field">
               <input class="hf-input" type="text" id="hfName" name="name" autocomplete="name" placeholder="Nombre completo" required minlength="3" maxlength="50" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+">
               <span class="hf-error" id="hfNameError"></span>
@@ -134,13 +155,17 @@
               <input class="hf-input" type="tel" id="hfPhone" name="phone" autocomplete="tel" placeholder="Teléfono (10 dígitos)" required minlength="10" maxlength="10" pattern="[0-9]{10}">
               <span class="hf-error" id="hfPhoneError"></span>
             </div>
-            <div class="hf-field">
-              <input class="hf-input" type="text" id="hfAddress" name="address" autocomplete="street-address" placeholder="Dirección de entrega" required minlength="10" maxlength="100">
-              <span class="hf-error" id="hfAddressError"></span>
-            </div>
-            <div class="hf-field">
-              <input class="hf-input" type="text" id="hfNeighborhood" name="neighborhood" placeholder="Barrio" required minlength="3" maxlength="50">
-              <span class="hf-error" id="hfNeighborhoodError"></span>
+            
+            <!-- Campos de dirección (solo visibles si es domicilio) -->
+            <div id="hfAddressFields">
+              <div class="hf-field">
+                <input class="hf-input" type="text" id="hfAddress" name="address" autocomplete="street-address" placeholder="Dirección de entrega" minlength="10" maxlength="100">
+                <span class="hf-error" id="hfAddressError"></span>
+              </div>
+              <div class="hf-field">
+                <input class="hf-input" type="text" id="hfNeighborhood" name="neighborhood" placeholder="Barrio" minlength="3" maxlength="50">
+                <span class="hf-error" id="hfNeighborhoodError"></span>
+              </div>
             </div>
           </form>
         </div>
@@ -218,6 +243,9 @@
 
     // Submit del formulario con validación
     const orderForm = document.getElementById('hfOrderForm');
+    const deliveryHome = document.getElementById('hfDeliveryHome');
+    const deliveryPickup = document.getElementById('hfDeliveryPickup');
+    const addressFields = document.getElementById('hfAddressFields');
     const nameInput = document.getElementById('hfName');
     const phoneInput = document.getElementById('hfPhone');
     const addressInput = document.getElementById('hfAddress');
@@ -226,6 +254,25 @@
     const phoneError = document.getElementById('hfPhoneError');
     const addressError = document.getElementById('hfAddressError');
     const neighborhoodError = document.getElementById('hfNeighborhoodError');
+
+    // Mostrar/ocultar campos de dirección según tipo de entrega
+    function toggleAddressFields(){
+      const isDelivery = deliveryHome.checked;
+      if(addressFields){
+        addressFields.style.display = isDelivery ? 'block' : 'none';
+        // Limpiar errores si se ocultan los campos
+        if(!isDelivery){
+          addressError.textContent = '';
+          neighborhoodError.textContent = '';
+          addressInput.classList.remove('hf-input--error');
+          neighborhoodInput.classList.remove('hf-input--error');
+        }
+      }
+    }
+    
+    deliveryHome.addEventListener('change', toggleAddressFields);
+    deliveryPickup.addEventListener('change', toggleAddressFields);
+    toggleAddressFields(); // Inicializar
 
     // Validación en tiempo real para nombre (solo letras y espacios)
     nameInput.addEventListener('input', (e)=>{
@@ -349,32 +396,55 @@
 
     orderForm.addEventListener('submit', (e)=>{
       e.preventDefault();
-      if(cart.length===0) return;
       
-      // Validar todos los campos
+      // Usar carrito temporal si existe (pedido directo), sino usar carrito normal
+      const orderCart = window._tempOrderProduct || cart;
+      if(orderCart.length===0) return;
+      
+      const isDelivery = deliveryHome.checked;
+      const deliveryType = isDelivery ? 'Domicilio' : 'Recoger en tienda';
+      
+      // Validar campos básicos siempre
       const isNameValid = validateName();
       const isPhoneValid = validatePhone();
-      const isAddressValid = validateAddress();
-      const isNeighborhoodValid = validateNeighborhood();
+      
+      // Solo validar dirección si es domicilio
+      let isAddressValid = true;
+      let isNeighborhoodValid = true;
+      
+      if(isDelivery){
+        isAddressValid = validateAddress();
+        isNeighborhoodValid = validateNeighborhood();
+      }
 
-      if(!isNameValid || !isPhoneValid || !isAddressValid || !isNeighborhoodValid){
+      if(!isNameValid || !isPhoneValid || (isDelivery && (!isAddressValid || !isNeighborhoodValid))){
         return; // Detener si hay errores
       }
 
       const name = nameInput.value.trim();
       const phone = phoneInput.value.trim();
-      const address = addressInput.value.trim();
-      const neighborhood = neighborhoodInput.value.trim();
+      const address = isDelivery ? addressInput.value.trim() : '';
+      const neighborhood = isDelivery ? neighborhoodInput.value.trim() : '';
       
-      const waUrl = buildWhatsAppUrl(name, phone, address, neighborhood);
+      const waUrl = buildWhatsAppUrl(name, phone, address, neighborhood, deliveryType, orderCart);
       window.open(waUrl, '_blank');
       
-      // Opcional: Limpiar formulario después de enviar
+      // Limpiar carrito temporal si existía
+      if(window._tempOrderProduct){
+        delete window._tempOrderProduct;
+      }
+      
+      // Limpiar formulario después de enviar
       orderForm.reset();
       nameError.textContent = '';
       phoneError.textContent = '';
       addressError.textContent = '';
       neighborhoodError.textContent = '';
+      toggleAddressFields(); // Restaurar visibilidad inicial
+      
+      // Cerrar modal
+      const orderModal = document.getElementById('hfOrderModal');
+      if(orderModal) closeModal(orderModal);
     });
   }
 
@@ -469,14 +539,17 @@
   }
 
   // WHATSAPP ----------------------------------
-  function buildWhatsAppUrl(name, phone, address, neighborhood){
+  function buildWhatsAppUrl(name, phone, address, neighborhood, deliveryType, orderCart){
+    const itemsToSend = orderCart || cart;
+    const total = itemsToSend.reduce((acc,it)=> acc + (it.unitPrice*it.qty), 0);
+    
     const lines = [];
     lines.push('🛒 *PEDIDO HONGFA*');
     lines.push('');
     lines.push('📦 *Productos:*');
     lines.push('━━━━━━━━━━━━━━━');
     
-    cart.forEach(item=>{
+    itemsToSend.forEach(item=>{
       const unit = fmt(item.unitPrice);
       const sizeInfo = item.sizeLabel ? `  Tamaño: ${item.sizeLabel}\n` : '';
       const colorInfo = item.colorLabel ? `  Color: ${item.colorLabel}\n` : '';
@@ -489,13 +562,17 @@
       lines.push('');
     });
     
-    lines.push(`💰 *Total: ${fmt(totalAmount())}*`);
+    lines.push(`💰 *Total: ${fmt(total)}*`);
     lines.push('');
     lines.push('👤 *Datos del cliente:*');
     lines.push(`📝 Nombre: ${name}`);
     lines.push(`📞 Teléfono: ${phone}`);
-    lines.push(`📍 Dirección: ${address}`);
-    lines.push(`🏘️ Barrio: ${neighborhood}`);
+    lines.push(`� Tipo de pedido: ${deliveryType}`);
+    
+    if(deliveryType === 'Domicilio'){
+      lines.push(`�📍 Dirección: ${address}`);
+      lines.push(`🏘️ Barrio: ${neighborhood}`);
+    }
 
     const message = lines.join('\n');
     const url = `https://wa.me/${BUSINESS_WA_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -627,6 +704,34 @@
       }
     });
   }
+
+  // PEDIDO DIRECTO (UN SOLO PRODUCTO) ---------
+  function orderSingleProduct(card){
+    const info = getProductFromCard(card);
+    if(!info.unitPrice){ return; }
+    
+    // Crear carrito temporal con un solo producto
+    const tempCart = [{ ...info, qty:1 }];
+    const tempTotal = info.unitPrice;
+    
+    // Abrir modal de pedido con el producto temporal
+    const orderModal = document.getElementById('hfOrderModal');
+    const totalEl = document.getElementById('hfOrderTotal');
+    if(totalEl) totalEl.textContent = fmt(tempTotal);
+    
+    // Guardar el producto temporal para usarlo al enviar
+    window._tempOrderProduct = tempCart;
+    
+    if(orderModal){ 
+      orderModal.classList.add('show'); 
+      document.body.style.overflow='hidden'; 
+    }
+  }
+
+  // Exponer función globalmente para usar desde script.js
+  window.HongfaCart = {
+    orderSingleProduct: orderSingleProduct
+  };
 
   // INICIO ------------------------------------
   document.addEventListener('DOMContentLoaded', ()=>{
