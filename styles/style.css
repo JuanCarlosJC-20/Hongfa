@@ -1074,6 +1074,18 @@ body{
 .hf-delivery-label span:last-child{font-size:13px; font-weight:600; color:var(--text); text-align:center}
 .hf-delivery-option input[type="radio"]:checked + .hf-delivery-label span:last-child{color:var(--title-gold)}
 
+/* Métodos de pago */
+.hf-payment-methods{display:flex; gap:10px; margin-top:4px; flex-wrap:wrap}
+.hf-payment-option{position:relative; cursor:pointer; flex:1; min-width:100px}
+.hf-payment-option input[type="radio"]{position:absolute; opacity:0; width:0; height:0}
+.hf-payment-label{display:flex; align-items:center; justify-content:center; padding:12px 16px; border-radius:10px; border:2px solid var(--border-light); background:rgba(0,0,0,.3); transition:all .2s ease; font-size:14px; font-weight:600; color:var(--text); text-align:center; height:100%}
+.hf-payment-option input[type="radio"]:checked + .hf-payment-label{border-color:var(--border-gold); background:rgba(255,215,0,.1); transform:scale(1.02); color:var(--title-gold)}
+.hf-payment-option:hover .hf-payment-label{border-color:rgba(255,215,0,.5)}
+@media (max-width:480px){
+  .hf-payment-methods{flex-direction:column}
+  .hf-payment-option{min-width:auto}
+}
+
 .hf-summary{display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:10px; background:rgba(255,215,0,.1); border:1px solid var(--border-gold); color:var(--title-gold); font-weight:800; flex-wrap:wrap; gap:8px}
 .hf-items-count{font-size:13px; font-weight:600; color:var(--text-secondary); width:100%; text-align:left}
 .hf-cart-panel__total .hf-items-count{width:100%; text-align:left; font-size:12px; margin-bottom:4px}

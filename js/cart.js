@@ -124,11 +124,11 @@
           <button class="hf-modal__close" type="button" data-close>✕</button>
         </div>
         <div class="hf-modal__body">
-          <div class="hf-summary"><span>Total a pagar</span><strong id="hfOrderTotal">$0</strong></div>
+          
           <form id="hfOrderForm" class="hf-form" novalidate>
             <!-- Tipo de entrega -->
             <div class="hf-field">
-              <label class="hf-label">Tipo de pedido:</label>
+              <label class="hf-label"><strong>Tipo de pedido:</strong></label>
               <div class="hf-delivery-options">
                 <label class="hf-delivery-option">
                   <input type="radio" name="deliveryType" value="domicilio" checked id="hfDeliveryHome">
@@ -166,6 +166,29 @@
                 <input class="hf-input" type="text" id="hfNeighborhood" name="neighborhood" placeholder="Barrio" minlength="3" maxlength="50">
                 <span class="hf-error" id="hfNeighborhoodError"></span>
               </div>
+            </div>
+
+            <!-- Método de pago -->
+            <div class="hf-field">
+              <label class="hf-label"><strong>Método de pago:</strong></label>
+              <span class="hf-error" id="hfPaymentError"></span>
+              <div class="hf-payment-methods">
+                <label class="hf-payment-option">
+                  <input type="radio" name="paymentMethod" value="Nequi" id="hfPaymentNequi">
+                  <span class="hf-payment-label">Nequi</span>
+                </label>
+                <label class="hf-payment-option">
+                  <input type="radio" name="paymentMethod" value="Bancolombia" id="hfPaymentBancolombia">
+                  <span class="hf-payment-label">Bancolombia</span>
+                </label>
+                <label class="hf-payment-option">
+                  <input type="radio" name="paymentMethod" value="Efectivo" id="hfPaymentCash">
+                  <span class="hf-payment-label">Efectivo</span>
+                </label>
+                
+              </div>
+              <div class="hf-summary"><span>Total a pagar</span><strong id="hfOrderTotal">$0</strong></div>
+              
             </div>
           </form>
         </div>
@@ -254,6 +277,7 @@
     const phoneError = document.getElementById('hfPhoneError');
     const addressError = document.getElementById('hfAddressError');
     const neighborhoodError = document.getElementById('hfNeighborhoodError');
+    const paymentError = document.getElementById('hfPaymentError');
 
     // Mostrar/ocultar campos de dirección según tipo de entrega
     function toggleAddressFields(){
@@ -394,6 +418,16 @@
       return true;
     }
 
+    function validatePaymentMethod(){
+      const selected = document.querySelector('input[name="paymentMethod"]:checked');
+      if(!selected){
+        paymentError.textContent = 'Debe seleccionar un método de pago';
+        return false;
+      }
+      paymentError.textContent = '';
+      return true;
+    }
+
     orderForm.addEventListener('submit', (e)=>{
       e.preventDefault();
       
@@ -407,6 +441,7 @@
       // Validar campos básicos siempre
       const isNameValid = validateName();
       const isPhoneValid = validatePhone();
+      const isPaymentValid = validatePaymentMethod();
       
       // Solo validar dirección si es domicilio
       let isAddressValid = true;
@@ -417,7 +452,7 @@
         isNeighborhoodValid = validateNeighborhood();
       }
 
-      if(!isNameValid || !isPhoneValid || (isDelivery && (!isAddressValid || !isNeighborhoodValid))){
+      if(!isNameValid || !isPhoneValid || !isPaymentValid || (isDelivery && (!isAddressValid || !isNeighborhoodValid))){
         return; // Detener si hay errores
       }
 
@@ -426,7 +461,10 @@
       const address = isDelivery ? addressInput.value.trim() : '';
       const neighborhood = isDelivery ? neighborhoodInput.value.trim() : '';
       
-      const waUrl = buildWhatsAppUrl(name, phone, address, neighborhood, deliveryType, orderCart);
+      // Obtener método de pago seleccionado
+      const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      
+      const waUrl = buildWhatsAppUrl(name, phone, address, neighborhood, deliveryType, paymentMethod, orderCart);
       window.open(waUrl, '_blank');
       
       // Limpiar carrito temporal si existía
@@ -440,6 +478,7 @@
       phoneError.textContent = '';
       addressError.textContent = '';
       neighborhoodError.textContent = '';
+      paymentError.textContent = '';
       toggleAddressFields(); // Restaurar visibilidad inicial
       
       // Cerrar modal
@@ -539,7 +578,7 @@
   }
 
   // WHATSAPP ----------------------------------
-  function buildWhatsAppUrl(name, phone, address, neighborhood, deliveryType, orderCart){
+  function buildWhatsAppUrl(name, phone, address, neighborhood, deliveryType, paymentMethod, orderCart){
     const itemsToSend = orderCart || cart;
     const total = itemsToSend.reduce((acc,it)=> acc + (it.unitPrice*it.qty), 0);
     
@@ -557,7 +596,7 @@
       lines.push(`• ${item.name}`);
       if(sizeInfo) lines.push(sizeInfo.trim());
       if(colorInfo) lines.push(colorInfo.trim());
-      lines.push(`  Cantidad: x${item.qty}`);
+      lines.push(`  Cantidad: X${item.qty}`);
       lines.push(`  Precio: ${unit}`);
       lines.push('');
     });
@@ -567,12 +606,14 @@
     lines.push('👤 *Datos del cliente:*');
     lines.push(`📝 Nombre: ${name}`);
     lines.push(`📞 Teléfono: ${phone}`);
-    lines.push(`� Tipo de pedido: ${deliveryType}`);
+    lines.push(`🚚 Tipo de pedido: ${deliveryType}`);
     
     if(deliveryType === 'Domicilio'){
-      lines.push(`�📍 Dirección: ${address}`);
+      lines.push(`📌 Dirección: ${address}`);
       lines.push(`🏘️ Barrio: ${neighborhood}`);
     }
+    
+    lines.push(`💸 Método de pago: ${paymentMethod}`);
 
     const message = lines.join('\n');
     const url = `https://wa.me/${BUSINESS_WA_NUMBER}?text=${encodeURIComponent(message)}`;
