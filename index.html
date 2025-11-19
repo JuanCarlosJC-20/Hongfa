@@ -49,6 +49,63 @@
     <div id="arroz-chino" class="menu-content active">
             <!-- Grid contenedor de todas las tarjetas de productos -->
             <div class="menu__grid">
+
+         <!-- ========================================
+                 PROMOCIÓN 1: COMBO pollo dorado
+                 ======================================== -->
+            <div class="product-card">
+                <div class="product-card__image">
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Pollo-Caja-de-Arroz-Frito-Papa-y-Ensalada.jpg" alt="Combo Familiar Hongfa" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">MEGA PROMOCIÓN HONGFA</h3>
+                    <p class="product-card__desc" data-desc-base="Un {SIZE} pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.">Pollo entero dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.</p>
+                    
+                    <!-- Selector de tamaño -->
+                    <p class="size-title">Tamaño caja:</p>
+                    <div class="size-selector">
+                        <label class="size-option">
+                            <input type="radio" name="size-promo-hongfa" value="48000" data-size="Entero" data-size-text="entero" checked>
+                            <span class="size-label">Entero</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-promo-hongfa" value="38000" data-size="Medio" data-size-text="medio">
+                            <span class="size-label">Medio</span>
+                        </label>
+                        <label class="size-option">
+                            <input type="radio" name="size-promo-hongfa" value="30000" data-size="1/4" data-size-text="1/4">
+                            <span class="size-label">1/4</span>
+                        </label>
+                    </div>
+
+                    <!-- Selector de color -->
+                    <p class="size-title">Color del arroz:</p>
+                    <div class="color-selector">
+                        <label class="color-option">
+                            <input type="radio" name="color-promo-hongfa" value="Amarillo" data-color="Amarillo" checked>
+                            <span class="color-dot color-dot--yellow"></span>
+                            <span class="color-label">Amarillo</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="color-promo-hongfa" value="Café" data-color="Café">
+                            <span class="color-dot color-dot--brown"></span>
+                            <span class="color-label">Café</span>
+                        </label>
+                    </div>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$48.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="MEGA PROMOCIÓN HONGFA" data-size-group="size-promo-hongfa" data-color-group="color-promo-hongfa">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="MEGA PROMOCIÓN HONGFA"
+                                data-description="Pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos. Tamaño según selección."
+                                data-portions="Disponible en diferentes tamaños">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             
         <!-- ========================================
              TARJETA 1: ARROZ CHINO CON TODAS LAS CARNES
@@ -504,61 +561,88 @@
             <div class="menu__grid">
 
             <!-- ========================================
-                 PROMOCIÓN 1: COMBO pollo dorado
+                 PROMOCIÓN 1: MEGA PROMOCIÓN HONGFA COMPLETA
                  ======================================== -->
-            <div class="product-card">
+            <div class="product-card promo-limited-days" data-promo-days="3,4">
+                <div class="promo-unavailable-badge">
+                    <span>👻 Disponible solo Miércoles y Jueves</span>
+                </div>
                 <div class="product-card__image">
-                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Pollo-Caja-de-Arroz-Frito-Papa-y-Ensalada.jpg" alt="Combo Familiar Hongfa" />
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Pollo-Caja-de-Arroz-Frito-Papa-y-Ensalada.jpg" alt="Mega Promoción Hongfa Completa" />
                 </div>
                 <div class="product-card__meta">
-                    <h3 class="product-card__title">MEGA PROMOCIÓN HONGFA</h3>
-                    <p class="product-card__desc" data-desc-base="Un {SIZE} pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.">Pollo entero dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.</p>
+                    <h3 class="product-card__title">Mega Promoción Hongfa</h3>
+                    <p class="product-card__desc">Arroz con todas las carnes más pollo dorado, papa y porción de ensalada.</p>
                     
-                    <!-- Selector de tamaño -->
-                    <p class="size-title">Tamaño caja:</p>
-                    <div class="size-selector">
-                        <label class="size-option">
-                            <input type="radio" name="size-promo-hongfa" value="48000" data-size="Entero" data-size-text="entero" checked>
-                            <span class="size-label">Entero</span>
-                        </label>
-                        <label class="size-option">
-                            <input type="radio" name="size-promo-hongfa" value="38000" data-size="Medio" data-size-text="medio">
-                            <span class="size-label">Medio</span>
-                        </label>
-                        <label class="size-option">
-                            <input type="radio" name="size-promo-hongfa" value="30000" data-size="1/4" data-size-text="1/4">
-                            <span class="size-label">1/4</span>
-                        </label>
-                    </div>
-
                     <!-- Selector de color -->
                     <p class="size-title">Color del arroz:</p>
                     <div class="color-selector">
                         <label class="color-option">
-                            <input type="radio" name="color-promo-hongfa" value="Amarillo" data-color="Amarillo" checked>
+                            <input type="radio" name="color-promo-completa" value="Amarillo" data-color="Amarillo" checked>
                             <span class="color-dot color-dot--yellow"></span>
                             <span class="color-label">Amarillo</span>
                         </label>
                         <label class="color-option">
-                            <input type="radio" name="color-promo-hongfa" value="Café" data-color="Café">
+                            <input type="radio" name="color-promo-completa" value="Café" data-color="Café">
                             <span class="color-dot color-dot--brown"></span>
                             <span class="color-label">Café</span>
                         </label>
                     </div>
                     
                     <div class="product-card__bottom">
-                        <span class="price">$48.000</span>
+                        <span class="price">$78.000</span>
                         <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="MEGA PROMOCIÓN HONGFA" data-size-group="size-promo-hongfa" data-color-group="color-promo-hongfa">Pedir ahora</button>
+                            <button class="btn order-btn" data-product="Mega Promoción Hongfa" data-size-group="size-promo-completa" data-color-group="color-promo-completa">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
-                                data-title="MEGA PROMOCIÓN HONGFA"
-                                data-description="Pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos. Tamaño según selección."
-                                data-portions="Disponible en diferentes tamaños">Detalles</button>
+                                data-title="Mega Promoción Hongfa"
+                                data-description="Arroz con todas las carnes (jamón, cerdo, pollo, camarones) más pollo dorado entero, papas en cascos y porción de ensalada. Caja entera."
+                                data-portions="Caja entera">Detalles</button>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- ========================================
+                 PROMOCIÓN 2: ARROZ CON TODAS LAS CARNES + ACOMPAÑAMIENTOS
+                 ======================================== -->
+            <div class="product-card promo-limited-days" data-promo-days="3,4">
+                <div class="promo-unavailable-badge">
+                    <span>⏰ Disponible solo Miércoles y Jueves</span>
+                </div>
+                <div class="product-card__image">
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Arroz-Especial.jpg" alt="Arroz con Todas las Carnes + Acompañamientos" />
+                </div>
+                <div class="product-card__meta">
+                    <h3 class="product-card__title">Arroz con Todas las Carnes + Acompañamientos</h3>
+                    <p class="product-card__desc">Arroz con todas las carnes, papa y porción de ensalada.</p>
+                    
+                    <!-- Selector de color -->
+                    <p class="size-title">Color del arroz:</p>
+                    <div class="color-selector">
+                        <label class="color-option">
+                            <input type="radio" name="color-promo-arroz" value="Amarillo" data-color="Amarillo" checked>
+                            <span class="color-dot color-dot--yellow"></span>
+                            <span class="color-label">Amarillo</span>
+                        </label>
+                        <label class="color-option">
+                            <input type="radio" name="color-promo-arroz" value="Café" data-color="Café">
+                            <span class="color-dot color-dot--brown"></span>
+                            <span class="color-label">Café</span>
+                        </label>
+                    </div>
+                    
+                    <div class="product-card__bottom">
+                        <span class="price">$58.000</span>
+                        <div class="product-card__actions">
+                            <button class="btn order-btn" data-product="Arroz con Todas las Carnes + Acompañamientos" data-size-group="size-promo-arroz" data-color-group="color-promo-arroz">Pedir ahora</button>
+                            <button class="btn btn--outline details-btn"
+                                data-title="Arroz con Todas las Carnes + Acompañamientos"
+                                data-description="Arroz chino con jamón, cerdo, pollo y camarones, acompañado de papas en cascos y porción de ensalada. Caja entera."
+                                data-portions="Caja entera">Detalles</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
            
         </div> <!-- Cierre de menu__grid promociones -->
         </div> <!-- Cierre de promociones -->

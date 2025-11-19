@@ -462,4 +462,104 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ========================================
+     CONTROL DE PROMOCIONES POR DÍA DE LA SEMANA
+     ======================================== */
+  function checkPromoAvailability() {
+    // Obtener día actual (0=Domingo, 1=Lunes, 2=Martes, 3=Miércoles, 4=Jueves, 5=Viernes, 6=Sábado)
+    const today = new Date().getDay();
+    
+    // Seleccionar todas las promociones con restricción de días
+    const promoCards = document.querySelectorAll('.promo-limited-days');
+    
+    promoCards.forEach(card => {
+      // Obtener los días permitidos (ejemplo: "3,4" = Miércoles y Jueves)
+      const allowedDays = card.getAttribute('data-promo-days').split(',').map(d => parseInt(d));
+      
+      // Verificar si hoy está en los días permitidos
+      const isAvailable = allowedDays.includes(today);
+      
+      if (!isAvailable) {
+        // Desactivar la promoción
+        card.classList.add('promo-unavailable');
+        
+        // Deshabilitar todos los botones (order-btn, details-btn, hf-add-to-cart)
+        const buttons = card.querySelectorAll('.btn, .order-btn, .details-btn, .hf-add-to-cart');
+        buttons.forEach(btn => {
+          btn.disabled = true;
+          btn.style.pointerEvents = 'none';
+          
+          // Agregar mensaje al hacer clic
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            showPromoUnavailableMessage();
+            return false;
+          });
+        });
+        
+        // Deshabilitar selectores de radio
+        const radios = card.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => radio.disabled = true);
+        
+        // Prevenir clics en toda la tarjeta
+        card.addEventListener('click', function(e) {
+          const isButton = e.target.closest('.btn, .order-btn, .details-btn, .hf-add-to-cart');
+          if (isButton) {
+            e.preventDefault();
+            e.stopPropagation();
+            showPromoUnavailableMessage();
+            return false;
+          }
+        });
+        
+      } else {
+        // Activar la promoción
+        card.classList.remove('promo-unavailable');
+        
+        // Habilitar todos los botones
+        const buttons = card.querySelectorAll('.btn, .order-btn, .details-btn, .hf-add-to-cart');
+        buttons.forEach(btn => {
+          btn.disabled = false;
+          btn.style.pointerEvents = 'auto';
+        });
+        
+        // Habilitar selectores de radio
+        const radios = card.querySelectorAll('input[type="radio"]');
+        radios.forEach(radio => radio.disabled = false);
+      }
+    });
+  }
+  
+  // Función para mostrar mensaje de no disponibilidad
+  function showPromoUnavailableMessage() {
+    // Verificar si ya existe un toast
+    const existingToast = document.querySelector('.promo-toast');
+    if (existingToast) existingToast.remove();
+    
+    // Crear toast
+    const toast = document.createElement('div');
+    toast.className = 'promo-toast';
+    toast.innerHTML = `
+      <span class="promo-toast__icon">📅</span>
+      <span class="promo-toast__message">Esta promoción solo está disponible los Miércoles y Jueves</span>
+    `;
+    document.body.appendChild(toast);
+    
+    // Mostrar con animación
+    setTimeout(() => toast.classList.add('show'), 10);
+    
+    // Ocultar después de 4 segundos
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 4000);
+  }
+  
+  // Ejecutar al cargar la página
+  checkPromoAvailability();
+  
+  // Opcional: Revisar cada minuto por si cambia el día
+  setInterval(checkPromoAvailability, 60000);
+
 }); // Fin del DOMContentLoaded

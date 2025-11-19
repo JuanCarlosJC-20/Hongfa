@@ -27,12 +27,30 @@ html,body{
 	margin:0; /* Sin márgenes por defecto */
 	font-family:Montserrat, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; /* Fuente principal */
 	font-size:16px; /* Tamaño base de fuente */
+	overscroll-behavior:none; /* Evita el efecto de rebote en móviles */
+	-webkit-overflow-scrolling:touch; /* Scroll suave en iOS */
 }
 body{
 	color:var(--text); /* Color de texto blanco */
 	background:var(--bg-gradient); /* Fondo con gradiente rojo */
 	background-attachment:fixed; /* El fondo no se mueve al hacer scroll */
 	-webkit-font-smoothing:antialiased; /* Suavizado de fuentes en navegadores webkit */
+	min-height:100vh; /* Altura mínima completa de la pantalla */
+	position:relative; /* Para el posicionamiento del fondo */
+	overflow-x:hidden; /* Evita scroll horizontal */
+}
+
+/* Fondo que cubre toda la página incluyendo overscroll */
+body::before{
+	content:'';
+	position:fixed;
+	top:-100vh;
+	left:0;
+	right:0;
+	height:300vh;
+	background:var(--bg-gradient);
+	z-index:-1;
+	pointer-events:none;
 }
 
 /* ========================================
@@ -1220,5 +1238,135 @@ body{
 		font-size:16px;
 	}
 }
+
+/* ========================================
+   PROMOCIONES CON RESTRICCIÓN DE DÍAS
+   ======================================== */
+
+/* Tarjeta de promoción no disponible */
+.promo-limited-days {
+	position: relative;
+}
+
+.promo-unavailable {
+	pointer-events: auto;
+	position: relative;
+}
+
+/* Aplicar blur solo a la imagen y contenido, no al badge */
+.promo-unavailable .product-card__image,
+.promo-unavailable .product-card__meta {
+	filter: blur(0.8px);
+	opacity: 0.7;
+}
+
+.promo-unavailable::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: transparent;
+	border-radius: 14px;
+	pointer-events: none;
+	z-index: 1;
+}
+
+/* Badge de no disponible */
+.promo-unavailable-badge {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: rgba(255, 193, 7, 0.98);
+	color: #000;
+	padding: 8px 14px;
+	border-radius: 20px;
+	font-size: 12px;
+	font-weight: 700;
+	z-index: 100;
+	display: none;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+	pointer-events: none;
+}
+
+.promo-unavailable .promo-unavailable-badge {
+	display: block;
+}
+
+/* Botones deshabilitados en promociones */
+.promo-unavailable .btn {
+	cursor: not-allowed !important;
+	opacity: 0.6;
+}
+
+.promo-unavailable .btn:hover {
+	transform: none !important;
+	box-shadow: none !important;
+}
+
+/* Selectores deshabilitados */
+.promo-unavailable .size-selector,
+.promo-unavailable .color-selector {
+	pointer-events: none;
+}
+
+/* Toast para mensaje de promoción no disponible */
+.promo-toast {
+	position: fixed;
+	bottom: 100px;
+	left: 50%;
+	transform: translateX(-50%) translateY(20px);
+	background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%);
+	color: #000;
+	padding: 16px 24px;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(255, 193, 7, 0.4);
+	z-index: 10000;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	font-size: 15px;
+	font-weight: 600;
+	opacity: 0;
+	transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	max-width: 90vw;
+	pointer-events: none;
+}
+
+.promo-toast.show {
+	opacity: 1;
+	transform: translateX(-50%) translateY(0);
+}
+
+.promo-toast__icon {
+	font-size: 24px;
+	flex-shrink: 0;
+}
+
+.promo-toast__message {
+	flex: 1;
+	line-height: 1.4;
+}
+
+@media (max-width: 480px) {
+	.promo-toast {
+		font-size: 14px;
+		padding: 14px 20px;
+		bottom: 80px;
+	}
+	
+	.promo-toast__icon {
+		font-size: 20px;
+	}
+	
+	.promo-unavailable-badge {
+		font-size: 11px;
+		padding: 6px 10px;
+		top: 8px;
+		right: 8px;
+	}
+}
+
 
 

@@ -120,7 +120,10 @@
     formModal.innerHTML = `
       <div class="hf-modal__content">
         <div class="hf-modal__head">
-          <h3 class="hf-modal__title">Datos del pedido</h3>
+          <h3 class="hf-modal__title">
+            Datos del pedido
+            <button class="hf-help-icon" type="button" title="Ayuda" aria-label="Información del carrito">?</button>
+          </h3>
           <button class="hf-modal__close" type="button" data-close>✕</button>
         </div>
         <div class="hf-modal__body">
