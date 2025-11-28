@@ -53,6 +53,36 @@ body::before{
 	pointer-events:none;
 }
 
+/* =============================
+   NAVIDAD: Fondo de nieve (por encima de todo)
+   ============================= */
+.snowfall-container {
+  pointer-events: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 10000;
+  overflow: hidden;
+}
+.snowflake {
+  position: absolute;
+  top: -20px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255,255,255,0.25);
+  animation: snow-fall linear infinite;
+  will-change: transform;
+}
+@keyframes snow-fall {
+  0% { transform: translateY(0) scale(1); }
+  100% { transform: translateY(100vh) scale(0.85); }
+}
+
+/* Ya no es necesario forzar z-index en cartas */
+.menu, .menu__grid, .product-card, .modal, .header, .site-footer {
+  position: relative;
+  z-index: auto;
+}
+
 /* ========================================
    HEADER - Encabezado con título y medios de pago
    ======================================== */
@@ -493,6 +523,22 @@ body::before{
 	background:linear-gradient(90deg, var(--title-gold) 0%, var(--gold-accent) 100%); /* Gradiente dorado */
 	opacity:0.7; /* Semitransparente */
 }
+
+/* NAVIDAD: Lazo/moño de regalo en la esquina superior izquierda de la carta */
+.product-card::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  background: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f380.svg') no-repeat center center;
+  background-size: 38px 38px;
+  z-index: 10;
+  pointer-events: none;
+}
+
 .product-card:hover{
 	transform:translateY(-4px); /* Eleva la tarjeta */
 	box-shadow:0 12px 32px rgba(0,0,0,.7), 0 0 0 2px var(--title-gold); /* Sombra más pronunciada + borde dorado más visible */
@@ -962,7 +1008,7 @@ body::before{
 	.whatsapp-icon{width:36px;height:36px} /* Ícono proporcionalmente más grande */
 	.header__content{flex-direction:column;text-align:center} /* Header apilado verticalmente */
 	.payment-methods{width:100%;justify-content:center} /* Métodos de pago centrados y a ancho completo */
-	/* Las imágenes de medios de pago mantienen el mismo tamaño que en desktop (70px) */
+	/* Las imágenes de medios de pago mantienen el mismo tamaño que in desktop (70px) */
 }
 
 /* ========================================
@@ -1368,5 +1414,74 @@ body::before{
 	}
 }
 
+/* === NAVIDAD: Guirnalda de luces animadas en el header === */
+.header-lights {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+.header-light {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px 3px currentColor;
+  opacity: 0.85;
+  animation: light-blink 1.6s infinite alternate;
+}
+.header-light.red { color: #e53935; animation-delay: 0s; }
+.header-light.green { color: #43a047; animation-delay: 0.4s; }
+.header-light.yellow { color: #ffd600; animation-delay: 0.8s; }
+.header-light.blue { color: #1e88e5; animation-delay: 1.2s; }
+.header-light.pink { color: #f06292; animation-delay: 1.6s; }
+@keyframes light-blink {
+  0% { filter: brightness(0.7); opacity: 0.7; }
+  100% { filter: brightness(1.5); opacity: 1; }
+}
 
+/* === NAVIDAD: Sombra verde/roja en cartas al hover === */
+.product-card:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,.7), 0 0 0 2px var(--title-gold), 0 0 18px 4px #43a04766, 0 0 8px 2px #e5393555;
+}
 
+/* NAVIDAD: Gorro de Santa en logo y WhatsApp */
+.santa-hat {
+  position: absolute !important;
+  top: -18px !important;
+  left: 38px !important;
+  width: 48px !important;
+  height: 48px !important;
+  z-index: 30;
+  pointer-events: none;
+}
+.santa-hat-ws {
+  position: absolute !important;
+  top: -12px !important;
+  left: 28px !important;
+  width: 28px !important;
+  height: 28px !important;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* NAVIDAD: Copos de nieve decorativos en las cartas (más grande, sin pino) */
+.product-card::after {
+  content: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2744.svg');
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 5;
+}
+.product-card::before {
+  content: '';
+}
