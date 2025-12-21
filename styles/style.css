@@ -539,6 +539,11 @@ body::before{
   pointer-events: none;
 }
 
+/* Ocultar moño en sección de promociones (solo copo de nieve) */
+#promociones .product-card::before {
+  display: none;
+}
+
 .product-card:hover{
 	transform:translateY(-4px); /* Eleva la tarjeta */
 	box-shadow:0 12px 32px rgba(0,0,0,.7), 0 0 0 2px var(--title-gold); /* Sombra más pronunciada + borde dorado más visible */
@@ -959,53 +964,8 @@ body::before{
 	.modal__description{font-size:14px} /* Descripción más pequeña */
 }
 
-/* ========================================
-   BOTÓN FLOTANTE DE WHATSAPP
-   ======================================== */
-.whatsapp-float{
-	position:fixed; /* Posición fija (no se mueve con scroll) */
-	bottom:20px; /* 20px desde abajo */
-	left:20px; /* 20px desde la izquierda */
-	width:60px; /* Ancho del botón */
-	height:60px; /* Alto del botón (círculo) */
-	background:#25D366; /* Verde oficial de WhatsApp */
-	color:#fff; /* Ícono blanco */
-	border-radius:50%; /* Forma circular */
-	display:flex; /* Para centrar el ícono */
-	align-items:center; /* Centrado vertical */
-	justify-content:center; /* Centrado horizontal */
-	box-shadow:0 4px 12px rgba(0,0,0,0.3); /* Sombra */
-	z-index:999; /* Por encima del contenido normal */
-	transition:all 0.3s ease; /* Animación suave */
-	text-decoration:none; /* Sin subrayado del enlace */
-	animation:whatsappPulse 2s ease-in-out infinite; /* Animación de pulso continuo */
-}
-.whatsapp-float:hover{
-	transform:scale(1.1); /* Escala ligeramente al pasar el mouse */
-	box-shadow:0 6px 20px rgba(37,211,102,0.5); /* Sombra más pronunciada con color verde */
-	animation:none; /* Detiene la animación de pulso al hacer hover */
-}
-.whatsapp-icon{
-	width:35px; /* Ancho del ícono SVG */
-	height:35px; /* Alto del ícono SVG */
-}
-
-/* Animación de pulso suave (efecto de inflarse) */
-@keyframes whatsappPulse{
-	0%, 100%{
-		transform:scale(1); /* Tamaño normal */
-		box-shadow:0 4px 12px rgba(0,0,0,0.3); /* Sombra normal */
-	}
-	50%{
-		transform:scale(1.08); /* Ligeramente más grande */
-		box-shadow:0 6px 18px rgba(37,211,102,0.4); /* Sombra más grande con tinte verde */
-	}
-}
-
 /* Ajustes responsive para móviles */
 @media (max-width:480px){
-	.whatsapp-float{width:65px;height:65px;bottom:15px;left:15px} /* Botón más grande en móvil */
-	.whatsapp-icon{width:36px;height:36px} /* Ícono proporcionalmente más grande */
 	.header__content{flex-direction:column;text-align:center} /* Header apilado verticalmente */
 	.payment-methods{width:100%;justify-content:center} /* Métodos de pago centrados y a ancho completo */
 	/* Las imágenes de medios de pago mantienen el mismo tamaño que in desktop (70px) */
@@ -1484,4 +1444,182 @@ body::before{
 }
 .product-card::before {
   content: '';
+}
+
+/* ========================================
+   MODAL NAVIDEÑO - Promoción Arroz con Todas las Carnes
+   ======================================== */
+.promo-navidad-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10001;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+.promo-navidad-modal.show {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+.promo-navidad-modal__content {
+  background: linear-gradient(145deg, #1f1f1f 0%, #2a1a1a 50%, #1a2a1a 100%);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  border: 3px solid;
+  border-image: linear-gradient(135deg, #c41e3a, #FFD700, #228B22) 1;
+  box-shadow: 0 0 40px rgba(196, 30, 58, 0.3), 0 0 60px rgba(255, 215, 0, 0.2), 0 20px 40px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+.promo-navidad-modal__content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #c41e3a, #FFD700, #228B22, #FFD700, #c41e3a);
+  animation: shimmer 2s linear infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.promo-navidad-modal__decoration {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 8px 0;
+}
+.promo-decoration-icon {
+  font-size: 28px;
+  animation: bounce 1s ease infinite alternate;
+}
+.promo-decoration-icon:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.promo-decoration-icon:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+.promo-navidad-modal__logo {
+  margin: 12px 0;
+}
+.promo-logo-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 3px solid var(--title-gold);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+.promo-navidad-modal__body {
+  margin: 16px 0;
+}
+.promo-navidad-modal__title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  color: var(--title-gold);
+  margin-bottom: 12px;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+.promo-navidad-modal__text {
+  font-size: 16px;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.promo-navidad-modal__text strong {
+  color: var(--title-gold);
+  font-size: 20px;
+}
+.promo-navidad-modal__list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+  text-align: left;
+  display: inline-block;
+}
+.promo-navidad-modal__list li {
+  font-size: 15px;
+  color: var(--text);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.promo-navidad-modal__list li:last-child {
+  border-bottom: none;
+}
+.promo-navidad-modal__savings {
+  font-size: 14px;
+  color: #4CAF50;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 8px;
+  background: rgba(76, 175, 80, 0.15);
+  border-radius: 8px;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+.promo-navidad-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+.promo-btn-accept {
+  background: linear-gradient(135deg, #228B22 0%, #32CD32 100%);
+  color: #fff;
+  font-weight: 700;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+}
+.promo-btn-accept:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 139, 34, 0.6);
+}
+.promo-btn-decline {
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+.promo-btn-decline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-secondary);
+}
+@media (max-width: 480px) {
+  .promo-navidad-modal__content {
+    padding: 18px;
+    max-width: 95%;
+  }
+  .promo-navidad-modal__title {
+    font-size: 18px;
+  }
+  .promo-decoration-icon {
+    font-size: 24px;
+  }
+  .promo-logo-img {
+    width: 80px;
+    height: 80px;
+  }
 }
