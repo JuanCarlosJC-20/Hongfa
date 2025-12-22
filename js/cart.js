@@ -704,14 +704,27 @@
   
   // Función auxiliar para agregar producto al carrito
   function agregarProductoAlCarrito(info, conPromoNavidad){
-    info.promoNavidad = conPromoNavidad;
+    // Calcular precio final incluyendo promoción si aplica
+    let precioFinal = info.unitPrice;
     if(conPromoNavidad){
-      info.unitPrice += PROMO_NAVIDAD_PRICE;
+      precioFinal += PROMO_NAVIDAD_PRICE;
     }
     
-    const existing = cart.find(it=> it.id===info.id && it.promoNavidad === info.promoNavidad);
-    if(existing){ existing.qty += 1; }
-    else { cart.push({ ...info, qty:1 }); }
+    // Crear ID único que incluya si tiene promo
+    const itemId = conPromoNavidad ? `${info.id}|promo` : info.id;
+    
+    const existing = cart.find(it=> it.id === itemId);
+    if(existing){ 
+      existing.qty += 1; 
+    } else { 
+      cart.push({ 
+        ...info, 
+        id: itemId,
+        qty: 1, 
+        unitPrice: precioFinal,
+        promoNavidad: conPromoNavidad 
+      }); 
+    }
     render();
     
     const promoText = conPromoNavidad ? ' (con promoción navideña)' : '';
@@ -770,15 +783,19 @@
   
   // Procesar pedido directo con o sin promoción
   function procesarPedidoDirecto(info, conPromoNavidad){
-    info.promoNavidad = conPromoNavidad;
+    // Calcular precio final incluyendo promoción si aplica
     let precioFinal = info.unitPrice;
     if(conPromoNavidad){
       precioFinal += PROMO_NAVIDAD_PRICE;
-      info.unitPrice = precioFinal;
     }
     
-    // Crear carrito temporal con un solo producto
-    const tempCart = [{ ...info, qty:1 }];
+    // Crear carrito temporal con el precio final correcto
+    const tempCart = [{ 
+      ...info, 
+      qty: 1, 
+      unitPrice: precioFinal,
+      promoNavidad: conPromoNavidad 
+    }];
     
     // Abrir modal de pedido con el producto temporal
     const orderModal = document.getElementById('hfOrderModal');
