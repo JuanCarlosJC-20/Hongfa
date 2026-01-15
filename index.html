@@ -11,9 +11,14 @@
     <link rel="preconnect" href="https://restauranteshanghai.co">
     <link rel="preconnect" href="https://lirp.cdn-website.com">
     
+    <!-- Preload CSS crítico -->
+    <link rel="preload" href="styles/style.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" as="style">
+    
     <link rel="icon" href="img/hongfa.png" type="image/png">
     <link rel="stylesheet" href="styles/style.css" /> 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"></noscript>
     
     <title>Restaurante Hongfa</title>
 </head>
@@ -23,21 +28,10 @@
          ENCABEZADO - Título y métodos de pago
          ======================================== -->
     <header class="header">
-        <div class="header-lights">
-            <span class="header-light red"></span>
-            <span class="header-light green"></span>
-            <span class="header-light yellow"></span>
-            <span class="header-light blue"></span>
-            <span class="header-light pink"></span>
-            <span class="header-light green"></span>
-            <span class="header-light red"></span>
-            <span class="header-light yellow"></span>
-            <span class="header-light blue"></span>
-        </div>
          <div class="header__content">
             <!-- Logo del restaurante -->
             <div class="header__logo">
-                <img src="img/honga-navideño1.png" alt="Logo Hongfa" class="header__logo-img">
+                <img src="img/hongfa.png" alt="Logo Hongfa" class="header__logo-img" fetchpriority="high">
             </div>
             <!-- Título principal del restaurante -->
             <h2 class="header__title">Restaurante Hongfa</h2>
@@ -71,10 +65,10 @@
                  ======================================== -->
             <div class="product-card">
                 <div class="product-card__image">
-                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Pollo-Caja-de-Arroz-Frito-Papa-y-Ensalada.jpg" alt="Combo Familiar Hongfa" loading="lazy" width="400" height="300" />
+                    <img src="https://restauranteheiyubai.com/wp-content/uploads/Pollo-Caja-de-Arroz-Frito-Papa-y-Ensalada.jpg" alt="Combo Familiar Hongfa" loading="eager" fetchpriority="high" width="400" height="300" />
                 </div>
                 <div class="product-card__meta">
-                    <h3 class="product-card__title">MEGA PROMOCIÓN HONGFA</h3>
+                    <h3 class="product-card__title">Mega Promoción Pollo Dorado</h3>
                     <p class="product-card__desc" data-desc-base="Un {SIZE} pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.">Pollo entero dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos.</p>
                     
                     <!-- Selector de tamaño -->
@@ -112,9 +106,9 @@
                     <div class="product-card__bottom">
                         <span class="price">$50.000</span>
                         <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="MEGA PROMOCIÓN HONGFA" data-size-group="size-promo-hongfa" data-color-group="color-promo-hongfa">Pedir ahora</button>
+                            <button class="btn order-btn" data-product="Mega Promoción Pollo Dorado" data-size-group="size-promo-hongfa" data-color-group="color-promo-hongfa">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
-                                data-title="MEGA PROMOCIÓN HONGFA"
+                                data-title="Mega Promoción Pollo Dorado"
                                 data-description="Pollo dorado crujiente acompañado de arroz frito y ensalada con porción de papas en cascos. Tamaño según selección."
                                 data-portions="Disponible en diferentes tamaños">Detalles</button>
                         </div>
@@ -126,7 +120,11 @@
         <!-- ========================================
              TARJETA 1: ARROZ CHINO CON TODAS LAS CARNES
              ======================================== -->
-        <div class="product-card">
+        <div class="product-card producto-con-promo">
+            <!-- Badge de promoción -->
+            <div class="promo-badge">
+                <span class="promo-badge__icon">🎁</span>
+            </div>
             <!-- Imagen del producto -->
             <div class="product-card__image">
                 <img src="https://restauranteheiyubai.com/wp-content/uploads/Arroz-Especial.jpg" alt="Arroz Chino Mixto" loading="lazy" width="400" height="300" />
@@ -135,6 +133,7 @@
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Todas Las Carnes</h3>
                 <p class="product-card__desc">Arroz chino con jamón, cerdo, pollo, camarones, cebolla, raíz china.</p>
+                <p class="promo-text">💸 ¡Agrega papas y ensalada por solo $10.000!</p>
                 
                 <!-- Selector de tamaño -->
                 <p class="size-title">Tamaño caja:</p>
@@ -184,13 +183,18 @@
         <!-- ========================================
              TARJETA 2: ARROZ CHINO CON POLLO PICADO
              ======================================== -->
-        <div class="product-card">
+        <div class="product-card producto-con-promo">
+            <!-- Badge de promoción -->
+            <div class="promo-badge">
+                <span class="promo-badge__icon">🎁</span>
+            </div>
             <div class="product-card__image">
-                <img src="https://restauranteshanghai.co/wp-content/uploads/Arroz-con-pollopapa-a-la-francesa.jpg" alt="Arroz Chino con Pollo" loading="lazy" width="400" height="300" />
+                <img src="https://restauranteshanghai.co/wp-content/uploads/Arroz-con-pollopapa-a-la-francesa.jpg" alt="Arroz Chino con Pollo" loading="eager" width="400" height="300" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Pollo Picado</h3>
                 <p class="product-card__desc">Arroz chino con pollo picado.</p>
+                <p class="promo-text">💸 ¡Agrega papas y ensalada por solo $10.000!</p>
                 
                 <!-- Selector de tamaño -->
                 <p class="size-title">Tamaño caja:</p>
@@ -240,13 +244,18 @@
         <!-- ========================================
              TARJETA 3: ARROZ CHINO CON POLLO Y CAMARÓN
              ======================================== -->
-        <div class="product-card">
+        <div class="product-card producto-con-promo">
+            <!-- Badge de promoción -->
+            <div class="promo-badge">
+                <span class="promo-badge__icon">🎁</span>
+            </div>
             <div class="product-card__image">
                 <img src="https://restauranteshanghai.co/wp-content/uploads/Arroz-chino-pollo-y-camaron.jpg" alt="Arroz con Pollo y Camarón" loading="lazy" width="400" height="300" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Pollo Y Camarón</h3>
                 <p class="product-card__desc">Arroz chino con pollo y camarones.</p>
+                <p class="promo-text">💸 ¡Agrega papas y ensalada por solo $10.000!</p>
                 
                 <!-- Selector de tamaño -->
                 <p class="size-title">Tamaño caja:</p>
@@ -296,13 +305,18 @@
         <!-- ========================================
              TARJETA 4: ARROZ CHINO CON CERDO Y CAMARONES
              ======================================== -->
-        <div class="product-card">
+        <div class="product-card producto-con-promo">
+            <!-- Badge de promoción -->
+            <div class="promo-badge">
+                <span class="promo-badge__icon">🎁</span>
+            </div>
             <div class="product-card__image">
                 <img src="https://lirp.cdn-website.com/7e673295/dms3rep/multi/opt/_MG_7241-1920w.jpg" alt="Arroz con Cerdo y Camarón" loading="lazy" width="400" height="300" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Cerdo Y Camarones</h3>
                 <p class="product-card__desc">Arroz chino con cerdo y camarones.</p>
+                <p class="promo-text">💸 ¡Agrega papas y ensalada por solo $10.000!</p>
                 
                 <!-- Selector de tamaño -->
                 <p class="size-title">Tamaño caja:</p>
@@ -352,13 +366,18 @@
         <!-- ========================================
              TARJETA 5: ARROZ CHINO CON SOLO CAMARÓN
              ======================================== -->
-        <div class="product-card">
+        <div class="product-card producto-con-promo">
+            <!-- Badge de promoción -->
+            <div class="promo-badge">
+                <span class="promo-badge__icon">🎁</span>
+            </div>
             <div class="product-card__image">
                 <img src="https://lirp.cdn-website.com/7e673295/dms3rep/multi/opt/_MG_7198-1920w.jpg" alt="Arroz con Camarón" loading="lazy" width="400" height="300" />
             </div>
             <div class="product-card__meta">
                 <h3 class="product-card__title">Arroz Chino Con Solo Camarón</h3>
                 <p class="product-card__desc">Arroz chino con camarones frescos.</p>
+                <p class="promo-text">💸 ¡Agrega papas y ensalada por solo $10.000!</p>
                 
                 <!-- Selector de tamaño -->
                 <p class="size-title">Tamaño caja:</p>
@@ -422,7 +441,7 @@
                 </div>
                 <div class="product-card__meta">
                     <h3 class="product-card__title">Chop Suey</h3>
-                    <p class="product-card__desc">Chop suey con cerdo, pollo y camarones.</p>
+                    <p class="product-card__desc">Chop suey con cerdo, pollo y camarones mas una porcion de arroz</p>
                     
                     <!-- Selector de tamaño (solo Medio y Entero) -->
                     <p class="size-title">Tamaño:</p>
@@ -581,13 +600,13 @@
                  ======================================== -->
             <div class="product-card promo-limited-days" data-promo-days="3,4">
                 <div class="promo-unavailable-badge">
-                    <span>👻 Disponible solo Miércoles y Jueves</span>
+                    <span>📌 Disponible solo Miércoles y Jueves</span>
                 </div>
                 <div class="product-card__image">
                     <img src="https://restauranteheiyubai.com/wp-content/uploads/Pollo-Caja-de-Arroz-Frito-Papa-y-Ensalada.jpg" alt="Mega Promoción Hongfa Completa" loading="lazy" width="400" height="300" />
                 </div>
                 <div class="product-card__meta">
-                    <h3 class="product-card__title">Mega Promoción Hongfa</h3>
+                    <h3 class="product-card__title">Mega Promoción Todas las carnes + Pollo Dorado</h3>
                     <p class="product-card__desc">Arroz con todas las carnes más pollo dorado, papa y porción de ensalada.</p>
                     
                     <!-- Selector de color -->
@@ -608,9 +627,9 @@
                     <div class="product-card__bottom">
                         <span class="price">$78.000</span>
                         <div class="product-card__actions">
-                            <button class="btn order-btn" data-product="Mega Promoción Hongfa" data-size-group="size-promo-completa" data-color-group="color-promo-completa">Pedir ahora</button>
+                            <button class="btn order-btn" data-product="Mega Promoción Todas las carnes + Pollo Dorado" data-size-group="size-promo-completa" data-color-group="color-promo-completa">Pedir ahora</button>
                             <button class="btn btn--outline details-btn"
-                                data-title="Mega Promoción Hongfa"
+                                data-title="Mega Promoción Todas las carnes + Pollo Dorado"
                                 data-description="Arroz con todas las carnes (jamón, cerdo, pollo, camarones) más pollo dorado entero, papas en cascos y porción de ensalada. Caja entera."
                                 data-portions="Caja entera">Detalles</button>
                         </div>
@@ -623,7 +642,7 @@
                  ======================================== -->
             <div class="product-card promo-limited-days" data-promo-days="3,4">
                 <div class="promo-unavailable-badge">
-                    <span>⏰ Disponible solo Miércoles y Jueves</span>
+                    <span>📌 Disponible solo Miércoles y Jueves</span>
                 </div>
                 <div class="product-card__image">
                     <img src="https://restauranteheiyubai.com/wp-content/uploads/Arroz-Especial.jpg" alt="Arroz con Todas las Carnes + Acompañamientos" loading="lazy" width="400" height="300" />
@@ -982,7 +1001,13 @@
                       <span class="payment-icon" title="Tarjeta"><img src="/img/nequi.png" alt="Nequi"></span>
                 </div>
             </div>
-        <p>&copy; <span id="year"></span> Restaurante Hongfa</p> <!-- El año se actualiza dinámicamente con JavaScript -->
+        <p>&copy; <span id="year"></span> ONE CODE 
+            <a href="https://wa.me/573138936690" target="_blank" rel="noopener noreferrer" class="footer-whatsapp" title="Contáctanos por WhatsApp">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                </svg>
+            </a>
+        </p> <!-- El año se actualiza dinámicamente con JavaScript -->
     </footer>
 
     <!-- ========================================
@@ -1001,46 +1026,33 @@
     </div>
 
     <!-- ========================================
-         MODAL NAVIDEÑO - Promoción Arroz con Todas las Carnes
+         MODAL PROMOCIONAL - Promoción Arroz con Todas las Carnes
          ======================================== -->
-    <div id="promoNavidadModal" class="promo-navidad-modal">
-        <div class="promo-navidad-modal__content">
-            <!-- Decoración navideña superior -->
-            <div class="promo-navidad-modal__decoration">
-                <span class="promo-decoration-icon">🎄</span>
-                <span class="promo-decoration-icon">⭐</span>
-                <span class="promo-decoration-icon">🎄</span>
-            </div>
+    <div id="promoModal" class="promo-modal">
+        <div class="promo-modal__content">
             
             <!-- Logo del negocio -->
-            <div class="promo-navidad-modal__logo">
-                <img src="img/honga-navideño1.png" alt="Hongfa Navidad" class="promo-logo-img">
+            <div class="promo-modal__logo">
+                <img src="img/hongfa.png" alt="Hongfa" class="promo-logo-img">
             </div>
             
             <!-- Mensaje de promoción -->
-            <div class="promo-navidad-modal__body">
-                <h3 class="promo-navidad-modal__title">🎁 ¡Promoción Navideña! 🎁</h3>
-                <p class="promo-navidad-modal__text">
+            <div class="promo-modal__body">
+                <h3 class="promo-modal__title">Promoción Hongfa</h3>
+                <p class="promo-modal__text">
                     ¿Desea adicionar <strong>$10.000</strong> para incluir:
                 </p>
-                <ul class="promo-navidad-modal__list">
+                <ul class="promo-modal__list">
                     <li>🥗 Porción de ensalada agridulce</li>
                     <li>🍟 Porción de papas en cascos</li>
                 </ul>
-                <p class="promo-navidad-modal__savings">¡Ahorra $5.000 con esta promoción!</p>
-            </div>
-            
-            <!-- Decoración navideña inferior -->
-            <div class="promo-navidad-modal__decoration">
-                <span class="promo-decoration-icon">❄️</span>
-                <span class="promo-decoration-icon">🎅</span>
-                <span class="promo-decoration-icon">❄️</span>
+                <p class="promo-modal__savings">¡Ahorra $5.000 con esta promoción!</p>
             </div>
             
             <!-- Botones de acción -->
-            <div class="promo-navidad-modal__actions">
-                <button class="btn promo-btn-accept" id="promoNavidadAccept">✓ Sí, quiero la promoción</button>
-                <button class="btn btn--outline promo-btn-decline" id="promoNavidadDecline">No, gracias</button>
+            <div class="promo-modal__actions">
+                <button class="btn promo-btn-accept" id="promoAccept">✓ Sí, quiero la promoción</button>
+                <button class="btn btn--outline promo-btn-decline" id="promoDecline">No, gracias</button>
             </div>
         </div>
     </div>
@@ -1050,6 +1062,5 @@
          ======================================== -->
     <script src="js/script.js" defer></script>
     <script src="js/cart.js" defer></script>
-    <script src="js/snow.js" defer></script>
 </body>
 </html>

@@ -1,25 +1,20 @@
-/* ========================================
-   CARRITO DE COMPRAS - Integración ligera y no intrusiva
-   - HTML/CSS/JS nativo
-   - Mantiene intacto el diseño existente (solo añade UI flotante y modales)
-   - Compatible móvil (burbuja + modales) y desktop (panel lateral)
 
-   Cómo cambiar el número de WhatsApp del negocio:
-   - Modifica la constante BUSINESS_WA_NUMBER (solo dígitos, con código de país). Ej: '573001112233'
-   ======================================== */
 (function(){
   'use strict';
 
   // CONFIGURACIÓN
-  const BUSINESS_WA_NUMBER = '573115934823'; // <- Cambia este número
+  const BUSINESS_WA_NUMBER = '573115934823'; //  número del negocio en WhatsApp 
   const CURRENCY = new Intl.NumberFormat('es-CO');
   const STORAGE_KEY = 'hf_cart_v1';
-  const PROMO_NAVIDAD_PRICE = 10000; // Precio de la promoción navideña
+  const PROMO_PRICE = 10000; // Precio de la promoción
 
-  // Productos que activan la promoción navideña
-  const PRODUCTOS_PROMO_NAVIDAD = [
+  // Productos que activan la promoción (solo cajas enteras y medias)
+  const PRODUCTOS_CON_PROMO = [
     'Arroz Chino Con Todas Las Carnes',
-    'arroz chino con todas las carnes'
+    'Arroz Chino Con Pollo Picado',
+    'Arroz Chino Con Pollo Y Camarón',
+    'Arroz Chino Con Cerdo Y Camarones',
+    'Arroz Chino Con Solo Camarón'
   ];
 
   // ESTADO
@@ -38,11 +33,25 @@
   const totalAmount = () => cart.reduce((acc,it)=> acc + (it.unitPrice*it.qty), 0);
   const cartCount = () => cart.reduce((acc,it)=> acc + it.qty, 0);
 
-  // Verificar si el producto activa la promoción navideña
-  const esArrozTodasLasCarnes = (productName) => {
+  // Verificar si el producto y tamaño activan la promoción
+  const esProductoConPromo = (productName, sizeLabel) => {
+    // Validar que sea un producto elegible
     const nombreNormalizado = productName.toLowerCase().trim();
-    return nombreNormalizado.includes('arroz chino con todas las carnes') || 
-           nombreNormalizado === 'arroz chino con todas las carnes';
+    const esProductoElegible = PRODUCTOS_CON_PROMO.some(producto => 
+      nombreNormalizado === producto.toLowerCase().trim()
+    );
+    
+    if (!esProductoElegible) return false;
+    
+    // Validar que sea caja entera o media (no 1/4)
+    const sizeLower = (sizeLabel || '').toLowerCase();
+    const esEnteroOMedio = sizeLower.includes('entera') || 
+                           sizeLower.includes('media') || 
+                           sizeLower.includes('caja entera') || 
+                           sizeLower.includes('media caja');
+    const esCuarto = sizeLower.includes('1/4') || sizeLower.includes('cuarto');
+    
+    return esProductoElegible && esEnteroOMedio && !esCuarto;
   };
 
   // INYECCIÓN DE UI ----------------------------
@@ -614,13 +623,15 @@
       if(sizeInfo) lines.push(sizeInfo.trim());
       if(colorInfo) lines.push(colorInfo.trim());
       lines.push(`  Cantidad: X${item.qty}`);
-      lines.push(`  Precio: ${unit}`);
       
-      // Agregar indicador de promoción navideña
-      if(item.promoNavidad){
-        lines.push(`  🎄 *+ PROMOCIÓN NAVIDEÑA (+$10.000)*`);
+      
+      // Agregar indicador de promoción
+      if(item.conPromo){
+        lines.push(`  ✨ *+ PROMOCIÓN HONGFA *`);
         lines.push(`     ↳ Ensalada agridulce + Papas en cascos`);
       }
+      lines.push(`  Precio: ${unit}`);
+
       lines.push('');
     });
     
@@ -693,9 +704,9 @@
     const info = getProductFromCard(card);
     if(!info.unitPrice){ return; }
     
-    // Verificar si es arroz con todas las carnes para mostrar promoción
-    if(esArrozTodasLasCarnes(info.name)){
-      mostrarModalPromoNavidad(info, 'carrito');
+    // Verificar si es producto con promoción disponible (validando también el tamaño)
+    if(esProductoConPromo(info.name, info.sizeLabel)){
+      mostrarModalPromo(info, 'carrito');
       return;
     }
     
@@ -703,15 +714,15 @@
   }
   
   // Función auxiliar para agregar producto al carrito
-  function agregarProductoAlCarrito(info, conPromoNavidad){
+  function agregarProductoAlCarrito(info, conPromo){
     // Calcular precio final incluyendo promoción si aplica
     let precioFinal = info.unitPrice;
-    if(conPromoNavidad){
-      precioFinal += PROMO_NAVIDAD_PRICE;
+    if(conPromo){
+      precioFinal += PROMO_PRICE;
     }
     
     // Crear ID único que incluya si tiene promo
-    const itemId = conPromoNavidad ? `${info.id}|promo` : info.id;
+    const itemId = conPromo ? `${info.id}|promo` : info.id;
     
     const existing = cart.find(it=> it.id === itemId);
     if(existing){ 
@@ -722,18 +733,18 @@
         id: itemId,
         qty: 1, 
         unitPrice: precioFinal,
-        promoNavidad: conPromoNavidad 
+        conPromo: conPromo 
       }); 
     }
     render();
     
-    const promoText = conPromoNavidad ? ' (con promoción navideña)' : '';
+    const promoText = conPromo ? ' (con promoción)' : '';
     showToast(`✓ ${info.name}${promoText} agregado al carrito`);
   }
   
-  // Mostrar modal de promoción navideña
-  function mostrarModalPromoNavidad(info, modo){
-    const modal = document.getElementById('promoNavidadModal');
+  // Mostrar modal de promoción
+  function mostrarModalPromo(info, modo){
+    const modal = document.getElementById('promoModal');
     if(!modal) {
       // Si no existe el modal, proceder sin promoción
       if(modo === 'carrito'){
@@ -745,16 +756,16 @@
     }
     
     // Guardar info del producto temporalmente
-    window._promoNavidadProducto = info;
-    window._promoNavidadModo = modo;
+    window._promoProducto = info;
+    window._promoModo = modo;
     
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
   }
   
-  // Cerrar modal de promoción navideña
-  function cerrarModalPromoNavidad(){
-    const modal = document.getElementById('promoNavidadModal');
+  // Cerrar modal de promoción
+  function cerrarModalPromo(){
+    const modal = document.getElementById('promoModal');
     if(modal){
       modal.classList.remove('show');
       document.body.style.overflow = '';
@@ -762,11 +773,11 @@
   }
   
   // Procesar respuesta del modal de promoción
-  function procesarRespuestaPromoNavidad(aceptaPromo){
-    const info = window._promoNavidadProducto;
-    const modo = window._promoNavidadModo;
+  function procesarRespuestaPromo(aceptaPromo){
+    const info = window._promoProducto;
+    const modo = window._promoModo;
     
-    cerrarModalPromoNavidad();
+    cerrarModalPromo();
     
     if(!info) return;
     
@@ -777,16 +788,16 @@
     }
     
     // Limpiar temporales
-    delete window._promoNavidadProducto;
-    delete window._promoNavidadModo;
+    delete window._promoProducto;
+    delete window._promoModo;
   }
   
   // Procesar pedido directo con o sin promoción
-  function procesarPedidoDirecto(info, conPromoNavidad){
+  function procesarPedidoDirecto(info, conPromo){
     // Calcular precio final incluyendo promoción si aplica
     let precioFinal = info.unitPrice;
-    if(conPromoNavidad){
-      precioFinal += PROMO_NAVIDAD_PRICE;
+    if(conPromo){
+      precioFinal += PROMO_PRICE;
     }
     
     // Crear carrito temporal con el precio final correcto
@@ -794,7 +805,7 @@
       ...info, 
       qty: 1, 
       unitPrice: precioFinal,
-      promoNavidad: conPromoNavidad 
+      conPromo: conPromo 
     }];
     
     // Abrir modal de pedido con el producto temporal
@@ -879,12 +890,12 @@
         if(e.target.matches('[data-action="remove"]')) removeItem(id);
       }
       
-      // Botones del modal de promoción navideña
-      if(e.target.id === 'promoNavidadAccept' || e.target.closest('#promoNavidadAccept')){
-        procesarRespuestaPromoNavidad(true);
+      // Botones del modal de promoción
+      if(e.target.id === 'promoAccept' || e.target.closest('#promoAccept')){
+        procesarRespuestaPromo(true);
       }
-      if(e.target.id === 'promoNavidadDecline' || e.target.closest('#promoNavidadDecline')){
-        procesarRespuestaPromoNavidad(false);
+      if(e.target.id === 'promoDecline' || e.target.closest('#promoDecline')){
+        procesarRespuestaPromo(false);
       }
     });
   }
@@ -894,9 +905,9 @@
     const info = getProductFromCard(card);
     if(!info.unitPrice){ return; }
     
-    // Verificar si es arroz con todas las carnes para mostrar promoción
-    if(esArrozTodasLasCarnes(info.name)){
-      mostrarModalPromoNavidad(info, 'directo');
+    // Verificar si es producto con promoción disponible (validando también el tamaño)
+    if(esProductoConPromo(info.name, info.sizeLabel)){
+      mostrarModalPromo(info, 'directo');
       return;
     }
     

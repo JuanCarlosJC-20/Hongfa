@@ -53,36 +53,6 @@ body::before{
 	pointer-events:none;
 }
 
-/* =============================
-   NAVIDAD: Fondo de nieve (por encima de todo)
-   ============================= */
-.snowfall-container {
-  pointer-events: none;
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  z-index: 10000;
-  overflow: hidden;
-}
-.snowflake {
-  position: absolute;
-  top: -20px;
-  background: rgba(255,255,255,0.85);
-  border-radius: 50%;
-  box-shadow: 0 0 8px 2px rgba(255,255,255,0.25);
-  animation: snow-fall linear infinite;
-  will-change: transform;
-}
-@keyframes snow-fall {
-  0% { transform: translateY(0) scale(1); }
-  100% { transform: translateY(100vh) scale(0.85); }
-}
-
-/* Ya no es necesario forzar z-index en cartas */
-.menu, .menu__grid, .product-card, .modal, .header, .site-footer {
-  position: relative;
-  z-index: auto;
-}
-
 /* ========================================
    HEADER - Encabezado con título y medios de pago
    ======================================== */
@@ -524,32 +494,12 @@ body::before{
 	opacity:0.7; /* Semitransparente */
 }
 
-/* NAVIDAD: Lazo/moño de regalo en la esquina superior izquierda de la carta */
-.product-card::before {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 44px;
-  height: 44px;
-  background: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f380.svg') no-repeat center center;
-  background-size: 38px 38px;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Ocultar moño en sección de promociones (solo copo de nieve) */
-#promociones .product-card::before {
-  display: none;
-}
-
 .product-card:hover{
 	transform:translateY(-4px); /* Eleva la tarjeta */
 	box-shadow:0 12px 32px rgba(0,0,0,.7), 0 0 0 2px var(--title-gold); /* Sombra más pronunciada + borde dorado más visible */
 }
 .product-card__image{
-	padding:14px; /* Espaciado interno */
+	padding:10px; /* Espaciado interno reducido */
 	background:linear-gradient(135deg,rgba(0,0,0,.3),rgba(26,26,26,.1)); /* Gradiente negro sutil */
 	display:flex; /* Layout flexible */
 	align-items:center; /* Centrado vertical */
@@ -557,9 +507,9 @@ body::before{
 }
 .product-card__image img{
 	width:100%; /* Ancho completo del contenedor */
-	height:200px; /* Altura fija */
+	height:180px; /* Altura fija reducida */
 	object-fit:cover; /* Cubre el área sin deformar */
-	border-radius:10px; /* Bordes redondeados */
+	border-radius:8px; /* Bordes redondeados */
 	border:2px solid var(--border-light); /* Borde sutil */
 	display:block; /* Elimina espacio inferior */
 	transition:transform 0.3s ease; /* Transición suave */
@@ -567,14 +517,129 @@ body::before{
 /* Imágenes de bebidas (botellas verticales con fondo transparente) */
 #bebidas .product-card__image img{
 	object-fit:contain; /* Mantiene toda la imagen visible sin recortar */
-	height:220px; /* Más altura para botellas verticales */
+	height:200px; /* Más altura para botellas verticales */
 	background:linear-gradient(135deg, rgba(0,0,0,.2) 0%, rgba(26,26,26,.1) 100%); /* Fondo sutil */
+}
+
+/* ========================================
+   SISTEMA DE PROMOCIÓN COMPLETO
+   Badge + Borde Dorado + Texto + Tooltip Hover
+   ======================================== */
+
+/* Tarjetas con promoción - Borde dorado animado */
+.product-card.producto-con-promo{
+	box-shadow:0 8px 24px rgba(0,0,0,.6), 0 0 0 3px var(--title-gold); /* Borde dorado más grueso */
+	animation:promoBorderPulse 3s ease-in-out infinite; /* Animación de pulso */
+}
+.product-card.producto-con-promo:hover{
+	box-shadow:0 12px 32px rgba(0,0,0,.7), 0 0 0 4px var(--gold-accent), 0 0 30px rgba(255, 215, 0, 0.3); /* Borde más intenso + resplandor */
+	transform:translateY(-6px); /* Elevación mayor */
+}
+
+/* Badge de promoción en esquina superior derecha */
+.promo-badge{
+	position:absolute; /* Posicionamiento absoluto */
+	top:10px; /* Margen superior */
+	right:10px; /* Margen derecho */
+	background:linear-gradient(135deg, #ff4757 0%, #ff6348 100%); /* Gradiente rojo vibrante */
+	color:#fff; /* Texto blanco */
+	padding:10px; /* Espaciado circular */
+	border-radius:50%; /* Completamente circular */
+	font-size:9px; /* Tamaño de fuente muy pequeño */
+	font-weight:600; /* Semi-negrita */
+	text-align:center; /* Texto centrado */
+	line-height:1; /* Altura de línea compacta */
+	box-shadow:0 2px 6px rgba(255, 71, 87, 0.4), 0 0 0 1px rgba(255,255,255,0.2); /* Sombra suave */
+	z-index:10; /* Sobre otros elementos */
+	animation:promoBadgePulse 4s ease-in-out infinite; /* Animación muy lenta */
+	display:flex; /* Layout flexible */
+	align-items:center; /* Centrado vertical */
+	justify-content:center; /* Centrado horizontal */
+	cursor:pointer; /* Cursor pointer */
+	opacity:0.9; /* Ligeramente transparente */
+	width:42px; /* Ancho fijo */
+	height:42px; /* Alto fijo */
+}
+.promo-badge__icon{
+	font-size:20px; /* Tamaño del emoji un poco más grande */
+	display:inline-block; /* Inline para alineación */
+	animation:promoBadgeIconBounce 3s ease-in-out infinite; /* Animación muy lenta */
+}
+
+/* Texto explicativo debajo de la descripción */
+.promo-text{
+	background:linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.1) 100%); /* Fondo dorado sutil */
+	color:var(--title-gold); /* Texto dorado */
+	padding:10px 14px; /* Espaciado interno */
+	border-radius:8px; /* Bordes redondeados */
+	font-size:13px; /* Tamaño de fuente */
+	font-weight:600; /* Semi-negrita */
+	text-align:center; /* Texto centrado */
+	margin:12px 0 8px 0; /* Márgenes */
+	border:1px solid rgba(255, 215, 0, 0.3); /* Borde dorado sutil */
+	animation:promoTextGlow 3s ease-in-out infinite; /* Animación de brillo */
+}
+
+/* ========================================
+   ANIMACIONES DE PROMOCIÓN
+   ======================================== */
+
+/* Animación de pulso para el borde dorado */
+@keyframes promoBorderPulse{
+	0%, 100%{
+		box-shadow:0 8px 24px rgba(0,0,0,.6), 0 0 0 3px var(--title-gold);
+	}
+	50%{
+		box-shadow:0 8px 24px rgba(0,0,0,.6), 0 0 0 4px var(--gold-accent), 0 0 25px rgba(255, 215, 0, 0.5);
+	}
+}
+
+/* Animación de pulso para el badge */
+@keyframes promoBadgePulse{
+	0%, 100%{
+		transform:scale(1); /* Tamaño normal */
+		box-shadow:0 2px 6px rgba(255, 71, 87, 0.4), 0 0 0 1px rgba(255,255,255,0.2);
+		opacity:0.9;
+	}
+	50%{
+		transform:scale(1.05); /* Escala muy sutil */
+		box-shadow:0 3px 8px rgba(255, 71, 87, 0.5), 0 0 0 1px rgba(255,255,255,0.3);
+		opacity:1;
+	}
+}
+
+/* Animación de rebote para el ícono del badge */
+@keyframes promoBadgeIconBounce{
+	0%, 100%{
+		transform:translateY(0) rotate(0deg); /* Posición normal */
+	}
+	25%{
+		transform:translateY(-2px) rotate(-3deg); /* Movimiento muy sutil */
+	}
+	50%{
+		transform:translateY(-3px) rotate(0deg); /* Movimiento muy sutil */
+	}
+	75%{
+		transform:translateY(-2px) rotate(3deg); /* Movimiento muy sutil */
+	}
+}
+
+/* Animación de brillo para el texto explicativo */
+@keyframes promoTextGlow{
+	0%, 100%{
+		background:linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.1) 100%);
+		border-color:rgba(255, 215, 0, 0.3);
+	}
+	50%{
+		background:linear-gradient(135deg, rgba(255, 215, 0, 0.25) 0%, rgba(255, 165, 0, 0.2) 100%);
+		border-color:rgba(255, 215, 0, 0.5);
+	}
 }
 .product-card:hover .product-card__image img{
 	transform:scale(1.03); /* Zoom sutil al hover */
 }
 .product-card__meta{
-	padding:18px 20px; /* Espaciado interno */
+	padding:14px 16px; /* Espaciado interno reducido */
 	background:linear-gradient(180deg,transparent 0%, rgba(0,0,0,.15) 100%); /* Gradiente sutil oscuro */
 	color:var(--text); /* Texto blanco */
 	display:flex; /* Layout flexible */
@@ -583,22 +648,22 @@ body::before{
 }
 .product-card__title{
 	font-family:'Playfair Display',serif; /* Fuente elegante */
-	font-size:clamp(18px, 3vw, 24px); /* Tamaño responsivo */
-	margin-bottom:8px; /* Margen inferior */
+	font-size:clamp(20px, 3.5vw, 26px); /* Tamaño responsivo más grande */
+	margin-bottom:6px; /* Margen inferior reducido */
 	color:var(--title-gold); /* Color dorado brillante */
 	text-shadow:0 2px 8px rgba(255, 215, 0, 0.3); /* Sombra dorada sutil */
 }
 .product-card__desc{
-	font-size:14px; /* Tamaño de texto pequeño */
+	font-size:13px; /* Tamaño de texto más pequeño */
 	color:var(--text-secondary); /* Blanco suave */
-	margin-bottom:12px; /* Margen inferior */
+	margin-bottom:10px; /* Margen inferior reducido */
 	flex:1; /* Ocupa espacio disponible (empuja el precio/botones abajo) */
-	line-height:1.5; /* Mejor legibilidad */
+	line-height:1.4; /* Mejor legibilidad */
 }
 .product-card__bottom{
 	display:flex; /* Layout flexible */
 	flex-direction:column; /* Organización vertical */
-	gap:10px; /* Espacio entre precio y botones */
+	gap:8px; /* Espacio entre precio y botones reducido */
 }
 .product-card__actions{
 	display:flex; /* Layout flexible */
@@ -607,16 +672,16 @@ body::before{
 }
 .product-card__actions .btn{
 	flex:1; /* Los botones se distribuyen el espacio equitativamente */
-	font-size:13px; /* Tamaño de texto pequeño */
-	padding:.6rem .7rem; /* Espaciado compacto */
+	font-size:12px; /* Tamaño de texto más pequeño */
+	padding:.5rem .6rem; /* Espaciado más compacto */
 }
 .price{
 	font-weight:800; /* Muy negrita */
 	color:var(--title-gold); /* Dorado brillante */
 	background:linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 193, 7, 0.1) 100%); /* Fondo dorado sutil */
-	padding:10px 14px; /* Espaciado interno */
-	border-radius:10px; /* Bordes redondeados */
-	font-size:18px; /* Tamaño destacado */
+	padding:8px 12px; /* Espaciado interno reducido */
+	border-radius:8px; /* Bordes redondeados */
+	font-size:16px; /* Tamaño reducido */
 	align-self:flex-start; /* Alineado a la izquierda */
 	border:1px solid var(--border-gold); /* Borde dorado */
 	text-shadow:0 2px 6px rgba(255, 215, 0, 0.4); /* Sombra dorada */
@@ -793,11 +858,35 @@ body::before{
 @media (max-width:480px){
 	.hero__overlay{padding:2.5rem .9rem} /* Padding moderado */
 	.hero{min-height:50vh} /* Hero tamaño medio */
-	.menu{padding:2.5rem .9rem} /* Padding moderado */
-	.menu__grid{grid-template-columns:1fr;gap:1.5rem} /* 1 columna */
-	.product-card__image img{height:180px} /* Imágenes medianas */
-	#bebidas .product-card__image img{height:200px} /* Bebidas más altas en móvil */
-	.product-card__actions .btn{width:100%} /* Botones a ancho completo */
+	.menu{padding:1.5rem .7rem} /* Padding reducido */
+	.menu__grid{grid-template-columns:1fr;gap:1rem} /* 1 columna con gap reducido */
+	.product-card__image{padding:8px} /* Padding muy reducido */
+	.product-card__image img{height:140px} /* Imágenes más pequeñas */
+	#bebidas .product-card__image img{height:160px} /* Bebidas más pequeñas en móvil */
+	.product-card__meta{padding:10px 12px} /* Padding muy reducido */
+	.product-card__title{font-size:18px} /* Título más grande */
+	.product-card__desc{font-size:12px;margin-bottom:8px} /* Descripción más pequeña */
+	.product-card__actions .btn{width:100%;font-size:11px;padding:.45rem .5rem} /* Botones compactos */
+	.price{font-size:14px;padding:6px 10px} /* Precio más pequeño */
+	.product-card__bottom{gap:6px} /* Gap reducido */
+	
+	/* Sistema de promoción responsive */
+	.promo-badge{
+		top:6px; /* Margen superior muy reducido */
+		right:6px; /* Margen derecho muy reducido */
+		padding:6px; /* Espaciado muy compacto */
+		width:30px; /* Ancho muy reducido */
+		height:30px; /* Alto muy reducido */
+	}
+	.promo-badge__icon{
+		font-size:14px; /* Emoji más pequeño en móvil */
+	}
+	.promo-text{
+		font-size:10px; /* Texto más pequeño */
+		padding:6px 8px; /* Espaciado muy reducido */
+		margin:8px 0 6px 0; /* Márgenes reducidos */
+	}
+	
 	/* Header en móviles */
 	.header{padding:1.5rem 1rem} /* Padding aumentado */
 	.header__content{
@@ -1374,82 +1463,10 @@ body::before{
 	}
 }
 
-/* === NAVIDAD: Guirnalda de luces animadas en el header === */
-.header-lights {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 20;
-  pointer-events: none;
-}
-.header-light {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  box-shadow: 0 0 12px 3px currentColor;
-  opacity: 0.85;
-  animation: light-blink 1.6s infinite alternate;
-}
-.header-light.red { color: #e53935; animation-delay: 0s; }
-.header-light.green { color: #43a047; animation-delay: 0.4s; }
-.header-light.yellow { color: #ffd600; animation-delay: 0.8s; }
-.header-light.blue { color: #1e88e5; animation-delay: 1.2s; }
-.header-light.pink { color: #f06292; animation-delay: 1.6s; }
-@keyframes light-blink {
-  0% { filter: brightness(0.7); opacity: 0.7; }
-  100% { filter: brightness(1.5); opacity: 1; }
-}
-
-/* === NAVIDAD: Sombra verde/roja en cartas al hover === */
-.product-card:hover {
-  box-shadow: 0 12px 32px rgba(0,0,0,.7), 0 0 0 2px var(--title-gold), 0 0 18px 4px #43a04766, 0 0 8px 2px #e5393555;
-}
-
-/* NAVIDAD: Gorro de Santa en logo y WhatsApp */
-.santa-hat {
-  position: absolute !important;
-  top: -18px !important;
-  left: 38px !important;
-  width: 48px !important;
-  height: 48px !important;
-  z-index: 30;
-  pointer-events: none;
-}
-.santa-hat-ws {
-  position: absolute !important;
-  top: -12px !important;
-  left: 28px !important;
-  width: 28px !important;
-  height: 28px !important;
-  z-index: 2;
-  pointer-events: none;
-}
-
-/* NAVIDAD: Copos de nieve decorativos en las cartas (más grande, sin pino) */
-.product-card::after {
-  content: url('https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2744.svg');
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  width: 38px;
-  height: 38px;
-  opacity: 0.8;
-  pointer-events: none;
-  z-index: 5;
-}
-.product-card::before {
-  content: '';
-}
-
 /* ========================================
-   MODAL NAVIDEÑO - Promoción Arroz con Todas las Carnes
+   MODAL PROMOCIONAL - Promoción Arroz con Todas las Carnes
    ======================================== */
-.promo-navidad-modal {
+.promo-modal {
   display: none;
   position: fixed;
   top: 0;
@@ -1462,58 +1479,33 @@ body::before{
   justify-content: center;
   backdrop-filter: blur(8px);
 }
-.promo-navidad-modal.show {
+.promo-modal.show {
   display: flex;
   animation: fadeIn 0.3s ease;
 }
-.promo-navidad-modal__content {
-  background: linear-gradient(145deg, #1f1f1f 0%, #2a1a1a 50%, #1a2a1a 100%);
+.promo-modal__content {
+  background: linear-gradient(145deg, #1f1f1f 0%, #2a2a2a 100%);
   border-radius: 20px;
   padding: 24px;
   max-width: 400px;
   width: 90%;
   text-align: center;
-  border: 3px solid;
-  border-image: linear-gradient(135deg, #c41e3a, #FFD700, #228B22) 1;
-  box-shadow: 0 0 40px rgba(196, 30, 58, 0.3), 0 0 60px rgba(255, 215, 0, 0.2), 0 20px 40px rgba(0, 0, 0, 0.5);
+  border: 2px solid var(--border-gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 8px 24px rgba(196, 30, 58, 0.2);
   position: relative;
   overflow: hidden;
 }
-.promo-navidad-modal__content::before {
+.promo-modal__content::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #c41e3a, #FFD700, #228B22, #FFD700, #c41e3a);
-  animation: shimmer 2s linear infinite;
+  height: 3px;
+  background: linear-gradient(90deg, var(--title-gold) 0%, var(--gold-accent) 100%);
+  opacity: 0.8;
 }
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-.promo-navidad-modal__decoration {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin: 8px 0;
-}
-.promo-decoration-icon {
-  font-size: 28px;
-  animation: bounce 1s ease infinite alternate;
-}
-.promo-decoration-icon:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.promo-decoration-icon:nth-child(3) {
-  animation-delay: 0.4s;
-}
-@keyframes bounce {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-8px); }
-}
-.promo-navidad-modal__logo {
+.promo-modal__logo {
   margin: 12px 0;
 }
 .promo-logo-img {
@@ -1524,43 +1516,43 @@ body::before{
   border: 3px solid var(--title-gold);
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
 }
-.promo-navidad-modal__body {
+.promo-modal__body {
   margin: 16px 0;
 }
-.promo-navidad-modal__title {
+.promo-modal__title {
   font-family: 'Playfair Display', serif;
   font-size: 22px;
   color: var(--title-gold);
   margin-bottom: 12px;
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
-.promo-navidad-modal__text {
+.promo-modal__text {
   font-size: 16px;
   color: var(--text);
   margin-bottom: 12px;
   line-height: 1.5;
 }
-.promo-navidad-modal__text strong {
+.promo-modal__text strong {
   color: var(--title-gold);
   font-size: 20px;
 }
-.promo-navidad-modal__list {
+.promo-modal__list {
   list-style: none;
   padding: 0;
   margin: 12px 0;
   text-align: left;
   display: inline-block;
 }
-.promo-navidad-modal__list li {
+.promo-modal__list li {
   font-size: 15px;
   color: var(--text);
   padding: 6px 0;
   border-bottom: 1px solid var(--border-light);
 }
-.promo-navidad-modal__list li:last-child {
+.promo-modal__list li:last-child {
   border-bottom: none;
 }
-.promo-navidad-modal__savings {
+.promo-modal__savings {
   font-size: 14px;
   color: #4CAF50;
   font-weight: 700;
@@ -1570,7 +1562,7 @@ body::before{
   border-radius: 8px;
   border: 1px solid rgba(76, 175, 80, 0.3);
 }
-.promo-navidad-modal__actions {
+.promo-modal__actions {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -1608,18 +1600,52 @@ body::before{
   border-color: var(--text-secondary);
 }
 @media (max-width: 480px) {
-  .promo-navidad-modal__content {
+  .promo-modal__content {
     padding: 18px;
     max-width: 95%;
   }
-  .promo-navidad-modal__title {
+  .promo-modal__title {
     font-size: 18px;
-  }
-  .promo-decoration-icon {
-    font-size: 24px;
   }
   .promo-logo-img {
     width: 80px;
     height: 80px;
+  }
+}
+
+/* ========================================
+   FOOTER WHATSAPP ICON
+   ======================================== */
+.footer-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+  padding: 6px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  vertical-align: middle;
+}
+.footer-whatsapp:hover {
+  background: #128C7E;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+}
+.footer-whatsapp svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+@media (max-width: 480px) {
+  .footer-whatsapp {
+    margin-left: 8px;
+    padding: 5px;
+  }
+  .footer-whatsapp svg {
+    width: 18px;
+    height: 18px;
   }
 }
