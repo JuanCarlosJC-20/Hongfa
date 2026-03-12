@@ -6,7 +6,7 @@
   const BUSINESS_WA_NUMBER = '573115934823'; //  número del negocio en WhatsApp 
   const CURRENCY = new Intl.NumberFormat('es-CO');
   const STORAGE_KEY = 'hf_cart_v1';
-  const PROMO_PRICE = 10000; // Precio de la promoción
+  const PROMO_PRICE = 0; // Precio de la promoción
 
   // Productos que activan la promoción (solo cajas enteras y medias)
   const PRODUCTOS_CON_PROMO = [
